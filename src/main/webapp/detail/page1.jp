@@ -1,0 +1,40 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+	int rowsPerPage = 3; // 每頁的筆數
+	int rowNum = 0;   // 總筆數 
+	int pageNum = 0;  // 總頁數
+	int whichPage = 1;   // 第幾頁
+	int pageIndexArray[] = null;
+	int pageIndex = 0;
+%>
+
+<%
+	rowNum = list.size(); 
+
+	pageNum = (rowNum % rowsPerPage != 0 ? (rowNum / rowsPerPage)+1 : rowNum / rowsPerPage);
+	
+	pageIndexArray = new int[pageNum];
+	for (int i = 0; i < pageIndexArray.length; i++) {
+		pageIndexArray[i] = i * rowsPerPage;
+	}
+
+	/* Fix the logic when free */
+	try {
+		whichPage = Integer.parseInt(request.getParameter("whichPage"));
+		pageIndex = pageIndexArray[whichPage - 1];
+	} catch (NumberFormatException e) { // error at 1st call
+		whichPage = 1;
+		pageIndex = 0;
+	} catch (ArrayIndexOutOfBoundsException ae) {
+		if (pageNum > 0) { // Out of range
+			whichPage = pageNum;
+			pageIndex = pageIndexArray[pageNum - 1];
+		}
+	}
+%>
+
+<%if (pageNum>0){%>
+	<b><font color=red>第<%=whichPage%>/<%=pageNum%>頁</font></b>
+<%}%>
+
+<b>●符 合 查 詢 條 件 如 下 所 示: 共<font color=red><%=rowNum%></font>筆</b>
