@@ -12,4 +12,16 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
+	
+	<!-- coi618: Data Source cfg 連線池設定 5/17 19:17
+ 	<res-ref-name>jdbc/G2Product</res-ref-name> tia101_g2 | TestDB
+ 	連動 Server/[cat]/context.xml 
+	-->
+ 	<resource-ref>
+ 		<description>DB Connection</description>
+ 		<res-ref-name>jdbc/tia101_g2</res-ref-name>
+ 		<res-type>javax.sql.DataSource</res-type>
+ 		<res-auth>Container</res-auth>
+ 	</resource-ref>
+ 	<!-- END of Data Source cfg 連線池設定 5/17 19:17 -->
 </web-app>

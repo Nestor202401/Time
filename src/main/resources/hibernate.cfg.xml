@@ -18,7 +18,10 @@
 		
 		<property name="hibernate.current_session_context_class">thread</property>
     
-    <mapping class="com.test.movie.model.MovieVO"  />
+    
+    
+    <!-- coi618: 5/17 19:29 Add model.Product -->
+    <mapping class="com.product.model.Product"/>
    
     
     </session-factory>
