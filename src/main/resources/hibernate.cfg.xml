@@ -20,9 +20,12 @@
     
     
     
-    <!-- coi618: 5/17 19:29 Add model.Product -->
-    <mapping class="com.product.model.Product"/>
-   
-    
+	    <!-- coi618: 5/17 19:29 Add model.Product -->
+	    <mapping class="com.product.model.Product"/>
+	   	<!-- coi618: 5/19 15:24 Add model.ProductImg -->
+	    <mapping class="com.product_img.model.ProductImg"/>
+	    <mapping class="com.product_order.model.ProductOrder"/>
+	    <mapping class="com.product_detail.model.ProductDetail"/>
+	    
     </session-factory>
 </hibernate-configuration>
