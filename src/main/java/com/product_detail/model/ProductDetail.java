@@ -1,20 +1,35 @@
 package com.product_detail.model;
 
 import java.io.Serializable;
-//@Entity
-//@Table(name="product_detail")
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+@Entity
+@Table(name="product_detail")
 public class ProductDetail implements Serializable {
 	// Instance Variables
-//	@Id
-//	@Gen
-//	@Col
-//	private Integer prodDetailId;	// 明細ID
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="prod_detail_id")
 	private Integer prodDetailId;	// 明細ID
-//	@Col
+
+	@Column(name="prod_ord_id")
 	private Integer prodOrdId;	// 商品訂單ID
+	
+	@Column(name="prod_id")
 	private Integer prodId;		// 商品ID
+	
+	@Column(name="unit_price")
 	private Integer unitPrice;		// 單價
+	
+	@Column(name="prod_count")
 	private Integer prodCount;		// 數量
+	
+	@Column(name="prod_sum")
 	private Integer prodSum;		// 小計
 	
 	// Constructor

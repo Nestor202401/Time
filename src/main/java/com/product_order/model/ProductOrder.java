@@ -1,6 +1,13 @@
 package com.product_order.model;
-import java.sql.Timestamp;
 import java.io.Serializable;
+import java.sql.Timestamp;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /* VO: Value Object || DTO: Data Transfer Object */
 
@@ -11,15 +18,32 @@ import java.io.Serializable;
  * test.toString(); $11 ==> "2024-04-16 08:50:50.0"
  * jshell> test.getTime(); $12 ==> 1713228650000
  * */
-
+@Entity
+@Table(name="product_order")
 public class ProductOrder implements Serializable {
 	/* Instance Variable */
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="prod_ord_id")
 	private Integer prodOrdId;/* 商品訂單ID */
+	
+	@Column(name="member_id")
 	private Integer memberId;		/* 會員ID */
+	
+	@Column(name="est_time")
 	private Timestamp estTime;	/* 訂單成立時間 */
+	
+	@Column(name="ord_status")
 	private Integer ordStatus;	/* 訂單狀態 */
+
+	@Column(name="total")
 	private Integer total;		/* 總額 */
+	
+	@Column(name="recipient")
 	private String recipient;	/* 收件人姓名 */
+	
+	@Column(name="rec_addr")
 	private String recAddr;	/* 收件人地址 */
 	
 	/* Constructor */
