@@ -1,11 +1,17 @@
 package com.cinema.model;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.movietime.model.MovieTimeVO;
 
 @Entity
 @Table(name="cinema")
@@ -30,6 +36,10 @@ public class CinemaVO {
 	
 	@Column(name="seat_number" )
     private String seatNumber;
+	
+	@OneToMany(mappedBy = "cinemaVO", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<MovieTimeVO> movieTimeVO;
+	
     
 	public Integer getCinemaId() {
 		return cinemaId;
@@ -66,6 +76,15 @@ public class CinemaVO {
 	}
 	public void setSeatNumber(String seatNumber) {
 		this.seatNumber = seatNumber;
+	}
+	
+	
+	
+	public Set<MovieTimeVO> getMovieTimeVO() {
+		return movieTimeVO;
+	}
+	public void setMovieTimeVO(Set<MovieTimeVO> movieTimeVO) {
+		this.movieTimeVO = movieTimeVO;
 	}
 	public CinemaVO(Integer cinemaId, String cinemaName, Integer seatRow, String seatColumn, Integer seatStatus,
 			String seatNumber) {

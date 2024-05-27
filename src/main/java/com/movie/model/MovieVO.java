@@ -1,124 +1,158 @@
 package com.movie.model;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-
+import com.movieimg.model.MovieImgVO;
+import com.movietime.model.MovieTimeVO;
 
 @Entity
 @Table(name = "movie")
-public class MovieVO {
+public class MovieVO implements java.io.Serializable {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "movie_id", updatable = false)
+    private Integer movieId;
+    
+    @Column(name = "movie_name")
+    private String movieName;
+    
+    @Column(name = "movie_rating")
+    private Integer movieRating;
+    
+    @Column(name = "director")
+    private String director;
+    
+    @Column(name = "actor")
+    private String actor;
+    
+    @Column(name = "release_date")
+    private Date releaseDate;
+    
+    @Column(name = "end_date")
+    private Date endDate;
+    
+    @Column(name = "runtime")
+    private Integer runtime;
+    
+    @Column(name = "introduction", columnDefinition="TEXT")
+    private String introduction;
+    
+    @OneToMany(mappedBy = "movieVO", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<MovieImgVO> movieImgs;
+    
+    @OneToMany(mappedBy = "movieVO", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<MovieTimeVO> movieTime;
 
-	@Id
-	@Column(name = "movie_id", updatable = false)
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer movieId;
-
-	@Column(name = "movie_name")
-	private String movieName;
-
-	@Column(name = "movie_rating")
-	private Integer movieRating;
-
-	@Column(name = "director")
-	private String director;
-
-	@Column(name = "actor")
-	private String actor;
-
-	@Column(name = "release_date")
-	private Date releaseDate;
-
-	@Column(name = "end_date")
-	private Date endDate;
-
-	@Column(name = "runtime")
-	private Integer runtime;
-
-	@Column(name = "introduction", columnDefinition = "text")
-	private String introduction;
-
-
-	public Integer getMovieId() {
-		return movieId;
+    public Set<MovieTimeVO> getMovieTime() {
+		return movieTime;
 	}
 
-	public void setMovieId(Integer movieId) {
-		this.movieId = movieId;
+	public void setMovieTime(Set<MovieTimeVO> movieTime) {
+		this.movieTime = movieTime;
 	}
 
-	public String getMovieName() {
-		return movieName;
-	}
+	// getters and setters
+    public Integer getMovieId() {
+        return movieId;
+    }
 
-	public void setMovieName(String movieName) {
-		this.movieName = movieName;
-	}
+    public void setMovieId(Integer movieId) {
+        this.movieId = movieId;
+    }
 
-	public Integer getMovieRating() {
-		return movieRating;
-	}
+    public String getMovieName() {
+        return movieName;
+    }
 
-	public void setMovieRating(Integer movieRating) {
-		this.movieRating = movieRating;
-	}
+    public void setMovieName(String movieName) {
+        this.movieName = movieName;
+    }
 
-	public String getDirector() {
-		return director;
-	}
+    public Integer getMovieRating() {
+        return movieRating;
+    }
 
-	public void setDirector(String director) {
-		this.director = director;
-	}
+    public void setMovieRating(Integer movieRating) {
+        this.movieRating = movieRating;
+    }
 
-	public String getActor() {
-		return actor;
-	}
+    public String getDirector() {
+        return director;
+    }
 
-	public void setActor(String actor) {
-		this.actor = actor;
-	}
+    public void setDirector(String director) {
+        this.director = director;
+    }
 
-	public Date getReleaseDate() {
-		return releaseDate;
-	}
+    public String getActor() {
+        return actor;
+    }
 
-	public void setReleaseDate(Date releaseDate) {
-		this.releaseDate = releaseDate;
-	}
+    public void setActor(String actor) {
+        this.actor = actor;
+    }
 
-	public Date getEndDate() {
-		return endDate;
-	}
+    public Date getReleaseDate() {
+        return releaseDate;
+    }
 
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
-	}
+    public void setReleaseDate(Date releaseDate) {
+        this.releaseDate = releaseDate;
+    }
 
-	public Integer getRuntime() {
-		return runtime;
-	}
+    public Date getEndDate() {
+        return endDate;
+    }
 
-	public void setRuntime(Integer runtime) {
-		this.runtime = runtime;
-	}
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
 
-	public String getIntroduction() {
-		return introduction;
-	}
+    public Integer getRuntime() {
+        return runtime;
+    }
 
-	public void setIntroduction(String introduction) {
-		this.introduction = introduction;
-	}
+    public void setRuntime(Integer runtime) {
+        this.runtime = runtime;
+    }
 
+    public String getIntroduction() {
+        return introduction;
+    }
+
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction;
+    }
+
+    public Set<MovieImgVO> getMovieImgs() {
+        return movieImgs;
+    }
+
+    public void setMovieImgs(Set<MovieImgVO> movieImgs) {
+        this.movieImgs = movieImgs;
+    }
+
+	@Override
+	public String toString() {
+		return "MovieVO [movieId=" + movieId + ", movieName=" + movieName + ", movieRating=" + movieRating
+				+ ", director=" + director + ", actor=" + actor + ", releaseDate=" + releaseDate + ", endDate="
+				+ endDate + ", runtime=" + runtime + ", introduction=" + introduction + ", movieImgs=" + movieImgs
+				+ ", movieTime=" + movieTime + ", getMovieTime()=" + getMovieTime() + ", getMovieId()=" + getMovieId()
+				+ ", getMovieName()=" + getMovieName() + ", getMovieRating()=" + getMovieRating() + ", getDirector()="
+				+ getDirector() + ", getActor()=" + getActor() + ", getReleaseDate()=" + getReleaseDate()
+				+ ", getEndDate()=" + getEndDate() + ", getRuntime()=" + getRuntime() + ", getIntroduction()="
+				+ getIntroduction() + ", getMovieImgs()=" + getMovieImgs() + ", getClass()=" + getClass()
+				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
+	}
 }
