@@ -1,5 +1,5 @@
-package myutil;
-
+package coi618_util;
+// Replace MyUtil.java
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,7 +15,7 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
-public final class MyUtil {
+public final class Coi618Util {
 	public static final String DRIVER = "com.mysql.cj.jdbc.Driver";
 	
 	public static final String DB = "tia101_g2"; /* jdbcsample | g2_product | db01 | tia101_g2 */
@@ -42,8 +42,8 @@ public final class MyUtil {
 	
 	// ---  Singleton Design Pattern: Connection Pool -------------------------
 	// Step 2. Declare a private static variable,  
-	// 		call Step 1 method(), get DS object.
-	private static final DataSource ds = myConnectionPool();
+	// 		call Step 1 method(), get DS object.	暫時用不到，先關掉 -- 05/23 
+//	private static final DataSource ds = myConnectionPool();
 	
 	// Step 1. Declare a private static method to init & return ds. 
 	private static DataSource myConnectionPool() {
@@ -58,10 +58,10 @@ public final class MyUtil {
 		return ds;		
 	}
 	
-	// 3. Declare a static getter(), let other use MyUtil.getXXX() to get this DS
-	public static DataSource getMyDS() {
-		return ds;
-	}
+	// 3. Declare a static getter(), let other use MyUtil.getXXX() to get this DS	暫時用不到，先關掉 -- 05/23 
+//	public static DataSource getMyDS() {	
+//		return ds;
+//	}
 	// ---  END of Singleton Design Pattern: Connection Pool ------------------
 	
 	// ---  Singleton Design Pattern: SessionFactory -------------------------
