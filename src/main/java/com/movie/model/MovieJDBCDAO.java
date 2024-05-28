@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.sql.Date;
 
 public class MovieJDBCDAO implements MovieDAO_interface {
 	String driver = "com.mysql.cj.jdbc.Driver";
