@@ -68,8 +68,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.member.model.Member;
-//import com.member.model.MemberVO; // fix - 01
+//import com.member.model.Member;
+import com.member.model.MemberVO; // fix - 01
 //import com.product_detail.model.*;
 import com.product_detail.model.ProductDetailVO;
 
@@ -89,8 +89,8 @@ public class ProductOrderService {
 		ordDao.insert(prodOrdVO);
 		return prodOrdVO; // 為什麼要回傳 obj? 寫 controller時確認
 	}
-//	public ProductOrderVO addOrder(MemberVO member, Timestamp estTime, // fix - 02
-	public ProductOrderVO addOrder(Member member, Timestamp estTime,
+//	public ProductOrderVO addOrder(Member member, Timestamp estTime,
+	public ProductOrderVO addOrder(MemberVO member, Timestamp estTime, // fix - 02
 			Integer ordStatus, Integer total, String recipient, 
 			String recAdd, List<ProductDetailVO> prodDetails) {
 		var prodOrdVO = new ProductOrderVO(
@@ -107,8 +107,8 @@ public class ProductOrderService {
 		ordDao.update(prodOrdVO);
 		return prodOrdVO; // 同上: 為什麼要回傳 obj? 寫 controller時確認
 	}
-	public ProductOrderVO updateOrder(Integer prodOrdId, Member member, Timestamp estTime,
-//	public ProductOrderVO updateOrder(Integer prodOrdId, MemberVO member, Timestamp estTime, // fix - 03
+//	public ProductOrderVO updateOrder(Integer prodOrdId, Member member, Timestamp estTime,
+	public ProductOrderVO updateOrder(Integer prodOrdId, MemberVO member, Timestamp estTime, // fix - 03
 			Integer ordStatus, Integer total, String recipient, String recAdd, List<ProductDetailVO> prodDetails) {
 		var prodOrdVO = new ProductOrderVO(prodOrdId, member, estTime,
 			ordStatus, total, recipient, recAdd, prodDetails); 

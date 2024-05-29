@@ -16,8 +16,8 @@ import javax.persistence.ManyToOne;	// 一方修改 Member
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.member.model.Member;	// 一方修改 Member
-//import com.member.model.MemberVO;	// 一方修改 Member // fix - 01
+//import com.member.model.Member;	// 一方修改 Member
+import com.member.model.MemberVO;	// 一方修改 Member // fix - 01
 import com.product_detail.model.ProductDetailVO;
 
 /* VO: Value Object || DTO: Data Transfer Object */
@@ -44,8 +44,8 @@ public class ProductOrderVO implements Serializable {
 //	private Integer memberId;	// 會員ID > 應為會員多方，與 Tony 討論
 	@ManyToOne	// product_order/member_id | member/member_id
 	@JoinColumn(name = "member_id", referencedColumnName = "member_id")
-	private Member member;
-//	private MemberVO member; // fix - 02
+//	private Member member;
+	private MemberVO member; // fix - 02
 	// -- 一方修改 Member -----------
 	
 	@Column(name="est_time")
@@ -74,8 +74,8 @@ public class ProductOrderVO implements Serializable {
 	public ProductOrderVO() {}
 	
 //	public ProductOrderVO(Integer prodOrdId, Integer memberId, Timestamp estTime, Integer ordStatus, Integer total, String recipient, String recAddr, List<ProductDetailVO> prodDetails) {
-	public ProductOrderVO(Integer prodOrdId, Member member, Timestamp estTime, Integer ordStatus, Integer total, String recipient, String recAddr, List<ProductDetailVO> prodDetails) {
-//	public ProductOrderVO(Integer prodOrdId, MemberVO member, Timestamp estTime, Integer ordStatus, Integer total, String recipient, String recAddr, List<ProductDetailVO> prodDetails) { // fix - 03
+//	public ProductOrderVO(Integer prodOrdId, Member member, Timestamp estTime, Integer ordStatus, Integer total, String recipient, String recAddr, List<ProductDetailVO> prodDetails) {
+	public ProductOrderVO(Integer prodOrdId, MemberVO member, Timestamp estTime, Integer ordStatus, Integer total, String recipient, String recAddr, List<ProductDetailVO> prodDetails) { // fix - 03
 		this.prodOrdId = prodOrdId;
 		// Modify One's variable // 一方修改 Member
 //		this.memberId = memberId;
@@ -104,12 +104,12 @@ public class ProductOrderVO implements Serializable {
 //	public void setMemberId(Integer memberId) { 
 //		this.memberId = memberId;
 //	}
-	public Member getMember() {
-//	public MemberVO getMember() { // fix - 04
+//	public Member getMember() {
+	public MemberVO getMember() { // fix - 04
 		return member;
 	}
-	public void setMember(Member member) {
-//	public void setMember(MemberVO member) { // fix - 05
+//	public void setMember(Member member) {
+	public void setMember(MemberVO member) { // fix - 05
 		this.member = member;
 	}
 	// 一方修改 Member

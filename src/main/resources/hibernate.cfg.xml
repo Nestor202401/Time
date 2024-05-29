@@ -45,7 +45,7 @@
 	    <mapping class="com.product_img.model.ProductImgVO"/>
 	    
 	    <!-- coi618: 05/24 update 測試需要 05/28 修改為 MemberVO -->
-	    <mapping class="com.member.model.Member"/>
+	    <mapping class="com.member.model.MemberVO"/>
 	    
 	    
     </session-factory>

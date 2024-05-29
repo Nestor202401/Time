@@ -12,41 +12,43 @@ CREATE TABLE member (
     member_email varchar(100) UNIQUE, -- 會員信箱
     member_register_datetime Datetime DEFAULT CURRENT_TIMESTAMP, -- 註冊時間
     member_img LONGBLOB, -- 大頭照id
-    is_admin BOOLEAN DEFAULT false -- 是否是管理員
+    is_admin BOOLEAN DEFAULT false, -- 是否是管理員
+    is_verified  BOOLEAN DEFAULT false, -- 是否驗證過
+    verification_token VARCHAR(45) -- 驗證亂碼
 );
 
-INSERT INTO member(member_account, member_password, member_name, member_phone, member_email,member_img)
+INSERT INTO member(member_account, member_password, member_name, member_phone, member_email,member_img,is_admin,is_verified)
 VALUES 
-('tony2892', 'tia222334',  '吳俊楷', '0926523123', 'bbac@yahoo.com.tw',null),
-('david1233', 'gag770894', '陳委豪', '0928194854', 'def@yahoo.com.tw', null),
-('bolo5454', 'na51492932', '謝明哲', '0992740184', 'ghi@gmail.com.tw', null),
-('antya123', 'gua2718', '陳俞凱', '0918572095', 'gary@yahoo.com.tw',  null),
-('wil9356', 'ac5059092',  '陳建隆', '0938291822', 'vvic@yahoo.com.tw', null),
-('alex11892', 'bac250302', '陳以哲', '0909287430', 'logo@yahoo.com.tw',null);
+('tony2892', 'tia222334',  '員工1', '0926523123', 'bbac@yahoo.com.tw',null,1,1),
+('david1233', 'gag770894', '員工2', '0928194854', 'def@yahoo.com.tw', null,1,1),
+('bolo5454', 'na51492932', '員工3', '0992740184', 'ghi@gmail.com.tw', null,1,1),
+('antya123', 'gua2718', '員工4', '0918572095', 'gary@yahoo.com.tw',  null,1,1),
+('wil9356', 'ac5059092',  '陳建隆', '0938291822', 'vvic@yahoo.com.tw', null,0,1),
+('alex11892', 'bac250302', '陳以哲', '0909287430', 'logo@yahoo.com.tw',null,0,1);
 
-SELECT * FROM member;
+-- SELECT * FROM member;
 
 -- 電影區塊.............................................................
 
 
 -- 電影類型
-CREATE TABLE movie_types (
-    type_id INT AUTO_INCREMENT PRIMARY KEY, -- 電影類別ID
-    type_name VARCHAR(50) -- 電影類別名稱
-);
+-- CREATE TABLE movie_types (
+--     type_id INT AUTO_INCREMENT PRIMARY KEY, -- 電影類別ID
+--     type_name VARCHAR(50) -- 電影類別名稱
+-- );
 
-INSERT INTO movie_types ( type_name) VALUES
-( '不分類'),
-( '劇情'),
-( '動作'),
-( '科幻'),
-( '喜劇'),
-( '愛情'),
-( '戰爭'),
-( '恐怖'),
-( '動畫'),
-( '紀錄'),
-( '其他');
+-- INSERT INTO movie_types ( type_name) VALUES
+-- ( '不分類'),
+-- ( '劇情'),
+-- ( '動作'),
+-- ( '科幻'),
+-- ( '喜劇'),
+-- ( '愛情'),
+-- ( '戰爭'),
+-- ( '恐怖'),
+-- ( '動畫'),
+-- ( '紀錄'),
+-- ( '其他');
 
 -- 影廳表
 CREATE TABLE cinema (
@@ -91,8 +93,8 @@ CREATE TABLE movie (
     release_date DATE, -- 上映日期
     end_date DATE, -- 下檔日期
     runtime INT, -- 電影時長（分鐘）
-    Introduction TEXT, -- 電影介紹
-    CONSTRAINT fk_movie_type FOREIGN KEY (movie_rating) REFERENCES movie_types(type_id) 
+    Introduction TEXT -- 電影介紹
+    -- CONSTRAINT fk_movie_type FOREIGN KEY (movie_rating) REFERENCES movie_types(type_id) 
     -- 外鍵約束，關聯電影類別
 );
 
@@ -153,37 +155,37 @@ VALUES
 
 
 -- 電影類型表
-CREATE TABLE moves_type_table (
-    movie_id INT,
-    moves_type_id INT,
-    CONSTRAINT fk_movie_id_type FOREIGN KEY (movie_id) REFERENCES movie(movie_id),
-    CONSTRAINT fk_type_id FOREIGN KEY (moves_type_id) REFERENCES movie_types(type_id)
-);
+-- CREATE TABLE moves_type_table (
+--     movie_id INT,
+--     moves_type_id INT,
+--     CONSTRAINT fk_movie_id_type FOREIGN KEY (movie_id) REFERENCES movie(movie_id),
+--     CONSTRAINT fk_type_id FOREIGN KEY (moves_type_id) REFERENCES movie_types(type_id)
+-- );
 
 
-INSERT INTO moves_type_table (movie_id, moves_type_id) VALUES 
-(1, 2), 
-(1, 3), 
-(1, 8), 
-(2, 4), 
-(2, 7), 
-(3, 2), 
-(3, 5), 
-(3, 7), 
-(4, 3), 
-(4, 6), 
-(5, 4), 
-(6, 2), 
-(6, 6), 
-(6, 9), 
-(7, 8), 
-(8, 2), 
-(8, 3), 
-(9, 4), 
-(9, 7), 
-(10, 5), 
-(11, 8), 
-(12, 11);
+-- INSERT INTO moves_type_table (movie_id, moves_type_id) VALUES 
+-- (1, 2), 
+-- (1, 3), 
+-- (1, 8), 
+-- (2, 4), 
+-- (2, 7), 
+-- (3, 2), 
+-- (3, 5), 
+-- (3, 7), 
+-- (4, 3), 
+-- (4, 6), 
+-- (5, 4), 
+-- (6, 2), 
+-- (6, 6), 
+-- (6, 9), 
+-- (7, 8), 
+-- (8, 2), 
+-- (8, 3), 
+-- (9, 4), 
+-- (9, 7), 
+-- (10, 5), 
+-- (11, 8), 
+-- (12, 11);
 
 
 -- 電影場次
@@ -221,20 +223,20 @@ CREATE TABLE ticket_types (
 ) AUTO_INCREMENT = 1520001;
 
 -- 建立餐飲種類表格
-CREATE TABLE food_types (
-    food_types_id INT AUTO_INCREMENT PRIMARY KEY comment '餐飲種類ID', -- PK
-    food_name VARCHAR(50) comment '餐飲名稱',
-    food_price INT comment '餐飲價格',
-	food_img_file VARCHAR(255)                 -- 圖片文件路徑
-) AUTO_INCREMENT = 1510001;
+-- CREATE TABLE food_types (
+--     food_types_id INT AUTO_INCREMENT PRIMARY KEY comment '餐飲種類ID', -- PK
+--     food_name VARCHAR(50) comment '餐飲名稱',
+--     food_price INT comment '餐飲價格',
+-- 	   food_img_file VARCHAR(255)                 -- 圖片文件路徑
+-- ) AUTO_INCREMENT = 1510001;
 
 -- 建立優惠表格
-CREATE TABLE discounts (
-    discount_id INT AUTO_INCREMENT PRIMARY KEY comment '優惠ID', -- PK
-    food_types_id INT comment '餐飲種類ID', -- FK
-    discount_price INT comment '優惠金額',
-    FOREIGN KEY (food_types_id) REFERENCES food_types(food_types_id)
-) AUTO_INCREMENT = 1500001;
+-- CREATE TABLE discounts (
+--     discount_id INT AUTO_INCREMENT PRIMARY KEY comment '優惠ID', -- PK
+--     food_types_id INT comment '餐飲種類ID', -- FK
+--     discount_price INT comment '優惠金額',
+--     FOREIGN KEY (food_types_id) REFERENCES food_types(food_types_id)
+-- ) AUTO_INCREMENT = 1500001;
 
 -- 建立電影訂單表格
 CREATE TABLE movie_ticket_order (
@@ -247,16 +249,16 @@ CREATE TABLE movie_ticket_order (
 ) AUTO_INCREMENT = 1530001;
 
 -- 建立餐飲明細表格
-CREATE TABLE food_details (
-    food_details_id INT AUTO_INCREMENT PRIMARY KEY comment '餐飲明細ID', -- PK
-    movie_order_id INT comment '電影訂單ID', -- FK
-    food_types_id INT comment '餐飲種類ID', -- FK
-    food_unit_price INT comment '餐飲單價',
-    food_count INT comment '餐飲數量',
-    food_subtotal INT comment '餐飲小計',
-    FOREIGN KEY (movie_order_id) REFERENCES movie_ticket_order(movie_order_id),
-    FOREIGN KEY (food_types_id) REFERENCES food_types(food_types_id)
-) AUTO_INCREMENT = 1540001;
+-- CREATE TABLE food_details (
+--     food_details_id INT AUTO_INCREMENT PRIMARY KEY comment '餐飲明細ID', -- PK
+--     movie_order_id INT comment '電影訂單ID', -- FK
+--     food_types_id INT comment '餐飲種類ID', -- FK
+--     food_unit_price INT comment '餐飲單價',
+--     food_count INT comment '餐飲數量',
+--     food_subtotal INT comment '餐飲小計',
+--     FOREIGN KEY (movie_order_id) REFERENCES movie_ticket_order(movie_order_id),
+--     FOREIGN KEY (food_types_id) REFERENCES food_types(food_types_id)
+-- ) AUTO_INCREMENT = 1540001;
 
 -- 建立電影票表格
 CREATE TABLE ticket_list (
@@ -285,22 +287,22 @@ VALUES
 ('敬老票', 180);
 
 -- 插入資料到餐飲種類表格
-INSERT INTO food_types (food_name, food_price) 
-VALUES
-('爆米花', 120),
-('熱狗堡', 70),
-('熱狗', 55),
-('吉拿棒', 55),
-('雪碧', 45),
-('可樂', 45);
+-- INSERT INTO food_types (food_name, food_price) 
+-- VALUES
+-- ('爆米花', 120),
+-- ('熱狗堡', 70),
+-- ('熱狗', 55),
+-- ('吉拿棒', 55),
+-- ('雪碧', 45),
+-- ('可樂', 45);
 
 -- 插入資料到優惠表格
-INSERT INTO discounts (food_types_id, discount_price) 
-VALUES
-(1510001, 30),
-(1510002, 15),
-(1510005, 5),
-(1510006, 5);
+-- INSERT INTO discounts (food_types_id, discount_price) 
+-- VALUES
+-- (1510001, 30),
+-- (1510002, 15),
+-- (1510005, 5),
+-- (1510006, 5);
 
 -- 插入資料到電影訂單表格
 INSERT INTO movie_ticket_order (member_id, movie_order_status, buy_tickets_date, movie_order_total) 
@@ -310,14 +312,14 @@ VALUES
 (2, TRUE, '2021-02-05 11:25:12', 655);
 
 -- 插入資料到餐飲明細表格
-INSERT INTO food_details (movie_order_id, food_types_id, food_unit_price, food_count, food_subtotal) 
-VALUES
-(1530001, 1510001, 120, 2, 240),
-(1530001, 1510002, 70, 2, 140),
-(1530001, 1510005, 45, 1, 45),
-(1530001, 1510006, 45, 1, 45),
-(1530002, 1510004, 55, 1, 55),
-(1530003, 1510003, 55, 1, 55);
+-- INSERT INTO food_details (movie_order_id, food_types_id, food_unit_price, food_count, food_subtotal) 
+-- VALUES
+-- (1530001, 1510001, 120, 2, 240),
+-- (1530001, 1510002, 70, 2, 140),
+-- (1530001, 1510005, 45, 1, 45),
+-- (1530001, 1510006, 45, 1, 45),
+-- (1530002, 1510004, 55, 1, 55),
+-- (1530003, 1510003, 55, 1, 55);
 
 -- 插入資料到電影票表格
 INSERT INTO ticket_list (movie_order_id, movie_id, ticket_types_id, cinema_id, show_times_id, seat_number, qrcode, ticket_status) 
@@ -470,7 +472,8 @@ CREATE TABLE article (
     browse_peoples INT,
     article_status INT,
     release_time DATETIME,
-    FOREIGN KEY (type_id) REFERENCES movie_types(type_id),
+    pin_to_top BOOLEAN,
+    -- FOREIGN KEY (type_id) REFERENCES movie_types(type_id),
     FOREIGN KEY (member_id) REFERENCES member(member_id)
 );
 
@@ -559,23 +562,25 @@ VALUES
 
 
 -- 討論區圖片
-CREATE TABLE forum_images (
-    forum_img_id INT PRIMARY KEY AUTO_INCREMENT,
-    article_id INT,
-    comment_id INT,
-    forum_img_file VARCHAR(255),
-    FOREIGN KEY (article_id) REFERENCES article(article_id),
-    FOREIGN KEY (comment_id) REFERENCES comments(comment_id)
-);
+-- CREATE TABLE forum_images (
+--     forum_img_id INT PRIMARY KEY AUTO_INCREMENT,
+--     article_id INT,
+--     comment_id INT,
+--     forum_img_file VARCHAR(255),
+--     FOREIGN KEY (article_id) REFERENCES article(article_id),
+--     FOREIGN KEY (comment_id) REFERENCES comments(comment_id)
+-- );
 
-INSERT INTO forum_images (article_id, comment_id, forum_img_file) VALUES
-(1, NULL, 'https://example.com/image1.jpg'),
-(2, NULL, 'https://example.com/image2.jpg'),
-(NULL, 1, 'https://example.com/image3.jpg'),
-(NULL, 2, 'https://example.com/image4.jpg'),
-(3, NULL, 'https://example.com/image5.jpg'),
-(NULL, 3, 'https://example.com/image6.jpg'),
-(4, NULL, 'https://example.com/image7.jpg'),
-(NULL, 4, 'https://example.com/image8.jpg'),
-(5, NULL, 'https://example.com/image9.jpg'),
-(NULL, 5, 'https://example.com/image10.jpg');
+-- INSERT INTO forum_images (article_id, comment_id, forum_img_file) VALUES
+-- (1, NULL, 'https://example.com/image1.jpg'),
+-- (2, NULL, 'https://example.com/image2.jpg'),
+-- (NULL, 1, 'https://example.com/image3.jpg'),
+-- (NULL, 2, 'https://example.com/image4.jpg'),
+-- (3, NULL, 'https://example.com/image5.jpg'),
+-- (NULL, 3, 'https://example.com/image6.jpg'),
+-- (4, NULL, 'https://example.com/image7.jpg'),
+-- (NULL, 4, 'https://example.com/image8.jpg'),
+-- (5, NULL, 'https://example.com/image9.jpg'),
+-- (NULL, 5, 'https://example.com/image10.jpg');
+
+USE tia101_g2;

@@ -5,15 +5,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.member.model.Member;
-//import com.member.model.MemberVO; // fix - 01
+//import com.member.model.Member;
+import com.member.model.MemberVO; // fix - 01
 
 public class TestProdOrdHibernate {
 
 	public static void main(String[] args) {
 		ProductOrderDAO_interface dao = new ProductOrderDAO();
-		Member member = new Member();
-//		MemberVO member = new MemberVO(); // fix - 02, 03
+//		Member member = new Member();
+		MemberVO member = new MemberVO(); // fix - 02, 03
 		member.setMemberId(1);
 		
 		// 1. insert 2 new orders
@@ -31,14 +31,14 @@ public class TestProdOrdHibernate {
 		);
 		Integer newOrdId = dao.insert(order);
 		
-		order.setRecipient("測試人員1");
-		order.setRecAddr("測試地址 1");
+		order.setRecipient("測試人員一");
+		order.setRecAddr("測試地址一");
 		Integer newOrdId2 = dao.insert(order);
 		
 		// 2. update new order2
 		order.setProdOrdId(newOrdId2);
-		order.setRecipient("更新人員2");
-		order.setRecAddr("更新地址 2");
+		order.setRecipient("更新人員二");
+		order.setRecAddr("更新地址二");
 		System.out.println(dao.update(order) == 1 ? "update success" : "FAIL of update");
 		
 		// 3. delete new order1
@@ -84,11 +84,11 @@ public class TestProdOrdHibernate {
 //		2. total: 500~3000
 		map.put("totalLow",  "500");
 		map.put("totalHigh", "3000");
-//		3. memberId: 3
-		map.put("memberName", "謝");
-//		4. ordStatus: 1
-		map.put("ordStatus", "1");
-		System.out.println("TEST-1: Should be 5");
+//		3. memName: 3
+		map.put("memberName", "3");
+//		4. ordStatus: 0
+		map.put("ordStatus", "0");
+		System.out.println("TEST-1: Should be 6");
 		printMap(map, dao);
 		map.clear();
 
@@ -137,7 +137,7 @@ public class TestProdOrdHibernate {
 
 	private static void printHead() {
 		System.out.println(
-			"ProductOrder:\nprodOrdId | memberId |            estTime | ordStatus | total | recipient | recAddr"
+			"ProductOrder:\nprodOrdId | memName |            estTime | ordStatus | total | recipient | recAddr"
 		);
 		for (int i = 0; i < 99; i++)
 			System.out.print("-");
