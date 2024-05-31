@@ -5,7 +5,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import coi618_util.Coi618Util;
+import com.util.ProductUtil;
 
 public class ProductImgDAO implements ProductImgDAO_interface {
 
@@ -13,7 +13,7 @@ public class ProductImgDAO implements ProductImgDAO_interface {
 	private SessionFactory factory;
 	
 	public ProductImgDAO() { // 在呼叫 DAO 同時建立工廠
-		factory = Coi618Util.getSessionFactory(); // here
+		factory = ProductUtil.getSessionFactory(); // here
 	}
 	
 	@Override

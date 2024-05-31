@@ -7,14 +7,16 @@ import java.util.Map;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
-import coi618_util.*;
+import com.util.ProductUtil;
+
+import com.util.*;
 
 public class TicketOrderDAO implements TicketOrderDAO_interface {
 
 	@Override
     public List<TicketOrderVO> getAll() {
         List<TicketOrderVO> list = new ArrayList<>();
-        try (Session session = Coi618Util.getSessionFactory().openSession()) {
+        try (Session session = ProductUtil.getSessionFactory().openSession()) {
             Query<TicketOrderVO> query = session.createQuery(
                 "FROM TicketOrderVO t LEFT JOIN FETCH t.memberId", TicketOrderVO.class);
             list = query.getResultList();
@@ -25,7 +27,7 @@ public class TicketOrderDAO implements TicketOrderDAO_interface {
 	@Override
     public List<TicketOrderVO> getAll(Map<String, String[]> map) {
         List<TicketOrderVO> list = new ArrayList<>();
-        try (Session session = Coi618Util.getSessionFactory().openSession()) {
+        try (Session session = ProductUtil.getSessionFactory().openSession()) {
             StringBuilder hql = new StringBuilder("FROM TicketOrderVO t LEFT JOIN FETCH t.memberId WHERE 1 = 1");
 
             for (Map.Entry<String, String[]> entry : map.entrySet()) {
