@@ -1,5 +1,6 @@
 package com.movie.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -8,14 +9,18 @@ import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import com.movie.model.MovieService;
 import com.movie.model.MovieVO;
+import com.movieimg.model.MovieImgService;
 
+@MultipartConfig
 @WebServlet("/back-end/movie/movie.do")
 public class MovieServlet extends HttpServlet {
 
@@ -335,7 +340,7 @@ public class MovieServlet extends HttpServlet {
 				movieVO = movieSvc.addMovie(movieName, movieRating, director, actor, releaseDate, endDate,runtime,introduction);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				String url = "/back-end/movie/Success.html";
+				String url = "/back-end/movietime/Success.html";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);	
 				
@@ -384,7 +389,143 @@ public class MovieServlet extends HttpServlet {
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				req.setAttribute("movieListData", list); // 資料庫取出的list物件,存入request
-				RequestDispatcher successView = req.getRequestDispatcher("/back-end/movie/listAllMovie2.jsp"); // 成功轉交listEmps_ByCompositeQuery.jsp
+				RequestDispatcher successView = req.getRequestDispatcher("/back-end/movie/main.jsp"); // 成功轉交listEmps_ByCompositeQuery.jsp
+				successView.forward(req, res);
+		}
+		
+		if ("QuickSearch".equals(action)) { // 來自select_page.jsp的複合查詢請求
+			String searchType = req.getParameter("searchType");
+			MovieService movieSvc = new MovieService();
+			List<MovieVO> list = null ;
+			
+            if ("all".equals(searchType)) {
+                list = movieSvc.getAll();
+            } else if ("nowShowing".equals(searchType)) {
+                list = movieSvc.findHotMovie();
+            } else if ("ended".equals(searchType)) {
+                list = movieSvc.findOutMovie();
+            }else if ("comingSoon".equals(searchType)) {
+                list = movieSvc.comingSoonMovie();
+            }
+
+            // 將結果存儲在請求範圍中並轉發到 JSP
+            req.setAttribute("movieListData", list);
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/back-end/movie/main.jsp");
+            dispatcher.forward(req, res);
+		}
+		
+		System.out.println("Action: " + action);
+
+		if ("insertWithImages".equals(action)) { 
+            List<String> errorMsgs = new LinkedList<String>();
+            req.setAttribute("errorMsgs", errorMsgs);
+
+            String movieName = req.getParameter("movieName");
+            String director = req.getParameter("director");
+            String actor = req.getParameter("actor");
+            String introduction = req.getParameter("introduction");
+
+            Integer movieRating = null;
+            try {
+                movieRating = Integer.valueOf(req.getParameter("movieRating").trim());
+            } catch (NumberFormatException e) {
+                movieRating = 0;
+                errorMsgs.add("電影評級格式不正確");
+            }
+
+            java.sql.Date releaseDate = null;
+            try {
+                releaseDate = java.sql.Date.valueOf(req.getParameter("releaseDate").trim());
+            } catch (IllegalArgumentException e) {
+                releaseDate = new java.sql.Date(System.currentTimeMillis());
+                errorMsgs.add("上映日期格式不正確");
+            }
+
+            java.sql.Date endDate = null;
+            try {
+                endDate = java.sql.Date.valueOf(req.getParameter("endDate").trim());
+            } catch (IllegalArgumentException e) {
+                endDate = new java.sql.Date(System.currentTimeMillis());
+                errorMsgs.add("下映日期格式不正確");
+            }
+
+            Integer runtime = null;
+            try {
+                runtime = Integer.valueOf(req.getParameter("runtime").trim());
+            } catch (NumberFormatException e) {
+                runtime = 0;
+                errorMsgs.add("播放時間格式不正確");
+            }
+
+            MovieVO movieVO = new MovieVO();
+            movieVO.setMovieName(movieName);
+            movieVO.setMovieRating(movieRating);
+            movieVO.setDirector(director);
+            movieVO.setActor(actor);
+            movieVO.setReleaseDate(releaseDate);
+            movieVO.setEndDate(endDate);
+            movieVO.setRuntime(runtime);
+            movieVO.setIntroduction(introduction);
+
+            if (!errorMsgs.isEmpty()) {
+                req.setAttribute("movieVO", movieVO);
+                RequestDispatcher failureView = req.getRequestDispatcher("/back-end/movie/addMovie.jsp");
+                failureView.forward(req, res);
+                return;
+            }
+
+            MovieService movieSvc = new MovieService();
+            movieVO = movieSvc.addMovie(movieName, movieRating, director, actor, releaseDate, endDate, runtime, introduction);
+
+            MovieImgService movieImgSvc = new MovieImgService();
+
+            // 處理多張圖片上傳
+            for (int i = 0; req.getPart("file" + i) != null; i++) {
+                String movieImgName = req.getParameter("name" + i);
+                Part filePart = req.getPart("file" + i);
+                if (filePart != null && filePart.getSize() > 0) {
+                    String fileName = filePart.getSubmittedFileName();
+                    String saveDirectory = "/images_uploaded";
+                    String contextPath = req.getContextPath();
+                    String relativePath = contextPath + saveDirectory + "/" + fileName;
+                    String realPath = getServletContext().getRealPath(saveDirectory);
+                    File fsaveDirectory = new File(realPath);
+                    if (!fsaveDirectory.exists()) {
+                        fsaveDirectory.mkdirs();
+                    }
+                    String absolutePath = realPath + File.separator + fileName;
+                    try {
+                        filePart.write(absolutePath);
+                        movieImgSvc.addMovieImg(movieVO.getMovieId(), movieImgName, relativePath);
+                    } catch (IOException e) {
+                        errorMsgs.add("文件上傳失敗：" + e.getMessage());
+                    }
+                }
+            }
+
+            String url = "/back-end/movietime/Success.html";
+            RequestDispatcher successView = req.getRequestDispatcher(url);
+            successView.forward(req, res);
+		}
+		
+		if ("getOne_For_add".equals(action)) { // 來自listAllEmp.jsp的請求
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+				/***************************1.接收請求參數****************************************/
+				Integer movieId = Integer.valueOf(req.getParameter("movieId"));
+				
+				/***************************2.開始查詢資料****************************************/
+				MovieService movieSvc = new MovieService();
+				MovieVO movieVO = movieSvc.getOneMovie(movieId);
+								
+				/***************************3.查詢完成,準備轉交(Send the Success view)************/
+				req.setAttribute("movieVO", movieVO);         // 資料庫取出的empVO物件,存入req
+				String url = "/back-end/movietime/addMovieTime.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
 				successView.forward(req, res);
 		}
 	}

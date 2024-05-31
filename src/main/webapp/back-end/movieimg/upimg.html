@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue File Agent Example</title>
+  <!-- 匯入 Vue.js -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <!-- 匯入 Vue File Agent CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-file-agent@latest/dist/vue-file-agent.css" />
+
+  <style>
+    /* 自訂樣式 */
+    #app {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+    }
+
+    .upload-btn {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .upload-btn:disabled {
+      background-color: #aaa;
+      cursor: not-allowed;
+    }
+
+    .input-field {
+      margin-bottom: 10px;
+    }
+
+    .image-info {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <!-- 电影ID输入字段 -->
+    <div class="input-field">
+      <label for="movieId">電影ID:</label>
+      <input type="text" id="movieId" v-model="movieId">
+    </div>
+
+    <!-- 图片信息输入字段 -->
+    <div v-for="(fileRecord, index) in fileRecordsForUpload" :key="index" class="input-field image-info">
+      <label :for="'movieImgName' + index">圖片{{ index + 1 }}名稱:</label>
+      <input type="text" :id="'movieImgName' + index" v-model="fileRecord.customName">
+    </div>
+
+    <!-- Vue File Agent 元件 -->
+    <vue-file-agent ref="vueFileAgent" :theme="'list'" :multiple="true" :deletable="true" :meta="true"
+      :accept="'image/*,.zip'" :maxSize="'10MB'" :maxFiles="14" :helpText="'選擇圖片或 ZIP 檔案'"
+      :errorText="{
+      type: '無效的檔案類型。僅允許圖片或 ZIP 檔案',
+      size: '檔案大小不得超過 10MB',
+    }" @select="filesSelected($event)" @beforedelete="onBeforeDelete($event)" @delete="fileDeleted($event)"
+      v-model="fileRecords"></vue-file-agent>
+    <!-- 上傳按鈕 -->
+    <button class="upload-btn" :disabled="!fileRecordsForUpload.length || !movieId || !allNamesProvided"
+      @click="uploadFiles()">上傳 {{ fileRecordsForUpload.length }} 檔案</button>
+  </div>
+
+  <!-- Vue File Agent 元件 Script -->
+  <script src="https://cdn.jsdelivr.net/npm/vue-file-agent@latest/dist/vue-file-agent.umd.js"></script>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+          movieId: '',
+          fileRecords: [],
+          uploadUrl: 'movieimg.do?action=insert',
+          uploadHeaders: { 'X-Test-Header': 'vue-file-agent' },
+          fileRecordsForUpload: [], // 維護一個上傳佇列
+          maxUploads: 14 // 最多允許上傳的檔案數量
+        };
+      },
+      computed: {
+        allNamesProvided() {
+          return this.fileRecordsForUpload.every(fileRecord => fileRecord.customName && fileRecord.customName.trim() !== '');
+        }
+      },
+      methods: {
+        uploadFiles() {
+          // 檢查已選擇的檔案數量是否超過最大允許數量
+          if (this.fileRecordsForUpload.length > this.maxUploads) {
+            alert('最多只能選擇14張圖片。');
+            return;
+          }
+
+          // 創建一個 FormData 物件
+          var formData = new FormData();
+
+          // 將电影ID附加到 FormData
+          formData.append('movieId', this.movieId);
+
+          // 將所有檔案紀錄附加到 FormData
+          this.fileRecordsForUpload.forEach((fileRecord, index) => {
+            formData.append('file' + index, fileRecord.file);
+            formData.append('name' + index, fileRecord.customName); // 附加圖片名稱
+          });
+
+          // 創建一個 XMLHttpRequest 物件
+          var xhr = new XMLHttpRequest();
+
+          // 配置 XMLHttpRequest 物件
+          xhr.open('POST', this.uploadUrl, true);
+          xhr.setRequestHeader('X-Test-Header', 'vue-file-agent');
+
+          // 當上傳完成時定義回調函式
+          xhr.onload = function () {
+            if (xhr.status === 200) {
+              // 上傳成功
+             // console.log('上傳成功');
+              // 清空上傳佇列
+              this.fileRecordsForUpload = [];
+              window.location.href = '../movietime/Success.html';
+            } else {
+              // 上傳失敗
+              console.error('上傳失敗');
+              alert('上傳失敗');
+            }
+          }.bind(this);
+
+          // 發送 FormData
+          xhr.send(formData);
+        },
+        deleteUploadedFile(fileRecord) {
+          this.$refs.vueFileAgent.deleteUpload(this.uploadUrl, this.uploadHeaders, fileRecord);
+        },
+        filesSelected(fileRecordsNewlySelected) {
+          var validFileRecords = fileRecordsNewlySelected.filter((fileRecord) => !fileRecord.error);
+          // 为每个文件记录添加一个自定义名称字段
+          validFileRecords.forEach(fileRecord => {
+            this.$set(fileRecord, 'customName', '');
+          });
+          this.fileRecordsForUpload = this.fileRecordsForUpload.concat(validFileRecords);
+        },
+        onBeforeDelete(fileRecord) {
+          var i = this.fileRecordsForUpload.indexOf(fileRecord);
+          if (i !== -1) {
+            // 尚未上傳的佇列檔案。只需從數組中刪除。
+            this.fileRecordsForUpload.splice(i, 1);
+            var k = this.fileRecords.indexOf(fileRecord);
+            if (k !== -1) this.fileRecords.splice(k, 1);
+          } else {
+            if (confirm('確定要刪除嗎？')) {
+              this.$refs.vueFileAgent.deleteFileRecord(fileRecord); // 將觸發“delete”事件
+            }
+          }
+        },
+        fileDeleted(fileRecord) {
+          var i = this.fileRecordsForUpload.indexOf(fileRecord);
+          if (i !== -1) {
+            this.fileRecordsForUpload.splice(i, 1);
+          } else {
+            this.deleteUploadedFile(fileRecord);
+          }
+        },
+      },
+    });
+  </script>
+</body>
+</html>
