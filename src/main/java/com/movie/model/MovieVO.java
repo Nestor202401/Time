@@ -1,5 +1,6 @@
 package com.movie.model;
 
+
 import java.sql.Date;
 import java.util.Set;
 
@@ -155,4 +156,5 @@ public class MovieVO implements java.io.Serializable {
 				+ getIntroduction() + ", getMovieImgs()=" + getMovieImgs() + ", getClass()=" + getClass()
 				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
+
 }

@@ -47,6 +47,11 @@
 	    <!-- coi618: 05/24 update 測試需要 05/28 修改為 MemberVO -->
 	    <mapping class="com.member.model.MemberVO"/>
 	    
+	    <mapping class="com.movie.model.MovieVO"/>
+        <mapping class="com.movieimg.model.MovieImgVO"/>
+        <mapping class="com.movietime.model.MovieTimeVO"/>
+        <mapping class="com.cinema.model.CinemaVO"/>
+	    
 	    
     </session-factory>
 </hibernate-configuration>

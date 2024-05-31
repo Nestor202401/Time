@@ -99,6 +99,15 @@ public class CinemaVO {
 	public CinemaVO() {
 		super();
 	}
-    
-    
+	@Override
+    public String toString() {
+        return "CinemaVO{" +
+                "cinemaId=" + cinemaId +
+                ", cinemaName='" + cinemaName + '\'' +
+                ", seatRow=" + seatRow +
+                ", seatColumn='" + seatColumn + '\'' +
+                ", seatStatus=" + seatStatus +
+                ", seatNumber='" + seatNumber + '\'' +
+                '}';
+	}
 }

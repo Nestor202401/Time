@@ -2,8 +2,10 @@ package com.movieimg.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import com.movie.model.MovieService;
+import com.movie.model.MovieVO;
 import com.movieimg.model.MovieImgService;
 import com.movieimg.model.MovieImgVO;
 
@@ -184,7 +188,7 @@ public class MovieImgServlet extends HttpServlet {
 
 		    // 修改完成,準備轉交
 		    req.setAttribute("movieImgVO", movieImgVO); // 資料庫 update 成功後, 正確的的物件, 存入 req
-		    String url = "/back-end/movie/Success.html";
+		    String url = "/back-end/movietime/Success.html";
 		    RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交 listOneEmp.jsp
 		    successView.forward(req, res);
 		}
@@ -247,7 +251,7 @@ public class MovieImgServlet extends HttpServlet {
                 movieImgSvc.addMovieImg(movieId, movieImgName, relativePath);
             }
 
-            String url = "/back-end/movie/Success.html";
+            String url = "/back-end/movietime/Success.html";
             RequestDispatcher successView = req.getRequestDispatcher(url);
             successView.forward(req, res);	
 		}
@@ -291,9 +295,156 @@ public class MovieImgServlet extends HttpServlet {
 
 	        /***************************3.查詢完成,準備轉交(Send the Success view)*************/
 	        req.setAttribute("movieImgVOList", movieImgVOList); // 資料庫取出的movieImgVO物件,存入req
-	        String url = "/back-end/movieimg/keyword.jsp";
+	        String url = "/back-end/movieimg/img.jsp";
 	        RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 keyword.jsp
 	        successView.forward(req, res);
 		}
+		
+		if ("insertWithImages".equals(action)) {
+            Map<String, String> errorMsgs = new HashMap<>();
+            req.setAttribute("errorMsgs", errorMsgs);
+
+            // 先處理電影的新增
+            String movieName = req.getParameter("movieName");
+            String movieNameReg = "^[(\\u4e00-\\u9fa5)(a-zA-Z0-9_)]{2,20}$";
+            if (movieName == null || movieName.trim().length() == 0) {
+                errorMsgs.put("movieName", "請勿空白");
+            } else if (!movieName.trim().matches(movieNameReg)) {
+                errorMsgs.put("movieName", "只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+            }
+
+            Integer movieRating = null;
+            String movieRatingParam = req.getParameter("movieRating");
+            if (movieRatingParam != null) {
+                try {
+                    movieRating = Integer.valueOf(movieRatingParam.trim());
+                } catch (NumberFormatException e) {
+                    errorMsgs.put("movieRating", "未選擇");
+                }
+            } else {
+                errorMsgs.put("movieRating", "請填寫電影評分!");
+            }
+
+            String director = req.getParameter("director");
+            if (director == null || director.trim().length() == 0) {
+                errorMsgs.put("director", "請勿空白");
+            }
+
+            String actor = req.getParameter("actor");
+            if (actor == null || actor.trim().length() == 0) {
+                errorMsgs.put("actor", "請勿空白");
+            }
+
+            java.sql.Date releaseDate = null;
+            try {
+                releaseDate = java.sql.Date.valueOf(req.getParameter("releaseDate").trim());
+            } catch (IllegalArgumentException e) {
+                errorMsgs.put("releaseDate", "請選擇日期!");
+            }
+
+            java.sql.Date endDate = null;
+            try {
+                endDate = java.sql.Date.valueOf(req.getParameter("endDate").trim());
+            } catch (IllegalArgumentException e) {
+                errorMsgs.put("endDate", "請選擇日期!");
+            }
+
+            Integer runtime = null;
+            try {
+                runtime = Integer.valueOf(req.getParameter("runtime").trim());
+            } catch (NumberFormatException e) {
+                errorMsgs.put("runtime", "播放時間請填數字.");
+            }
+
+            String introduction = req.getParameter("introduction");
+            if (introduction == null || introduction.trim().isEmpty()) {
+                introduction = "暫無介紹";
+            }
+
+            MovieService movieSvc = new MovieService();
+            MovieVO movieVO = new MovieVO();
+            movieVO.setMovieName(movieName);
+            movieVO.setMovieRating(movieRating);
+            movieVO.setDirector(director);
+            movieVO.setActor(actor);
+            movieVO.setReleaseDate(releaseDate);
+            movieVO.setEndDate(endDate);
+            movieVO.setRuntime(runtime);
+            movieVO.setIntroduction(introduction);
+
+            try {
+                movieVO = movieSvc.addMovie(movieName, movieRating, director, actor, releaseDate, endDate, runtime, introduction);
+                Integer movieId = movieVO.getMovieId();
+
+                if (!req.getContentType().toLowerCase().startsWith("multipart/form-data")) {
+                    errorMsgs.put("fileUpload", "表單必須包含文件上傳內容");
+                    req.setAttribute("movieVO", movieVO);
+                    RequestDispatcher failureView = req.getRequestDispatcher("/back-end/movie/addMovie.jsp");
+                    failureView.forward(req, res);
+                    return;
+                }
+
+                int fileCount = 0;
+                for (Part part : req.getParts()) {
+                    if (part.getName().startsWith("file") && part.getSize() > 0) {
+                        fileCount++;
+                    }
+                }
+
+                if (fileCount == 0) {
+                    errorMsgs.put("fileCount", "請選擇要上傳的文件");
+                }
+
+                if (!errorMsgs.isEmpty()) {
+                    req.setAttribute("movieVO", movieVO);
+                    RequestDispatcher failureView = req.getRequestDispatcher("/back-end/movie/addMovie.jsp");
+                    failureView.forward(req, res);
+                    return;
+                }
+
+                MovieImgService movieImgSvc = new MovieImgService();
+
+                for (int i = 0; i < fileCount; i++) {
+                    Part filePart = req.getPart("file" + i);
+                    String movieImgName = req.getParameter("name" + i);
+                    String fileName = filePart.getSubmittedFileName();
+                    String saveDirectory = "/images_uploaded";
+                    String contextPath = req.getContextPath();
+                    String relativePath = contextPath + saveDirectory + "/" + fileName;
+                    String realPath = getServletContext().getRealPath(saveDirectory);
+                    File fsaveDirectory = new File(realPath);
+                    if (!fsaveDirectory.exists()) {
+                        fsaveDirectory.mkdirs();
+                    }
+                    String absolutePath = realPath + File.separator + fileName;
+                    try {
+                        filePart.write(absolutePath);
+                    } catch (IOException e) {
+                        errorMsgs.put("fileUpload", "文件上傳失敗：" + e.getMessage());
+                        req.setAttribute("movieVO", movieVO);
+                        RequestDispatcher failureView = req.getRequestDispatcher("/back-end/movie/addMovie.jsp");
+                        failureView.forward(req, res);
+                        return;
+                    }
+
+                    MovieImgVO movieImgVO = new MovieImgVO();
+                    movieImgVO.setMovieId(movieId);
+                    movieImgVO.setMovieImgName(movieImgName); // 確保這裡是你從前端獲取的名稱
+                    movieImgVO.setMovieImgFile(relativePath);
+                    movieImgSvc.addMovieImg(movieId, movieImgName, relativePath);
+                }
+
+                String url = "/back-end/movietime/Success.html";
+                RequestDispatcher successView = req.getRequestDispatcher(url);
+                successView.forward(req, res);
+
+            } catch (Exception e) {
+                errorMsgs.put("movieInsert", "新增電影失敗：" + e.getMessage());
+                req.setAttribute("movieVO", movieVO);
+                RequestDispatcher failureView = req.getRequestDispatcher("/back-end/movie/addMovie.jsp");
+                failureView.forward(req, res);
+		    }
+		}
+
 	}
 }
