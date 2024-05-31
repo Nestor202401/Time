@@ -4,15 +4,26 @@
 		"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
+    	<!-- coi618: Connection Pool/DataSource configure 	05/22
+    				 Cannot use at same time with JDBC configure  
+    				 連線池設定，不能與 JDBC 同時存在，否則會有以下報錯
+    				 Error msg: java.lang.UnsupportedOperationException: Not supported by BasicDataSource
+    				 tia101_g2 | TestDB
+    	<property name="connection.datasource">java:comp/env/jdbc/TestDB</property>
+    	-->
+    	<!-- coi618: JDBC configure 	05/22
+    				 Cannot use at same time with Connection Pool/DataSource configure
+        -->
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
         <property name="hibernate.connection.password">123456</property>
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/tia101_g2?serverTimezone=Asia/Taipei</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <!-- coi618: 很多指令，暫時關掉。push 時應該要開回來	05/23 
+	    <property name="hibernate.show_sql">true</property>
+    -->
     
-    <property name="hibernate.show_sql">true</property>
-    
-    <property name="hibernate.format_sql">true</property>
+    	<property name="hibernate.format_sql">true</property>
 		
 		<property name="hibernate.hbm2ddl.auto">validate</property>
 		
@@ -20,12 +31,31 @@
     
     
     
-	    <!-- coi618: 5/17 19:29 Add model.Product -->
+	    <!-- coi618: 05/25 更新命名規則，移除舊 model 
 	    <mapping class="com.product.model.Product"/>
-	   	<!-- coi618: 5/19 15:24 Add model.ProductImg -->
 	    <mapping class="com.product_img.model.ProductImg"/>
 	    <mapping class="com.product_order.model.ProductOrder"/>
 	    <mapping class="com.product_detail.model.ProductDetail"/>
+	    -->
+
+		<!-- coi618: 05/21 update -->
+	    <mapping class="com.product_order.model.ProductOrderVO"/>
+	    <mapping class="com.product_detail.model.ProductDetailVO"/>
+	    <mapping class="com.product.model.ProductVO"/>
+	    <mapping class="com.product_img.model.ProductImgVO"/>
+	    
+	    <!-- coi618: 05/24 update 測試需要 05/28 修改為 MemberVO -->
+	    <mapping class="com.member.model.MemberVO"/>
+	    
+	    <mapping class="com.movie.model.MovieVO"/>
+        <mapping class="com.movieimg.model.MovieImgVO"/>
+        <mapping class="com.movietime.model.MovieTimeVO"/>
+        <mapping class="com.cinema.model.CinemaVO"/>
+        
+        <!-- hkuma0218: 05/31 update 測試需要 05/28 修改為 MemberVO -->
+		<mapping class="com.tictypes.model.TicketTypesVO"/>
+		<mapping class="com.ticorder.model.TicketOrderVO"/>
+	    
 	    
     </session-factory>
 </hibernate-configuration>

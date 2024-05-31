@@ -1,0 +1,91 @@
+/* Modal container */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal content */
+.modal-content {
+  background-color: #fefefe;
+  margin: 30% auto; /* 調整模態框距離頂部的距離 */
+  padding: 0px;
+  border: 1px solid #888;
+  width: 60%; /* 調整模態框的寬度 */
+  max-width: 800px; /* 添加最大寬度限制 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow */
+  border-radius: 10px; /* Rounded corners */
+}
+
+/* Close button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+
+#modalBtn:hover {
+  background-color: #bdc0bd; /* Darker green */
+}
+
+.modal-content h2 {
+  text-align: center; /* 將標題居中 */
+}
+
+
+/* =====================================模態框底部============================================= */
+/* =====================================表格開始============================================= */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ddd;
+}
+th, td {
+  padding: 10px;
+  text-align: center;
+}
+th {
+  background-color: #f2f2f2;
+}
+.fixed-column {
+  position: sticky;
+  left: 0;
+  background-color: #f2f2f2;
+}
+.fixed-column th {
+  position: sticky;
+  left: 0;
+  background-color: #f2f2f2;
+  z-index: 1;
+}
+.main-column {
+max-width: 100px; /* 設置最大寬度 */
+max-height: 50px; /* 設置最大高度 */
+overflow: hidden; /* 使用 auto 而不是 hidden */
+white-space: nowrap; /* 防止文字換行 */
+ text-overflow: ellipsis; 
+ /* 字溢出時顯示省略號  */
+}
+ /* 當寬度超過 和高度超過時才顯示滾動條 */
+ div.table-container {
+  min-width: auto;
+  min-height: auto;
+  overflow: auto;
+}
+/* =====================================表格底部============================================= */
