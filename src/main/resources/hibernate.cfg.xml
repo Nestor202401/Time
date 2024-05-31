@@ -51,6 +51,10 @@
         <mapping class="com.movieimg.model.MovieImgVO"/>
         <mapping class="com.movietime.model.MovieTimeVO"/>
         <mapping class="com.cinema.model.CinemaVO"/>
+        
+        <!-- hkuma0218: 05/31 update 測試需要 05/28 修改為 MemberVO -->
+		<mapping class="com.tictypes.model.TicketTypesVO"/>
+		<mapping class="com.ticorder.model.TicketOrderVO"/>
 	    
 	    
     </session-factory>
