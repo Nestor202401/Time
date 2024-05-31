@@ -36,8 +36,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.product_detail.model.ProductDetailVO;
-
-import coi618_util.Coi618Util;
+import com.util.ProductUtil;
 
 public class ProductOrderDAO implements ProductOrderDAO_interface {
 	
@@ -45,7 +44,7 @@ public class ProductOrderDAO implements ProductOrderDAO_interface {
 	private SessionFactory factory;
 	
 	public ProductOrderDAO() { // 在呼叫 DAO 同時建立工廠
-		factory = Coi618Util.getSessionFactory(); 
+		factory = ProductUtil.getSessionFactory(); 
 	}
 	
 	// Q: 這跟直接拿來用有什麼不同? > 直接用也可以
