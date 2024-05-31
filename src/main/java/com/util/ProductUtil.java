@@ -1,4 +1,4 @@
-package coi618_util;
+package com.util;
 // Replace MyUtil.java
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,7 +15,7 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
-public final class Coi618Util {
+public final class ProductUtil {
 	public static final String DRIVER = "com.mysql.cj.jdbc.Driver";
 	
 	public static final String DB = "tia101_g2"; /* jdbcsample | g2_product | db01 | tia101_g2 */

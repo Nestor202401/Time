@@ -25,7 +25,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import coi618_util.Coi618Util;
+import com.util.ProductUtil;
 
 public class ProductDetailDAO implements ProductDetailDAO_interface {
 
@@ -33,7 +33,7 @@ public class ProductDetailDAO implements ProductDetailDAO_interface {
 	private SessionFactory factory;
 	
 	public ProductDetailDAO() { // 在呼叫 DAO 同時建立工廠
-		factory = Coi618Util.getSessionFactory(); 
+		factory = ProductUtil.getSessionFactory(); 
 	}
 	
 	// Q: 這跟直接拿來用有什麼不同? > 直接用也可以
