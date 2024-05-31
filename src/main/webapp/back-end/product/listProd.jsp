@@ -20,10 +20,13 @@
 	<table style="text-align:center;">
 		<c:choose>
 			<%-- prodList 為空的情況 --%>
-			<c:when test="${empty prodList}"><h3><font color=red>查無資料</font><h3></c:when>
+			<c:when test="${empty prodList}"><h3><font color=red>查無資料</font></h3></c:when>
 			<c:otherwise>
 			<%-- 欄位標題 --%>
-				<tr><th>商品 ID</th><th>品項</th><th>單價</th><th>上架日期</th><th>下架日期</th><th>銷售狀態</th><th>限時商品</th><th>縮圖</th></tr>	
+				<tr><th>商品 ID</th><th>品項</th><th>單價</th><th>上架日期</th><th>下架日期</th><th>銷售狀態</th><th>限時商品</th><th>縮圖</th><th>修改</th></tr>
+				<%--  
+				<th>限時商品</th><th>縮圖</th><th>修改</th>
+				--%>	
 		<%-- 用 let 報錯 
 		<c:forEach let="prod" items="${prodList}">
 		/back-end/product/listAllProd.jsp (line: [26], column: [2]) Attribute [let] invalid for tag [forEach] according to TLD
@@ -43,7 +46,19 @@
 							</c:choose>
 						</td>
 						<td>${prod.timeLimitProd}</td>
-						<td>縮圖</td>
+						<%-- 縮圖先不放，不該顯示在 list / BUG: Lazy init
+						<td>縮圖</td> 
+						<td><img alt="商品圖片" src="#" width="50px"></td>
+						--%>					  
+						<td><img alt="商品圖片" src="${pageContext.request.contextPath}/resources/images/product/${prod.prodImgs[0].imgName}" width="50px"></td>
+						<td>DEBUG-路徑顯示: ${prod.prodImgs[0].imgSrc}</td>
+						<td> <!-- 修改 -->
+							<form action="${pageContext.request.contextPath}/product/product.do" method="post">
+								<input type="submit" value="修改">
+								<input type="hidden" name=prodId value="${prod.prodId}">
+								<input type="hidden" name="action" value="getOneForUpdate">
+							</form>
+						</td>
 					</tr>
 				</c:forEach>
 			</c:otherwise>
