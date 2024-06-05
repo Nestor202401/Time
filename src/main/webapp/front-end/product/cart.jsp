@@ -87,17 +87,20 @@
 	</table>
 	<span>總金額</span>
 	<span>${total}</span>
-	${memberId}
 	<form action="${pageContext.request.contextPath}/product_cart/cart.do" method="post"> <%-- clearCart(memberId) --%>
 		<input type="hidden" name="action" value="clearCart">
 		<input type="hidden" name="memberId" value="${memberId}">
 		<button type="submit">刪除所有商品</button>
 	</form>
 	
-	<%-- <form action="${pageContext.request.contextPath}/product_cart/cart.do" method="post"> --%> <%-- ? checkout(memberId) --%>
-	<form action="#" method="post"> <%-- ? checkout(memberId) --%>
+	<%-- 
+	? checkout(memberId)
+	<form action="#" method="post">
+	 --%>
+	<form action="${pageContext.request.contextPath}/product_cart/cart.do" method="post">
 		<input type="hidden" name="action" value="checkOut">
 		<input type="hidden" name="memberId" value="${memberId}">
+		<input type="hidden" name="total" value="${total}">
 		<button type="submit">去結帳</button>
 	</form>
 	
