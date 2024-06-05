@@ -9,7 +9,7 @@ import javax.servlet.http.*;
 
 import com.tictypes.model.*;
 
-@WebServlet("/back-end/tictypes/TicketTictypesServlet")
+@WebServlet("/back-end/tictypes/tictypes.do")
 public class TicketTypesServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
