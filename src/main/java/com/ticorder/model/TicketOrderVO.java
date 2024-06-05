@@ -1,7 +1,9 @@
 package com.ticorder.model;
 
 import java.sql.Timestamp;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,10 +12,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.member.model.*;
-//import com.ticlist.model.TicketList;
+import com.ticlist.model.*;
 
 
 @Entity
@@ -37,8 +40,8 @@ public class TicketOrderVO implements java.io.Serializable{	//movie_ticket_order
 	@Column(name = "movie_order_total")
 	private Integer movieOrderTotal;	//總金額
 	
-//	@OneToMany(mappedBy = "movieOrderId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private List<TicketList> ticketLists; // 電影票明細清單
+	@OneToMany(mappedBy = "movieOrderId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<TicketListVO> ticketLists; // 電影票明細清單
 	
 	public TicketOrderVO() {
 		super();
@@ -88,12 +91,12 @@ public class TicketOrderVO implements java.io.Serializable{	//movie_ticket_order
 	public String getMovieOrderStatusText() {
 	    return movieOrderStatus ? "已完成" : "未完成";
 	}
-//	public List<TicketList> getTicketLists() {
-//		return ticketLists;
-//	}
-//
-//	public void setTicketLists(List<TicketList> ticketLists) {
-//		this.ticketLists = ticketLists;
-//	}
+	public List<TicketListVO> getTicketLists() {
+		return ticketLists;
+	}
+
+	public void setTicketLists(List<TicketListVO> ticketLists) {
+		this.ticketLists = ticketLists;
+	}
 	
 }
