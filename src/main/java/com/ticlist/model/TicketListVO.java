@@ -12,6 +12,9 @@ import javax.persistence.Table;
 
 import com.ticorder.model.*;
 import com.tictypes.model.*;
+import com.movie.model.*;
+import com.cinema.model.*;
+import com.movietime.model.*;
 
 @Entity
 @Table(name = "ticket_list")
@@ -23,14 +26,23 @@ public class TicketListVO implements java.io.Serializable{	//ticket_list電影�
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "movie_order_id", referencedColumnName = "movie_order_id")
-	private TicketOrderVO movieOrderId;	 //電影訂單ID
+	private TicketOrderVO movieOrderId;	 //電影ID
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "movie_id", referencedColumnName = "movie_id")
+	private MovieVO movieId;	 //電影訂單ID
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ticket_types_id", referencedColumnName = "ticket_types_id")
 	private TicketTypesVO ticketTypesId; //票種ID
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "cinema_id", referencedColumnName = "cinema_id")
+	private CinemaVO cinemaId;		//影廳ID
+	
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "show_times_id", referencedColumnName = "show_times_id")
-	private Integer showTimesId;		//場次ID
+	private MovieTimeVO showTimesId;		//場次ID
 	
 	@Column(name = "seat_number")
 	private String seatNumber;			//座位編號
@@ -46,13 +58,15 @@ public class TicketListVO implements java.io.Serializable{	//ticket_list電影�
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	public TicketListVO(Integer movieTicketId, TicketOrderVO movieOrderId, TicketTypesVO ticketTypesId,
-			Integer showTimesId, String seatNumber, String qrcode, Boolean ticketStatus) {
-		super();
+
+	public TicketListVO(Integer movieTicketId, TicketOrderVO movieOrderId, MovieVO movieId,
+			TicketTypesVO ticketTypesId, CinemaVO cinemaId, MovieTimeVO showTimesId, String seatNumber, String qrcode,
+			Boolean ticketStatus) {
 		this.movieTicketId = movieTicketId;
 		this.movieOrderId = movieOrderId;
+		this.movieId = movieId;
 		this.ticketTypesId = ticketTypesId;
+		this.cinemaId = cinemaId;
 		this.showTimesId = showTimesId;
 		this.seatNumber = seatNumber;
 		this.qrcode = qrcode;
@@ -71,10 +85,10 @@ public class TicketListVO implements java.io.Serializable{	//ticket_list電影�
 	public void setMovieOrderId(TicketOrderVO movieOrderId) {
 		this.movieOrderId = movieOrderId;
 	}
-	public Integer getShowTimesId() {
+	public MovieTimeVO getShowTimesId() {
 		return showTimesId;
 	}
-	public void setShowTimesId(Integer showTimesId) {
+	public void setShowTimesId(MovieTimeVO showTimesId) {
 		this.showTimesId = showTimesId;
 	}
 	public String getSeatNumber() {
@@ -101,4 +115,21 @@ public class TicketListVO implements java.io.Serializable{	//ticket_list電影�
 	public void setTicketTypesId(TicketTypesVO ticketTypesId) {
 		this.ticketTypesId = ticketTypesId;
 	}
+
+	public MovieVO getMovieId() {
+		return movieId;
+	}
+
+	public void setMovieId(MovieVO movieId) {
+		this.movieId = movieId;
+	}
+
+	public CinemaVO getCinemaId() {
+		return cinemaId;
+	}
+
+	public void setCinemaId(CinemaVO cinemaId) {
+		this.cinemaId = cinemaId;
+	}
+	
 }
