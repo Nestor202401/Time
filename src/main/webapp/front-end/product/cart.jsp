@@ -11,7 +11,7 @@
 	CartService cartSvc = new CartService();
 	List<CartVO> cartList = cartSvc.getCart(memberId); 
 	request.setAttribute("cartList", cartList); // 常沒有 set
-	request.setAttribute("prodSvc", prodSvc); // Service 也要 set
+	request.setAttribute("prodSvc", prodSvc); // Service 也要 set ?
 	// 總金額計算
 	int total = 0;
 	for (CartVO c : cartList) {

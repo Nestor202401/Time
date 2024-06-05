@@ -216,9 +216,9 @@ public class CartServlet extends HttpServlet {
 		}
 		
 		// DEBUG
-//		System.out.println("memberId: " + memberId);
-//		System.out.println("total: " + total);
-//		System.out.println("ordStatus: " + ordStatus);
+		System.out.println("memberId: " + memberId);
+		System.out.println("total: " + total);
+		System.out.println("ordStatus: " + ordStatus);
 		// DEBUG		
 
 		// --- 2. 存取DB ---
