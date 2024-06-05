@@ -4,10 +4,12 @@ import java.io.*;
 import java.util.*;
 
 import javax.servlet.*;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
 import com.tictypes.model.*;
 
+@WebServlet("/back-end/tictypes/TicketTictypesServlet")
 public class TicketTypesServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
@@ -207,5 +209,6 @@ public class TicketTypesServlet extends HttpServlet {
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 		}
+		
 	}
 }
