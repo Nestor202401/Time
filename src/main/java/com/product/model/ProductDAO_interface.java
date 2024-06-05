@@ -27,4 +27,6 @@ public interface ProductDAO_interface {
 	// Get imgs from product
 	List<ProductImgVO> getImgsByProdId(Integer prodId);
 
+	// 追加功能 
+	List<ProductVO> listOnSale(); 
 }

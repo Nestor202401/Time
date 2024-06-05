@@ -42,11 +42,15 @@ public class ProdServlet extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 		req.setCharacterEncoding("UTF-8");
-		
+		// === 後端 ===
 		// From productManage: 	getAll | CompositeQuery |findByPK
 		// From appProd: 		insert > insertOrUpdate
 		// From listPord: 		getOneForUpdate | delete > suspend (暫不實作)
 		// From updateProd:		update
+		
+		// === 前端 ===
+		// From shop:		frontFindByPK |
+		
 		String action = req.getParameter("action");  
 		String forwardPath = "";
 		
@@ -68,6 +72,11 @@ public class ProdServlet extends HttpServlet {
 				break;
 			case "update": // updateProd.jsp
 				forwardPath = update(req, res);
+				break;
+				
+			// === 前端 ===
+			case "frontFindByPK": // shop.jsp
+				forwardPath = frontFindByPK(req, res);
 				break;
 			default:
 				forwardPath = "index.jsp";
@@ -309,6 +318,20 @@ public class ProdServlet extends HttpServlet {
 		// 回傳 list | 
 		req.setAttribute("prodList", prodList);
 		return "/back-end/product/listProd.jsp"; // To listProd and show new obj if everything fine. Wrap to list
+	}
+
+	// === 前端 ===
+	private String frontFindByPK(HttpServletRequest req, HttpServletResponse res) {
+		// TODO Auto-generated method stub
+		// --- 1. 接收資料/錯誤處理 ---
+		Integer prodId = Integer.parseInt(req.getParameter("prodId"));
+		
+		// --- 2. 存取DB ---
+		ProductVO prodVO = prodSvc.getOneProd(prodId);
+		
+		// --- 3. 回傳 ---
+		req.setAttribute("prodVO", prodVO);
+		return "/front-end/product/productDetail.jsp";
 	}
 	// >=====<
 	// --- END of action call ---

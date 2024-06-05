@@ -15,7 +15,7 @@
 <title>Product Manage</title>
 </head>
 <body>
-	<h1>產品管理頁面 (抄 HibernateEx-Web/index.jsp)</h1>
+	<h1>產品管理頁面 - productManage.jsp</h1>
 	<%--  
 	<a href="#">查詢所有產品</a> 
 	--%>

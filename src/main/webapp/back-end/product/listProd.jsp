@@ -23,7 +23,18 @@
 			<c:when test="${empty prodList}"><h3><font color=red>查無資料</font></h3></c:when>
 			<c:otherwise>
 			<%-- 欄位標題 --%>
-				<tr><th>商品 ID</th><th>品項</th><th>單價</th><th>上架日期</th><th>下架日期</th><th>銷售狀態</th><th>限時商品</th><th>縮圖</th><th>修改</th></tr>
+				<tr>
+					<th>商品 ID</th>
+					<th>品項</th>
+					<th>單價</th>
+					<th>上架日期</th>
+					<th>下架日期</th>
+					<th>銷售狀態</th>
+					<th>限時商品</th>
+					<th>縮圖</th>
+					<th>修改</th>
+				</tr>
+					
 				<%--  
 				<th>限時商品</th><th>縮圖</th><th>修改</th>
 				--%>	

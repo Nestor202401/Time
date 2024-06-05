@@ -116,6 +116,15 @@ public class TestProdHibernate {
 			System.out.println(img);
 		}
 		System.out.println();
+		
+		// Test-5: listOnSale
+		List<ProductVO> testListOnSale = prodDao.listOnSale();
+		System.out.println("testListOnSale:");
+		printHead();
+		for (ProductVO p : testListOnSale) {
+			System.out.println(p);
+		}
+		System.out.println();
 	}
 	private static void printMap(Map<String, String> map, ProductDAO_interface prodDao) {
 		// This is List what(k,v) inside the map
