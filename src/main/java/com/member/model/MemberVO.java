@@ -64,6 +64,9 @@ public class MemberVO implements Serializable {
 	@Column(name = "is_admin", updatable = false)
 	private boolean isAdmin;
 	
+	@Column(name = "member_status")
+	private String memberStatus;
+	
 //	@Column(name = "verificationToken", updatable = false)
 	@Column(name = "verification_token", updatable = false) // fix - 05: to match name in DB
 	private String verificationToken;
@@ -193,6 +196,15 @@ public class MemberVO implements Serializable {
 	public void setIsAdmin(boolean isAdmin) {
 		this.isAdmin = isAdmin;
 	}
+	
+	public String getMemberStatus() {
+		return memberStatus;
+	}
+
+	public void setMemberStatus(String memberStatus) {
+		this.memberStatus = memberStatus;
+	}
+
 
 	@Override
 	public String toString() {
