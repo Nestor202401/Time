@@ -112,6 +112,13 @@ public class ProductService {
 		
 		return prodDao.CompositeQuery(query);
 	}
+	
+//	// TRY 06/01
+	public List<ProductVO> listOnSale() {
+		return prodDao.listOnSale();
+	}
+//	// TRY 06/01
+	
 	// Get imgs by product Id
 	public List<ProductImgVO> getImgsByProdId(Integer prodId) {
 		return prodDao.getImgsByProdId(prodId);

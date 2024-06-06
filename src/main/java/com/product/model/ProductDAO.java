@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -13,10 +14,9 @@ import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 
-import com.product_detail.model.ProductDetailVO;
 import com.product_img.model.ProductImgVO;
-import com.product_order.model.ProductOrderVO;
 import com.util.ProductUtil;
 
 public class ProductDAO implements ProductDAO_interface {
@@ -326,4 +326,49 @@ public class ProductDAO implements ProductDAO_interface {
 		return list;
 	}
 	// ---
+
+//	public class MyEntityDAO {
+//	    public List<MyEntity> findEntitiesWithRemoveDateNullOrAfterToday(Session session) {
+//	        String hql = "FROM MyEntity e WHERE e.removeDate IS NULL OR e.removeDate > :today";
+//	        Query<MyEntity> query = session.createQuery(hql, MyEntity.class);
+//	        query.setParameter("today", new Date(System.currentTimeMillis()));
+//	        return query.getResultList();
+//	    }
+//	}
+	@Override
+	public List<ProductVO> listOnSale() {
+		// TODO Auto-generated method stub
+		// 1. 銷售狀態為銷售中
+		// 2. 在 removeDate 之前，null 也取
+		
+		List<ProductVO> list = null; // list for return
+		String hql = "FROM ProductVO p WHERE p.removeDate IS NULL OR p.removeDate > :today";
+		Session session = factory.getCurrentSession();
+		try {
+			session.beginTransaction();
+			
+			Query<ProductVO> query = session.createQuery(hql, ProductVO.class);
+			query.setParameter("today", new Date(System.currentTimeMillis()));
+			list = query.getResultList();
+			
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			System.err.println("Exception Position: ProductDAO/listOnSale()");
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}
+		
+        // 現在 filteredProducts 包含所有 salStatus != 1 的項目
+		List<ProductVO> fileredlist = list.stream()
+				.filter(prod -> prod.getSalesStatus() == null || prod.getSalesStatus() != 1)
+				.collect(Collectors.toList());
+		
+		// DEBUG
+//		System.out.println("Had run ProductDAO/listOnSale(), list:");
+//		for (ProductVO p : fileredlist) System.out.println(p);
+//		System.out.println();
+		// DEBUG
+
+		return fileredlist;
+	}
 }

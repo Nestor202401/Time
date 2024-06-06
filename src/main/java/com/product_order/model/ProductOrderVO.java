@@ -23,12 +23,6 @@ import com.product_detail.model.ProductDetailVO;
 /* VO: Value Object || DTO: Data Transfer Object */
 
 
-/* Check how sql.Timestamp work
- * import java.sql.Timestamp;
- * test = Timestamp.valueOf("2024-4-16 08:50:50"); test ==> 2024-04-16 08:50:50.0
- * test.toString(); $11 ==> "2024-04-16 08:50:50.0"
- * jshell> test.getTime(); $12 ==> 1713228650000
- * */
 @Entity
 @Table(name="product_order")
 public class ProductOrderVO implements Serializable {

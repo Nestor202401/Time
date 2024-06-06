@@ -15,7 +15,7 @@
 <title>Product Manage</title>
 </head>
 <body>
-	<h1>產品管理頁面 (抄 HibernateEx-Web/index.jsp)</h1>
+	<h1>產品管理頁面 - productManage.jsp</h1>
 	<%--  
 	<a href="#">查詢所有產品</a> 
 	--%>
@@ -60,8 +60,8 @@
 				<input type="hidden" name="action" value="findByPK"> <!-- getOne_For_Display -->
 				<input type="submit" value="送出">
 			</form> <!-- 輸入商品 ID 結束 -->
-		</ul>
-	</li>
+		</li>
+	</ul>
 	
 	<h3><b>複合查詢: </b></h3>
 	<form action="${pageContext.request.contextPath}/product/product.do" method="post">
@@ -82,8 +82,7 @@
 				<input type="text" name="prodName"><br>
 			</li>
 			<li>	
-				<!-- 寫死 > 如何動態? -->
-				<!-- 以 -1 表示沒選 -->
+				<!-- 寫死 > 如何動態? > 以 -1 表示沒選 -->
 				<label>搜尋商品狀態: </label>
 				<select name="salesStatus">
 					<option value="-1">請選擇</option>

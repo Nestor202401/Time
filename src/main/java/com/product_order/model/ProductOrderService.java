@@ -133,7 +133,7 @@ public class ProductOrderService {
 	// 複合查詢 -> 未測試
 	// 參考小吳老師 Web/EmpServiceImpl.java，如果有需要，將 Service 介面與實作分離
 	// 這裡傳進的參數 map 由 Servlet/req.getParameterMap 導入
-	List<ProductOrderVO> CompositeQuery(Map<String, String[]> map) {
+	public List<ProductOrderVO> CompositeQuery(Map<String, String[]> map) {
 		Map<String, String> query = new HashMap<>(); // 準備丟給 DAO
 		
 		// Map.Entry 即代表一組 key-value
@@ -158,7 +158,7 @@ public class ProductOrderService {
 		return ordDao.CompositeQuery(query);
 	}
 	// 訂單Id 查所有明細
-	List<ProductDetailVO> getDetailsByOrderId(Integer prodOrdId) {
+	public List<ProductDetailVO> getDetailsByOrderId(Integer prodOrdId) {
 		return ordDao.getDetailsByOrderId(prodOrdId);
 	}
 	

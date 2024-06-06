@@ -11,8 +11,21 @@
 </head>
 <body>
 	<h3><b>新增商品: </b></h3>
-	<form action="${pageContext.request.contextPath}/product/product.do" method="post"> <!-- name="form1" -->
+	<%-- 
+	無上傳 
+	<form action="${pageContext.request.contextPath}/product/product.do" method="post">  
+	1. 修改上傳格式
+	--%> <!-- name="form1" -->
+	<form action="${pageContext.request.contextPath}/product/product.do" method="post" enctype="multipart/form-data">
+	
 		<table>
+			<%-- 如果沒有，就是新增 (其它處理完再說) 
+			<tr>
+				<td>商品ID:</td>
+				<td><input type="text" name="prodId" value="${param.prodId == null ? '新增' : param.prodId}"></td>
+				<td>${errorMsgs.prodName}<td> 
+			</tr>
+			--%>
 			<tr>
 				<td>商品名稱:</td>
 				<td><input type="text" name="prodName" value="${param.prodName}"></td>
@@ -62,6 +75,15 @@
 					</td>
 				<td>${errorMsgs.timeLimitProd}<td> 
 			</tr>
+			<!-- 
+			HERE 2. addProd 加上圖片欄 > ProdServlet.java > 暫不處理 
+			<tr>
+			    <td>商品圖片:</td>
+			    <td><input type="file" name="prodImg"></td>
+			    <td>${errorMsgs.prodImg}<td>
+			</tr>
+			-->
+						
 			
 		</table>
 		<input type="hidden" name="action" value="insert"> 

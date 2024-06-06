@@ -1,5 +1,6 @@
 package com.product.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.List;
@@ -8,15 +9,22 @@ import java.util.TreeMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import com.product.model.ProductService;
 import com.product.model.ProductVO;
 
 @WebServlet("/product/product.do")
+// 3. 上傳檔案 Annotation
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
+						maxFileSize = 1024 * 1024 * 10,      // 10MB
+						maxRequestSize = 1024 * 1024 * 50)   // 50MB
+
 public class ProdServlet extends HttpServlet {
 	// A Servlet with 1 service
 	private ProductService prodSvc;
@@ -34,10 +42,15 @@ public class ProdServlet extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 		req.setCharacterEncoding("UTF-8");
-		
+		// === 後端 ===
 		// From productManage: 	getAll | CompositeQuery |findByPK
-		// From appProd: 		insert
-		// From listPord: 		update | delete > suspend
+		// From appProd: 		insert > insertOrUpdate
+		// From listPord: 		getOneForUpdate | delete > suspend (暫不實作)
+		// From updateProd:		update
+		
+		// === 前端 ===
+		// From shop:		frontFindByPK |
+		
 		String action = req.getParameter("action");  
 		String forwardPath = "";
 		
@@ -53,6 +66,17 @@ public class ProdServlet extends HttpServlet {
 				break;
 			case "insert": // addProd.jsp
 				forwardPath = insert(req, res);
+				break;
+			case "getOneForUpdate": // addProd.jsp
+				forwardPath = getOneForUpdate(req, res);
+				break;
+			case "update": // updateProd.jsp
+				forwardPath = update(req, res);
+				break;
+				
+			// === 前端 ===
+			case "frontFindByPK": // shop.jsp
+				forwardPath = frontFindByPK(req, res);
 				break;
 			default:
 				forwardPath = "index.jsp";
@@ -100,9 +124,6 @@ public class ProdServlet extends HttpServlet {
 		prodVO.setReleaseDate(releaseDate);
 			// 5. 下架日期: removeDate
 		String removeDateStr = req.getParameter("removeDate");
-		// DEBUG
-		System.out.println("removeDateStr: " + removeDateStr);
-		// DEBUG
 		Date removeDate = checkRemoveDate(removeDateStr, errorMsgs);
 		prodVO.setRemoveDate(removeDate);
 			// 6. 銷售狀態: salesStatus | 0:銷售中, 1:停售
@@ -113,6 +134,12 @@ public class ProdServlet extends HttpServlet {
 		String timeLimitProdStr = req.getParameter("timeLimitProd");
 		Boolean timeLimitProd = checkTimeLimitProd(timeLimitProdStr, errorMsgs);
 		prodVO.setTimeLimitProd(timeLimitProd);
+		
+			// 8. 獲取上傳的文件 HERE 4. 取得上傳文件(未做錯誤處理/未包裝)
+//        Part filePart = request.getPart("prodImg");
+//        String fileName = extractFileName(filePart);
+//        String savePath = getServletContext().getRealPath("") + File.separator + "upload" + File.separator + fileName;
+//        filePart.write(savePath);
 		
 		// DEBUG
 		System.out.println("Error check in ProdServlet/insert() | this is NOT error msg.");
@@ -208,8 +235,105 @@ public class ProdServlet extends HttpServlet {
 		return "/back-end/product/listProd.jsp"; // 這兩頁有不同嗎? 
 //		return "/product/listCompositeQueryProds.jsp"; // 還沒寫 jsp 
 	} // END of getCompositeQueryProds()
+
+	private String getOneForUpdate(HttpServletRequest req, HttpServletResponse res) {
+		// TODO Auto-generated method stub
+		// 先準備起來，之後會需要錯誤處理的話
+		Map<String, String> errorMsgs = new TreeMap<>(); // Why TreeMap? 先任找一個 Map，有空再看什麼比較好
+		req.setAttribute("errorMsgs", errorMsgs); // errorMsgs 的 Attribute 先設定好
+		
+		// --- 1. 錯誤處理 ---
+		Integer prodId = Integer.valueOf(req.getParameter("prodId")); // 從 listProd.jsp 取得prodId
+		
+		// --- 2. 存取DB ---
+		ProductVO prodVO = prodSvc.getOneProd(prodId); // 從 prodId 取得 prodVO
+
+		// --- 3. 回傳 list | 
+		req.setAttribute("prodVO", prodVO); 
+		return "/back-end/product/updateProd.jsp"; // forward to updateProd.jsp // 還沒寫
+		
+	} // END of getOneForUpdate()
+
+	private String update(HttpServletRequest req, HttpServletResponse res) {
+		// TODO Auto-generated method stub
+		List<ProductVO> prodList = null; // for return
+		ProductVO prodVO = new ProductVO(); // for wrap
+		
+		Map<String, String> errorMsgs = new TreeMap<>(); // Why use TreeMap? 
+		req.setAttribute("errorMsgs", errorMsgs);
+		
+		// --- 1. 錯誤處理 ---
+		
+			// 0. 商品 ID: prodId
+		String prodIdStr = req.getParameter("prodId");
+		Integer prodId = checkProdId(prodIdStr, errorMsgs);
+		prodVO.setProdId(prodId);
+			// 1. 商品名稱: prodName
+		String prodNameStr = req.getParameter("prodName"); // 取得值
+		String prodName = checkProdName(prodNameStr, errorMsgs); // 檢查
+		prodVO.setProdName(prodName); // 設定 VO
+			// 2. 商品介紹: prodIntro
+		String prodIntroStr = req.getParameter("prodIntro");
+		String prodIntro = checkProdIntro(prodIntroStr, errorMsgs); 
+		prodVO.setProdIntro(prodIntro);
+			// 3. 商品價格: prodPrice
+		String prodPriceStr = req.getParameter("prodPrice");
+		Integer prodPrice = checkProdPrice(prodPriceStr, errorMsgs);
+		prodVO.setProdPrice(prodPrice);
+			// 4. 上架日期: releaseDate
+		String releaseDateStr = req.getParameter("releaseDate");
+		Date releaseDate = checkReleaseDate(releaseDateStr, errorMsgs);
+		prodVO.setReleaseDate(releaseDate);
+			// 5. 下架日期: removeDate
+		String removeDateStr = req.getParameter("removeDate");
+		Date removeDate = checkRemoveDate(removeDateStr, errorMsgs);
+		prodVO.setRemoveDate(removeDate);
+			// 6. 銷售狀態: salesStatus | 0:銷售中, 1:停售
+		String salesStatusStr = req.getParameter("salesStatus");
+		Integer salesStatus = checkSalesStatus(salesStatusStr, errorMsgs);
+		prodVO.setSalesStatus(salesStatus);
+			// 7. 限時商品: timeLimitProd | true:限時 false:非限時
+		String timeLimitProdStr = req.getParameter("timeLimitProd");
+		Boolean timeLimitProd = checkTimeLimitProd(timeLimitProdStr, errorMsgs);
+		prodVO.setTimeLimitProd(timeLimitProd);
+		
+		// DEBUG
+		System.out.println("Error check in ProdServlet/update() | this is NOT error msg.");
+		for (var entry : errorMsgs.entrySet()) {
+			System.out.printf("Key: %s, Value: %s%n", entry.getKey(), entry.getValue());
+		}
+		// DEBUG
+		
+		// 回傳報錯
+		if (!errorMsgs.isEmpty()) {
+			req.setAttribute("prodVO", prodVO);	// 保留之前寫的資料
+			return "/back-end/product/updateProd.jsp"; // 回到 updateProd.jsp 
+		}
+		
+		// --- 2. 存取DB ---
+//		prodVO = prodSvc.addProd(prodVO); // 新增 prodVO 同時取得新 prodVO
+		prodVO = prodSvc.updateProd(prodVO); // 修改 prodVO 同時取得 prodVO
+		// --- 3. 回傳 ---
+		prodList = prodSvc.getOneProdAsList(prodVO.getProdId()); // 將新 prodVO 包成 list, 顯示在 listProd.jsp
+		// 回傳 list | 
+		req.setAttribute("prodList", prodList);
+		return "/back-end/product/listProd.jsp"; // To listProd and show new obj if everything fine. Wrap to list
+	}
+
+	// === 前端 ===
+	private String frontFindByPK(HttpServletRequest req, HttpServletResponse res) {
+		// TODO Auto-generated method stub
+		// --- 1. 接收資料/錯誤處理 ---
+		Integer prodId = Integer.parseInt(req.getParameter("prodId"));
+		
+		// --- 2. 存取DB ---
+		ProductVO prodVO = prodSvc.getOneProd(prodId);
+		
+		// --- 3. 回傳 ---
+		req.setAttribute("prodVO", prodVO);
+		return "/front-end/product/productDetail.jsp";
+	}
 	// >=====<
-	
 	// --- END of action call ---
 	
 	// --- check() ---
@@ -311,7 +435,7 @@ public class ProdServlet extends HttpServlet {
 	private Date checkRemoveDate(String removeDateStr, Map<String, String> errorMsgs) {
 		// TODO Auto-generated method stub
 		if (removeDateStr == null || removeDateStr.trim().isEmpty()) {
-			errorMsgs.put("removeDate", "請勿空白"); // 這行可以移除，不在 errorMsgs 裡放資料
+//			errorMsgs.put("removeDate", "請勿空白"); // 這行可以移除，不在 errorMsgs 裡放資料
 			return null; // 後面就別驗了
 		} 
 		if(!isDateFormat(removeDateStr)) {
@@ -349,8 +473,8 @@ public class ProdServlet extends HttpServlet {
 			return null; // 後面就別驗了
 		} 
 		// 用 reg 驗証
-		String regTimeLimitProd = "^true|false$"; // 可輸入0、1
-		if (!timeLimitProdStr.toLowerCase().matches(regTimeLimitProd)) {
+		String regTimeLimitProd = "^true|false$"; // 可輸入true/false
+		if (!timeLimitProdStr.toLowerCase().matches(regTimeLimitProd)) { // 先轉小寫
 			errorMsgs.put("timeLimitProd", "請告訢我你是怎麼做到的...");
 			// DEBUG
 //			System.out.println("timeLimitProd error: 驗証-REG");
