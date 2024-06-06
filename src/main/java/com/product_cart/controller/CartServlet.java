@@ -29,16 +29,16 @@ public class CartServlet extends HttpServlet {
 	// --- Service/DAO/還有什麼要放在裡? ---
 	private ProductService prodSvc;
 	private CartService cartSvc;
-	private ProductOrderService prodOrdSvc; // HERE_2
-	private ProductDetailService prodDetailSvc; // HERE_2
+	private ProductOrderService prodOrdSvc; 
+	private ProductDetailService prodDetailSvc; 
 	// --- Servlet 原生 ---
 	
 	@Override
 	public void init() throws ServletException {
 		prodSvc = new ProductService();
 		cartSvc = new CartService();
-		prodOrdSvc = new ProductOrderService(); // HERE_2
-		prodDetailSvc = new ProductDetailService(); // HERE_2
+		prodOrdSvc = new ProductOrderService(); 
+		prodDetailSvc = new ProductDetailService(); 
 		
 	}
 	// >=====<
@@ -224,7 +224,6 @@ public class CartServlet extends HttpServlet {
 		// --- 2. 存取DB ---
 //		cartList = cartSvc.getCart(memberId);
 		// 1. 建立訂單 > 取得 prodOrdId
-//		ProductOrderService prodOrdSvc = new ProductOrderService(); // HERE_2
 		ProductOrderVO prodOrdVO = new ProductOrderVO();
 		// 應用 memberId 取得 memberVO
 		prodOrdVO.setMember(getTestMember4()); // 放入假的會員
@@ -238,8 +237,6 @@ public class CartServlet extends HttpServlet {
 		Integer prodOrdId = prodOrdVO.getProdOrdId();
 		
 		// 2. 建立明細 
-//		ProductService prodSvc = new ProductService(); // HERE_2
-//		ProductDetailService prodDetailSvc = new ProductDetailService(); // HERE_2
 		List<ProductDetailVO> detailList = new ArrayList<>(); // 放明細 list
 		for (CartVO cart : cartList) {
 			ProductDetailVO detailVO = new ProductDetailVO();
@@ -272,27 +269,54 @@ public class CartServlet extends HttpServlet {
 		return "/front-end/product/creditCardPay.jsp";
 	} // END of goPay()
 	
-	// >=====<
 	private String payByCard(HttpServletRequest req, HttpServletResponse res) {
 		// TODO Auto-generated method stub
 		// --- 0. 宣告 ---
-		Integer prodOrdId;
+		ProductOrderVO prodOrdVO; // 帶到結帳完成頁，完成訂單
+		String cardId; // 可能0開頭?
+		String cardName;
+		String expiryYear;
+		String expiryMonth;
+		String cvv;
 		
 		Map<String, String> errorMsgs = new TreeMap<>(); // 錯誤處理 
 		req.setAttribute("errorMsgs", errorMsgs);
 		// --- 1. 接收資料/錯誤處理/運算 ---
 //		Integer memberId = Integer.parseInt(req.getParameter("memberId"));
-		prodOrdId = Integer.parseInt(req.getParameter("prodOrdId"));
+		prodOrdVO = prodOrdSvc.getOneOrder(Integer.parseInt(req.getParameter("prodOrdId")));
+		// 檢查資料
+		cardId = checkCardId(req.getParameter("cardId"), errorMsgs); 
+		cardName = checkCardName(req.getParameter("cardName"), errorMsgs);
+		expiryYear = checkExpiryYear(req.getParameter("expiryYear"), errorMsgs);
+		expiryMonth = checkExpiryMonth(req.getParameter("expiryMonth"), errorMsgs);
+		cvv = checkCvv(req.getParameter("cvv"), errorMsgs);
+		
+		// 存入信用卡 & PorductOrder, 準備錯誤回傳
+		req.setAttribute("cardId", cardId);
+		req.setAttribute("cardName", cardName);
+		req.setAttribute("expiryYear", expiryYear);
+		req.setAttribute("expiryMonth", expiryMonth);
+		req.setAttribute("cvv", cvv);
+		req.setAttribute("prodOrdVO", prodOrdVO);
+		
+		// 回傳報錯
+		if (!errorMsgs.isEmpty()) {
+			return "/front-end/product/creditCardPay.jsp"; // 回到 checkOut.jsp
+		}
 		// HERE
 		// --- 2. 存取DB ---
-//		cartSvc.clearCart(memberId);
-		
+		prodOrdVO.setOrdStatus(1); // 付款完成 -> 訂單完成
+		prodOrdSvc.updateOrder(prodOrdVO);
+		// DEBUG
+		System.out.println("CartServlet/payByCard()\n" + prodOrdSvc.getOneOrder(prodOrdVO.getProdOrdId()));
+		// DEBUG
 		// --- 3. 回傳 ---
-		return "/front-end/product/shop.jsp"; // 回商城首頁
+		return "/front-end/product/payCompleted.jsp"; // 結帳完成
 	} // END of payByCard()
+	
+	// >=====<
 	// --- END of action call ---
-	
-	
+		
 	// --- check() ---
 	private String checkRecipient(String recipient, Map<String, String> errorMsgs) {
 		if (recipient == null || recipient.trim().isEmpty()) {
@@ -306,7 +330,7 @@ public class CartServlet extends HttpServlet {
 			// DEBUG
 			System.out.println("CartServlet.java/checkRecipient(): recipient error: 驗証超出120字-REG");
 			// DEBUG
-			return null;
+			return recipient;
 		}
 		return recipient;
 	} // END of checkRecipient()
@@ -314,20 +338,92 @@ public class CartServlet extends HttpServlet {
 	private String checkRecAddr(String recAddr, Map<String, String> errorMsgs) {
 		// TODO Auto-generated method stub
 		if (recAddr == null || recAddr.trim().isEmpty()) {
-		errorMsgs.put("recAddr", "請勿空白");
-		return null; // 後面就別驗了
-	}
-	// 用 reg 驗証
-	String regRecAddr = "^[\\s\\S]{1,120}$";
-	if (!recAddr.matches(regRecAddr)) {
-		errorMsgs.put("recAddr", "請勿超出 120 字");
-		// DEBUG
-		System.out.println("CartServlet.java/checkRecAddr(): recAddr error: 驗証超出120字-REG");
-		// DEBUG
-		return null;
-	}
-	return recAddr;
+			errorMsgs.put("recAddr", "請勿空白");
+			return null; // 後面就別驗了
+		}
+		// 用 reg 驗証
+		String regRecAddr = "^[\\s\\S]{1,120}$";
+		if (!recAddr.matches(regRecAddr)) {
+			errorMsgs.put("recAddr", "請勿超出 120 字");
+			// DEBUG
+			System.out.println("CartServlet.java/checkRecAddr(): recAddr error: 驗証超出120字-REG");
+			// DEBUG
+			return recAddr;
+		}
+		return recAddr;
 	} // END of checkRecAddr()
+
+	private String checkCardId(String cardId, Map<String, String> errorMsgs) {
+		// TODO Auto-generated method stub
+		if (cardId == null || cardId.trim().isEmpty()) {
+			errorMsgs.put("cardId", "請勿空白");
+			return null; // 後面就別驗了
+		}
+		// 用 reg 驗証
+		String regCardId = "^[0-9]{16}$";
+		if (!cardId.matches(regCardId)) {
+			errorMsgs.put("cardId", "請輸入16位數字");
+			// DEBUG
+			System.out.println("CartServlet.java/checkCardId(): cardId error: 驗証16位數字-REG");
+			// DEBUG
+			return cardId;
+		}
+		return cardId;
+	} // END of checkCardId()
+	
+	private String checkCardName(String cardName, Map<String, String> errorMsgs) {
+		// TODO Auto-generated method stub
+		if (cardName == null || cardName.trim().isEmpty()) {
+			errorMsgs.put("cardName", "請勿空白");
+			return null; // 後面就別驗了
+		}
+		// 用 reg 驗証
+		String regCardName = "^[a-zA-Z]+(?: [a-zA-Z]+)*$"; // 字母 *(" "字母)
+		if (!cardName.matches(regCardName)) {
+			errorMsgs.put("cardName", "請勿超出 120 字");
+			// DEBUG
+			System.out.println("CartServlet.java/checkCardName(): cardName error: 驗証超出120字-REG");
+			// DEBUG
+			return cardName;
+		}
+		return cardName;
+	} // END of checkCardName()
+
+	private String checkExpiryYear(String expiryYear, Map<String, String> errorMsgs) {
+		// TODO Auto-generated method stub
+		if (expiryYear == null || expiryYear.trim().isEmpty()) {
+			errorMsgs.put("expiryYear", "請勿空白");
+			return null; // 後面就別驗了
+		}
+		return expiryYear;
+	}
+	
+	private String checkExpiryMonth(String expiryMonth, Map<String, String> errorMsgs) {
+		// TODO Auto-generated method stub
+		if (expiryMonth == null || expiryMonth.trim().isEmpty()) {
+			errorMsgs.put("expiryMonth", "請勿空白");
+			return null; // 後面就別驗了
+		}
+		return expiryMonth;
+	}
+
+	private String checkCvv(String cvv, Map<String, String> errorMsgs) {
+		// TODO Auto-generated method stub
+		if (cvv == null || cvv.trim().isEmpty()) {
+			errorMsgs.put("cvv", "請勿空白");
+			return null; // 後面就別驗了
+		}
+		// 用 reg 驗証
+		String regCvv = "^[0-9]{3}$";
+		if (!cvv.matches(regCvv)) {
+			errorMsgs.put("cvv", "請輸入 3位數字");
+			// DEBUG
+			System.out.println("CartServlet.java/checkCvv(): cvv error: 驗証 3位數字-REG");
+			// DEBUG
+			return cvv;
+		}
+		return cvv;
+	}
 	// >=====<
 	// --- END of check() ---	
 	
