@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -53,8 +54,9 @@ public class ProductVO implements Serializable {
 	@OneToMany(mappedBy = "prodVO", cascade = CascadeType.ALL)
 	private List<ProductDetailVO> prodDetails;
 	
-	// For 1-To-*(img), ProductImgVO.java must have var: prod, CascadeType=All
-	@OneToMany(mappedBy = "prodVO", cascade = CascadeType.ALL)
+	// For 1-To-*(img), ProductImgVO.java must have var: prod, CascadeType=All fetch = FetchType.EAGER
+//	@OneToMany(mappedBy = "prodVO", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "prodVO", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<ProductImgVO> prodImgs;
 	
 	// Constructor 
