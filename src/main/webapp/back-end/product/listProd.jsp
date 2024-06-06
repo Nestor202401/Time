@@ -8,15 +8,7 @@
 </head>
 <body>
 	<h1>產品列表 - listProd.jsp</h1>
-	<%-- 分頁設定  
-	<c:if test="${prodPageQty > 0}">
-		<b><font color = red>第${currentPage}/${prodPageQty}頁</font></b>
-	</c:if>
-	--%>
 	<br>
-	<%-- 圖片顯示
-	<img width="140px" height="100px" alt="要飛囉貓貓" src="${pageContext.request.contextPath}/img/cat.png">
-	--%>
 	<table style="text-align:center;">
 		<c:choose>
 			<%-- prodList 為空的情況 --%>
@@ -33,16 +25,8 @@
 					<th>限時商品</th>
 					<th>縮圖</th>
 					<th>修改</th>
-				</tr>
-					
-				<%--  
-				<th>限時商品</th><th>縮圖</th><th>修改</th>
-				--%>	
-		<%-- 用 let 報錯 
-		<c:forEach let="prod" items="${prodList}">
-		/back-end/product/listAllProd.jsp (line: [26], column: [2]) Attribute [let] invalid for tag [forEach] according to TLD
-		--%>
-			<%-- 列舉欄位內容 --%>
+				</tr>				
+				<%-- 列舉欄位內容 --%>
 				<c:forEach var="prod" items="${prodList}">
 					<tr>
 						<td>${prod.prodId}</td>
@@ -59,10 +43,10 @@
 						<td>${prod.timeLimitProd}</td>
 						<%-- 縮圖先不放，不該顯示在 list / BUG: Lazy init
 						<td>縮圖</td> 
+						<td>DEBUG-路徑顯示: ${prod.prodImgs[0].imgSrc}</td>
 						<td><img alt="商品圖片" src="#" width="50px"></td>
 						--%>					  
 						<td><img alt="商品圖片" src="${pageContext.request.contextPath}/resources/images/product/${prod.prodImgs[0].imgName}" width="50px"></td>
-						<td>DEBUG-路徑顯示: ${prod.prodImgs[0].imgSrc}</td>
 						<td> <!-- 修改 -->
 							<form action="${pageContext.request.contextPath}/product/product.do" method="post">
 								<input type="submit" value="修改">
@@ -75,30 +59,10 @@
 			</c:otherwise>
 		</c:choose>
 	</table>	
-
-	<%-- 分頁設定 
-	<c:if test="${currentPage > 1}">
-	<a href="${pageContext.request.contextPath}/emp/emp.do?action=getAll&page=1">至第一頁</a>&nbsp;
-	</c:if>
-	<c:if test="${currentPage - 1 != 0}">
-		<a href="${pageContext.request.contextPath}/emp/emp.do?action=getAll&page=${currentPage - 1}">上一頁</a>&nbsp;
-	</c:if>
-	<c:if test="${currentPage + 1 <= empPageQty}">
-		<a href="${pageContext.request.contextPath}/emp/emp.do?action=getAll&page=${currentPage + 1}">下一頁</a>&nbsp;
-	</c:if>
-	<c:if test="${currentPage != empPageQty}">
-		<a href="${pageContext.request.contextPath}/emp/emp.do?action=getAll&page=${empPageQty}">至最後一頁</a>&nbsp;
-	</c:if>
-	--%>	
 	<br>
-	<%-- 圖片顯示 
-	<img width="140px" height="100px" alt="要飛囉貓貓" src="${pageContext.request.contextPath}/img/inversecat.png">
-	--%>
-	<br><br>
 	
 	<!-- http://localhost:8081/Time/back-end/product/productManage.jsp -->
-	<a href="${pageContext.request.contextPath}/back-end/product/productManage.jsp">回首頁</a>
-	<!-- /index.jsp  |  /product/productManage.jsp -->	
+	<a href="${pageContext.request.contextPath}/back-end/product/productManage.jsp">回首頁</a>	
 	
 </body>
 </html>

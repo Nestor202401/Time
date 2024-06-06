@@ -33,6 +33,7 @@
 		</select>
 		<label for="expiryMonth">到期月份</label>
 		<select id="expiryMonth" name="expiryMonth" required>
+			<option value="">月</option>
 			<c:forEach var="m" begin="1" end="12">
 		        <option value="${m}" ${expiryMonth == m ? 'selected' : ''}>${m}</option>
 		    </c:forEach>
@@ -63,8 +64,13 @@
 		<input type="submit" value="支付">
 		<input type="hidden" name="action" value="payByCard">
 		<input type="hidden" name="prodOrdId" value="${prodOrdVO.prodOrdId}">
+		<%-- 
 		--prodOrdVO.prodOrdId: ${prodOrdVO.prodOrdId}--
+		 --%>
 	</form>
-	
+	<br><br>
+	<button onclick="window.location.href='${pageContext.request.contextPath}/front-end/product/shop.jsp'">																	
+        回商城首頁
+    </button>
 </body>
 </html>

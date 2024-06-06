@@ -162,10 +162,17 @@ public class CartServlet extends HttpServlet {
 		Integer memberId;
 		List<CartVO> cartList;
 		Integer total;
+		String msg = "請選購商品"; // 結帳金額為 0時，顯示訊息
 		
 		// --- 1. 接收資料/錯誤處理/運算 ---
 		memberId = Integer.parseInt(req.getParameter("memberId"));
 		total = Integer.parseInt(req.getParameter("total"));
+		
+		if(total == 0) {
+			
+			req.setAttribute("msg", msg);
+			return "/front-end/product/shop.jsp";
+		}
 		
 		System.out.println("MemberId: " + memberId);
 		// --- 2. 存取DB ---
@@ -380,7 +387,7 @@ public class CartServlet extends HttpServlet {
 		// 用 reg 驗証
 		String regCardName = "^[a-zA-Z]+(?: [a-zA-Z]+)*$"; // 字母 *(" "字母)
 		if (!cardName.matches(regCardName)) {
-			errorMsgs.put("cardName", "請勿超出 120 字");
+			errorMsgs.put("cardName", "請輸入英文，以空白間隔");
 			// DEBUG
 			System.out.println("CartServlet.java/checkCardName(): cardName error: 驗証超出120字-REG");
 			// DEBUG

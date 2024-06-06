@@ -64,5 +64,9 @@
 			</tbody>	
 		</table>
 	</form>
+	<br><br>
+	<button onclick="window.location.href='${pageContext.request.contextPath}/front-end/product/shop.jsp'">																	
+        回商城首頁
+    </button>
 </body>
 </html>

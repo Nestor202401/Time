@@ -61,9 +61,10 @@
 			</c:forEach>
 		</tbody>
 	</table>
-
+<%-- 不手動新增訂單
 	<a href="${pageContext.request.contextPath}/back-end/productorder/addOrder.jsp">
-		<button type="submit" class="btn btn-block bg-gradient-success">新增訂單</button>
+		<button type="submit" class="btn btn-block bg-gradient-success">新增訂單</button>${ }
 	</a>
+ --%>	
 </body>
 </html>

@@ -8,8 +8,8 @@
 </head>
 <body>
 	<h1>完成付款 - payCompleted.jsp</h1>
-	${prodOrdVO}
 <%-- 	
+	${prodOrdVO}
 org.hibernate.LazyInitializationException: failed to lazily initialize a collection of role: com.product_order.model.ProductOrderVO.prodDetails, could not initialize proxy - no Session
 	<c:forEach var="detail" items="${prodOrdVO.getProdDetails()}">
 		${detail}

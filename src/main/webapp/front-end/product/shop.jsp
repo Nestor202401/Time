@@ -24,7 +24,7 @@
 		3. 顯示購物車
 		4. 結帳 (怎麼顯示信用卡?)
 	--%>
-	
+	<label>${msg}</label>
 	<table>
 		<thead>
 			<tr>
@@ -59,5 +59,10 @@
 			</c:forEach>
 		</tbody>
 	</table>
+	<br><br>
+	<button onclick="window.location.href='${pageContext.request.contextPath}/front-end/product/cart.jsp'">																
+        顯示購物車
+    </button>
+    
 </body>
 </html>
