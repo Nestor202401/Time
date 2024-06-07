@@ -27,10 +27,10 @@
 </head>
 <body>
     <div class="container">
-        <h2>購買成功</h2>
-        <p>您已成功購買以下座位：</p>
-        <p><strong>${seatNumbers}</strong></p>
-        <a href="cinema.do?action=query_session&sessionId=${sessionId}">返回场次查询</a>
+        <h2>修改成功</h2>
+<!--         <p>您已成功購買以下座位：</p> -->
+<%--         <p><strong>${seatNumbers}</strong></p> --%>
+<!--         <a href="">返回</a> -->
     </div>
 </body>
 </html>

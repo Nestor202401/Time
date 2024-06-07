@@ -3,7 +3,7 @@ package com.movie.model;
 import java.util.*;
 
 public interface MovieDAO_interface {
-          public void insert(MovieVO movieVO);
+	      public int insert(MovieVO movieVO);
           public void update(MovieVO movieVO);
           public void delete(Integer movieId);
           public MovieVO findByPrimaryKey(Integer movieId);

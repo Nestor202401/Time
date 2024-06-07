@@ -36,7 +36,7 @@ public class RedisUtil {
         return jedis.keys("session:" + sessionId + ":seat:*");
     }
     
- // 获取剩余的TTL时间（秒）
+ // 獲取剩余的TTL時間（秒）
     public static long getSeatTTL(String seatKey) {
         return jedis.ttl(seatKey);
     }

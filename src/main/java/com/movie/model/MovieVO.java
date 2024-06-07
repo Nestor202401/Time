@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.movieimg.model.MovieImgService;
 import com.movieimg.model.MovieImgVO;
 import com.movietime.model.MovieTimeVO;
 
@@ -49,7 +50,17 @@ public class MovieVO implements java.io.Serializable {
     @Column(name = "introduction", columnDefinition="TEXT")
     private String introduction;
     
-    @OneToMany(mappedBy = "movieVO", cascade = CascadeType.ALL, orphanRemoval = true)
+    private String firstImage;
+    
+    public String getFirstImage() {
+		return firstImage;
+	}
+
+	public void setFirstImage(String firstImage) {
+		this.firstImage = firstImage;
+	}
+
+	@OneToMany(mappedBy = "movieVO", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<MovieImgVO> movieImgs;
     
     @OneToMany(mappedBy = "movieVO", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -156,5 +167,5 @@ public class MovieVO implements java.io.Serializable {
 				+ getIntroduction() + ", getMovieImgs()=" + getMovieImgs() + ", getClass()=" + getClass()
 				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
-
+	
 }

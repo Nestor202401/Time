@@ -2,6 +2,7 @@ package com.movie.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import com.google.gson.Gson;
 import com.movie.model.MovieService;
 import com.movie.model.MovieVO;
 import com.movieimg.model.MovieImgService;
@@ -528,5 +530,40 @@ public class MovieServlet extends HttpServlet {
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
 				successView.forward(req, res);
 		}
+
+		if ("getHotMovies".equals(action)) {
+		    MovieService movieSvc = new MovieService();
+		    String type = req.getParameter("type");
+		    List<MovieVO> list = new ArrayList<>();
+		    
+		    if("four".equals(type)) {
+		    	 list = movieSvc.getHotMoviesFourImg();
+		    }else if("all".equals(type)) {
+		    	 list = movieSvc.getHotMoviesWithImg();
+		    }else if("coming".equals(type)) {
+		    	 list = movieSvc.getcomingSoonWithImg();
+		    }
+		    
+		    Gson gson = new Gson();
+		    String json = gson.toJson(list);
+
+		    res.setContentType("application/json");
+		    res.setCharacterEncoding("UTF-8");
+		    res.getWriter().write(json);
+		}
+		
+		if ("getMovieDetails".equals(action)) {
+		    Integer movieId = Integer.valueOf(req.getParameter("movieId"));
+		    MovieService movieSvc = new MovieService();
+		    MovieVO movieVO = movieSvc.getOneMovie(movieId);
+
+		    Gson gson = new Gson();
+		    String json = gson.toJson(movieVO);
+
+		    res.setContentType("application/json");
+		    res.setCharacterEncoding("UTF-8");
+		    res.getWriter().write(json);
+		}
+		
 	}
 }

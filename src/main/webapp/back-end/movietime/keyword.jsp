@@ -162,7 +162,7 @@
 <body>
 
 <div class="container">
-  <div class="title">電影圖片查詢及修改：</div>
+  <div class="title">電影場次查詢及修改：</div>
     <form id="dateForm" action="movietime.do" method="get">
         <input type="text" id="search" name="keyword" placeholder="電影名稱" value="">
         <input type="hidden" name="action" value="getKey_Word">

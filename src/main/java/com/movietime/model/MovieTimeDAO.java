@@ -1,5 +1,7 @@
 package com.movietime.model;
 
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,17 +72,7 @@ public class MovieTimeDAO {
     }
 
 
-//	@Override
-//	public void update(MovieVO movieVO) {
-//		// TODO Auto-generated method stub
-//		
-//	}
 
-//	@Override
-//	public void delete(Integer movieId) {
-//		// TODO Auto-generated method stub
-//		
-//	}
 
 	public MovieTimeVO findByPrimaryKey(Integer showTimesId) {
 	    Transaction transaction = getSession().beginTransaction();
@@ -89,9 +81,15 @@ public class MovieTimeDAO {
 	    return movieTimeVO;
 	}
 
+	public List<MovieTimeVO> getShowtimesByMovieId(Integer movieId) {
+        Transaction transaction = getSession().beginTransaction();
+        List<MovieTimeVO> showtimes = getSession().createQuery(
+            "SELECT mt FROM MovieTimeVO mt WHERE mt.movieId = :movieId", MovieTimeVO.class)
+            .setParameter("movieId", movieId)
+            .list();
+        transaction.commit();
+        return showtimes;
+    }
+	 
 
-
-	
-    
-    
 }

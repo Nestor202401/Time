@@ -53,10 +53,10 @@
                 <use xlink:href="#survey-1"> </use>
               </svg>電影相關設定 </a>
             <ul class="collapse list-unstyled show" id="formsDropdown">
-              <li><a class="sidebar-link" href="<%=request.getContextPath()%>/back-end/movie/main.jsp">電影設定</a></li>
+              <li><a class="sidebar-link" href="<%=request.getContextPath()%>/back-end/movie/movie.jsp">電影設定</a></li>
               <li class="active"><a class="sidebar-link" href="img.jsp">圖片管理</a></li>
               <li><a class="sidebar-link" href="<%=request.getContextPath()%>/back-end/movietime/time.jsp">場次管理</a></li>
-              <li><a class="sidebar-link" href="forms-dropzone.html">影廳管理</a></li>
+              <li><a class="sidebar-link" href="<%=request.getContextPath()%>/back-end/cinema/cinema.jsp">影廳管理</a></li>
             </ul>
           </li>
           </ul>  
