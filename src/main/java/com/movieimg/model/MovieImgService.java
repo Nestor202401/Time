@@ -49,4 +49,10 @@ public class MovieImgService {
 	public List<MovieImgVO> getKeyword(String keyword) {
 		return dao.getKeyword(keyword);
 	}
+	public String getFirstImageByMovieId(Integer movieId) {
+        return dao.getFirstImageByMovieId(movieId);
+    }
+	public List<MovieImgVO> getMovieImagesByMovieId(Integer movieId) {
+        return dao.getImgByMovieId(movieId);
+    }
 }

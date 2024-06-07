@@ -9,6 +9,8 @@ public interface MovieImgDAO_interface {
           public MovieImgVO findByPrimaryKey(Integer movieImgId);
           public List<MovieImgVO> getAll();
           public List<MovieImgVO> getKeyword(String keyword);
+          String getFirstImageByMovieId(Integer movieId);
+          List<MovieImgVO> getImgByMovieId(Integer movieId);
           //萬用複合查詢(傳入參數型態Map)(回傳 List)
 //        public List<MovieVO> getAll(Map<String, String[]> map); 
 }

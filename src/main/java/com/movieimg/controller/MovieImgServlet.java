@@ -2,6 +2,7 @@ package com.movieimg.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import com.google.gson.Gson;
 import com.movie.model.MovieService;
 import com.movie.model.MovieVO;
 import com.movieimg.model.MovieImgService;
@@ -295,7 +297,7 @@ public class MovieImgServlet extends HttpServlet {
 
 	        /***************************3.查詢完成,準備轉交(Send the Success view)*************/
 	        req.setAttribute("movieImgVOList", movieImgVOList); // 資料庫取出的movieImgVO物件,存入req
-	        String url = "/back-end/movieimg/img.jsp";
+	        String url = "/back-end/movieimg/keyword.jsp";
 	        RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 keyword.jsp
 	        successView.forward(req, res);
 		}
@@ -445,6 +447,25 @@ public class MovieImgServlet extends HttpServlet {
                 failureView.forward(req, res);
 		    }
 		}
+		
+		if ("getMovieImages".equals(action)) {
+            Integer movieId = Integer.valueOf(req.getParameter("movieId"));
+            MovieImgService movieImgSvc = new MovieImgService();
+            List<MovieImgVO> movieImgs = movieImgSvc.getMovieImagesByMovieId(movieId);
+
+            // 提取图片路径
+            List<String> imgPaths = new ArrayList<>();
+            for (MovieImgVO img : movieImgs) {
+                imgPaths.add(img.getMovieImgFile());
+            }
+
+            Gson gson = new Gson();
+            String json = gson.toJson(imgPaths);
+
+            res.setContentType("application/json");
+            res.setCharacterEncoding("UTF-8");
+            res.getWriter().write(json);
+        }
 
 	}
 }

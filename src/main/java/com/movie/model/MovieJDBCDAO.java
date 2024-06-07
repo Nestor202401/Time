@@ -1,14 +1,10 @@
 package com.movie.model;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.sql.Date;
+import java.util.*;
+
+
+
+import java.sql.*;
 
 public class MovieJDBCDAO implements MovieDAO_interface {
 	String driver = "com.mysql.cj.jdbc.Driver";
@@ -33,56 +29,67 @@ public class MovieJDBCDAO implements MovieDAO_interface {
 	private static final String COMING_SOON = 
 			"SELECT * FROM movie WHERE release_date > CURDATE()";
 	
-	@Override
-	public void insert(MovieVO movieVO) {
+	public int insert(MovieVO movieVO) {
+	    Connection con = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    int movieId = 0;
 
-		Connection con = null;
-		PreparedStatement pstmt = null;
+	    try {
+	        Class.forName(driver);
+	        con = DriverManager.getConnection(url, userid, passwd);
+	        // 指定生成键
+	        pstmt = con.prepareStatement(INSERT_STMT, Statement.RETURN_GENERATED_KEYS);
 
-		try {
+	        pstmt.setString(1, movieVO.getMovieName());
+	        pstmt.setInt(2, movieVO.getMovieRating());
+	        pstmt.setString(3, movieVO.getDirector());
+	        pstmt.setString(4, movieVO.getActor());
+	        pstmt.setDate(5, movieVO.getReleaseDate());
+	        pstmt.setDate(6, movieVO.getEndDate());
+	        pstmt.setInt(7, movieVO.getRuntime());
+	        pstmt.setString(8, movieVO.getIntroduction());
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(INSERT_STMT);
+	        pstmt.executeUpdate();
 
-			pstmt.setString(1, movieVO.getMovieName());
-			pstmt.setInt(2, movieVO.getMovieRating());
-			pstmt.setString(3, movieVO.getDirector());
-			pstmt.setString(4, movieVO.getActor());
-			pstmt.setDate(5, movieVO.getReleaseDate());
-			pstmt.setDate(6, movieVO.getEndDate());
-			pstmt.setInt(7, movieVO.getRuntime());
-			pstmt.setString(8, movieVO.getIntroduction());
+	        // 获取生成的键
+	        rs = pstmt.getGeneratedKeys();
+	        if (rs.next()) {
+	            movieId = rs.getInt(1);
+	        }
 
-			pstmt.executeUpdate();
-
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
-			// Clean up JDBC resources
-		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-
+	    } catch (ClassNotFoundException e) {
+	        throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+	    } catch (SQLException se) {
+	        throw new RuntimeException("A database error occured. " + se.getMessage());
+	    } finally {
+	        if (rs != null) {
+	            try {
+	                rs.close();
+	            } catch (SQLException se) {
+	                se.printStackTrace(System.err);
+	            }
+	        }
+	        if (pstmt != null) {
+	            try {
+	                pstmt.close();
+	            } catch (SQLException se) {
+	                se.printStackTrace(System.err);
+	            }
+	        }
+	        if (con != null) {
+	            try {
+	                con.close();
+	            } catch (Exception e) {
+	                e.printStackTrace(System.err);
+	            }
+	        }
+	    }
+	    return movieId;
 	}
+
+        
+
 
 	@Override
 	public void update(MovieVO movieVO) {

@@ -1,6 +1,7 @@
 package com.movietime.controller;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.cinema.model.CinemaService;
+import com.google.gson.Gson;
 import com.movie.model.MovieVO;
 import com.movietime.model.MovieTimeService;
 import com.movietime.model.MovieTimeVO;
@@ -98,7 +100,7 @@ public class MovieTimeServlet extends HttpServlet {
             // Send the use back to the form, if there were errors
             if (!errorMsgs.isEmpty()) {
                 req.setAttribute("movieTimeVO", movieTimeVO); // 含有輸入格式錯誤的movieTimeVO物件,也存入req
-                RequestDispatcher failureView = req.getRequestDispatcher("/back-end/movietime/addMovieTime.jsp");
+                RequestDispatcher failureView = req.getRequestDispatcher("/addMovieTime.jsp");
                 failureView.forward(req, res);
                 return;
             }
@@ -268,6 +270,19 @@ if ("update".equals(action)) { // 來自update_emp_input.jsp的請求
 		    RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 keyword.jsp
 		    successView.forward(req, res);
 		}
+		
+		if ("getShowtimeDates".equals(action)) {
+		    Integer movieId = Integer.valueOf(req.getParameter("movieId"));
+		    MovieTimeService movieTimeService = new MovieTimeService();
+		    Map<String, List<Integer>> showtimes = movieTimeService.getShowtimesByMovieId(movieId);
+
+		    res.setContentType("application/json; charset=UTF-8");
+		    res.getWriter().write(new Gson().toJson(showtimes));
+		}
+
+		
+		
+
 
     }
 }
