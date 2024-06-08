@@ -99,4 +99,11 @@ public class TicketOrderVO implements java.io.Serializable{	//movie_ticket_order
 		this.ticketLists = ticketLists;
 	}
 	
+	@Override
+	public String toString() {
+		return "TicketOrderVO [movieOrderId=" + movieOrderId + ", memberId=" + memberId + ", movieOrderStatus="
+				+ movieOrderStatus + ", buyTicketsDate=" + buyTicketsDate + ", movieOrderTotal=" + movieOrderTotal
+				+ ", ticketLists=" + ticketLists + "]";
+	}
+	
 }

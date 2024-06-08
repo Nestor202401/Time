@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity  //標示此類別為一個永續類別
 @Table(name = "ticket_types")  //標示此永續類別對應到的資料庫表格為何 (若類別名與表格名相同可省略，建議還是加上，大小寫也建議一致)
@@ -22,6 +23,9 @@ public class TicketTypesVO implements java.io.Serializable{	//ticket_types票種
 	
 	@Column(name = "ticket_price")  	//註解同 "@Table"
 	private Integer ticketPrice;		//票價
+	
+	@Transient
+	private int quantity;
 	
 	public TicketTypesVO() {
 		super();
@@ -53,4 +57,17 @@ public class TicketTypesVO implements java.io.Serializable{	//ticket_types票種
 	public void setTicketPrice(Integer ticketPrice) {
 		this.ticketPrice = ticketPrice;
 	}
+	public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+	@Override
+	public String toString() {
+		return "TicketTypesVO [ticketTypesId=" + ticketTypesId + ", ticketTypeName=" + ticketTypeName + ", ticketPrice="
+				+ ticketPrice + "]";
+	}
+	
 }
