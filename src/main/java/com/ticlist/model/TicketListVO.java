@@ -47,9 +47,6 @@ public class TicketListVO implements java.io.Serializable{	//ticket_list電影�
 	@Column(name = "seat_number")
 	private String seatNumber;			//座位編號
 	
-	@Column(name = "qrcode")
-	private String qrcode;				//QRcode
-	
 	@Column(name = "ticket_status")
 	private Boolean ticketStatus;		//電影票使用狀態 false:未使用 true:已使用
 	
@@ -60,7 +57,7 @@ public class TicketListVO implements java.io.Serializable{	//ticket_list電影�
 	}
 
 	public TicketListVO(Integer movieTicketId, TicketOrderVO movieOrderId, MovieVO movieId,
-			TicketTypesVO ticketTypesId, CinemaVO cinemaId, MovieTimeVO showTimesId, String seatNumber, String qrcode,
+			TicketTypesVO ticketTypesId, CinemaVO cinemaId, MovieTimeVO showTimesId, String seatNumber,
 			Boolean ticketStatus) {
 		this.movieTicketId = movieTicketId;
 		this.movieOrderId = movieOrderId;
@@ -69,7 +66,6 @@ public class TicketListVO implements java.io.Serializable{	//ticket_list電影�
 		this.cinemaId = cinemaId;
 		this.showTimesId = showTimesId;
 		this.seatNumber = seatNumber;
-		this.qrcode = qrcode;
 		this.ticketStatus = ticketStatus;
 	}
 
@@ -96,12 +92,6 @@ public class TicketListVO implements java.io.Serializable{	//ticket_list電影�
 	}
 	public void setSeatNumber(String seatNumber) {
 		this.seatNumber = seatNumber;
-	}
-	public String getQrcode() {
-		return qrcode;
-	}
-	public void setQrcode(String qrcode) {
-		this.qrcode = qrcode;
 	}
 	public Boolean getTicketStatus() {
 		return ticketStatus;
@@ -130,6 +120,14 @@ public class TicketListVO implements java.io.Serializable{	//ticket_list電影�
 
 	public void setCinemaId(CinemaVO cinemaId) {
 		this.cinemaId = cinemaId;
+	}
+	
+	@Override
+	public String toString() {
+		return "TicketListVO [movieTicketId=" + movieTicketId + ", movieOrderId=" + movieOrderId + ", movieId="
+				+ movieId + ", ticketTypesId=" + ticketTypesId + ", cinemaId=" + cinemaId + ", showTimesId="
+				+ showTimesId + ", seatNumber=" + seatNumber + ", ticketStatus=" + ticketStatus
+				+ "]";
 	}
 	
 }
