@@ -12,8 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
-import com.movieimg.model.MovieImgService;
 import com.movieimg.model.MovieImgVO;
 import com.movietime.model.MovieTimeVO;
 
@@ -50,6 +50,7 @@ public class MovieVO implements java.io.Serializable {
     @Column(name = "introduction", columnDefinition="TEXT")
     private String introduction;
     
+    @Transient
     private String firstImage;
     
     public String getFirstImage() {
