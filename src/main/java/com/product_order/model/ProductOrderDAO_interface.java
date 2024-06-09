@@ -20,6 +20,8 @@ public interface ProductOrderDAO_interface {
 	List<ProductOrderVO> getAll();
 	// CompositeQuery 
 	List<ProductOrderVO> CompositeQuery(Map<String, String> map);
+	// 0609: Query by MemberId
+	List<ProductOrderVO> findByMember(Integer memberId);
 
 	// Get details from order
 	List<ProductDetailVO> getDetailsByOrderId(Integer prodOrdId);

@@ -1,12 +1,12 @@
 package com.product_order.model;
 
-import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 //import com.member.model.Member;
 import com.member.model.MemberVO; // fix - 01
+import com.product_detail.model.ProductDetailVO;
 
 public class TestProdOrdHibernate {
 
@@ -16,33 +16,33 @@ public class TestProdOrdHibernate {
 		MemberVO member = new MemberVO(); // fix - 02, 03
 		member.setMemberId(1);
 		
-		// 1. insert 2 new orders
-		var order = new ProductOrderVO(
-			null, 			// Integer prodOrdId 
-//			1,				// Integer memberId
-			member,			// Member member (Only set memberId = 1)
-			
-			new Timestamp(System.currentTimeMillis()), 	// Timestamp estTime 
-			0, 				// Integer ordStatus
-			1000,			// Integer total 
-			"TestMan1", 	// String recipient 
-			"Test addr 1",	// String recAddr 
-			null			// List<ProductDetailVO> prodDetails
-		);
-		Integer newOrdId = dao.insert(order);
-		
-		order.setRecipient("測試人員一");
-		order.setRecAddr("測試地址一");
-		Integer newOrdId2 = dao.insert(order);
-		
-		// 2. update new order2
-		order.setProdOrdId(newOrdId2);
-		order.setRecipient("更新人員二");
-		order.setRecAddr("更新地址二");
-		System.out.println(dao.update(order) == 1 ? "update success" : "FAIL of update");
-		
-		// 3. delete new order1
-		System.out.println(dao.delete(newOrdId) == 1 ? "delete success" : "FAIL of delete");
+//		// 1. insert 2 new orders
+//		var order = new ProductOrderVO(
+//			null, 			// Integer prodOrdId 
+////			1,				// Integer memberId
+//			member,			// Member member (Only set memberId = 1)
+//			
+//			new Timestamp(System.currentTimeMillis()), 	// Timestamp estTime 
+//			0, 				// Integer ordStatus
+//			1000,			// Integer total 
+//			"TestMan1", 	// String recipient 
+//			"Test addr 1",	// String recAddr 
+//			null			// List<ProductDetailVO> prodDetails
+//		);
+//		Integer newOrdId = dao.insert(order);
+//		
+//		order.setRecipient("測試人員一");
+//		order.setRecAddr("測試地址一");
+//		Integer newOrdId2 = dao.insert(order);
+//		
+//		// 2. update new order2
+//		order.setProdOrdId(newOrdId2);
+//		order.setRecipient("更新人員二");
+//		order.setRecAddr("更新地址二");
+//		System.out.println(dao.update(order) == 1 ? "update success" : "FAIL of update");
+//		
+//		// 3. delete new order1
+//		System.out.println(dao.delete(newOrdId) == 1 ? "delete success" : "FAIL of delete");
 		
 		// 4. Query
 		// 4-1. findByPK(11000001) & details
@@ -116,6 +116,23 @@ public class TestProdOrdHibernate {
 		System.out.println("TEST-4: Should be 1, 2");
 		printMap(map, dao);
 		map.clear();
+		
+		// 4-5. Query by MemberId
+//		Integer memberId = 1; // 查所有 memberId = 1 的訂單 // member 在一開始有設定，直接用
+		List<ProductOrderVO> list = dao.findByMember(member.getMemberId());
+		printHead();
+		for (ProductOrderVO order : list) {
+			System.out.println(order);
+		}
+		System.out.println();
+		
+		// 5. getDetailsByOrderId
+		List<ProductDetailVO> detailList = dao.getDetailsByOrderId(11000001);
+		printHead();
+		for (ProductDetailVO detail : detailList) {
+			System.out.println(detail);
+		}
+		System.out.println();
 
 		System.out.println("Finish TestProdOrdHibernate.");
 	}
