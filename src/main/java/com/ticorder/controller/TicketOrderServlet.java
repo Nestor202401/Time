@@ -87,7 +87,7 @@ public class TicketOrderServlet extends HttpServlet {
             req.setAttribute("ticOrderListData", list);
             req.setAttribute("errorMsgs", errorMsgs);
 
-            RequestDispatcher successView = req.getRequestDispatcher("/back-end/ticorder/select_page.jsp");
+            RequestDispatcher successView = req.getRequestDispatcher("/back-end/ticorder/main_ticorder.jsp");
             successView.forward(req, res);
         }
         

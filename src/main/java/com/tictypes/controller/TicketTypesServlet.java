@@ -91,7 +91,7 @@ public class TicketTypesServlet extends HttpServlet {
 								
 	
 				req.setAttribute("ticTypesVO", ticTypesVO);        
-				String url = "/back-end/tictypes/update_TicTypes_input.jsp";
+				String url = "/back-end/tictypes/edit.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 		}
@@ -130,7 +130,7 @@ public class TicketTypesServlet extends HttpServlet {
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("ticTypesVO", ticTypesVO); 
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/tictypes/update_TicTypes_input.jsp");
+							.getRequestDispatcher("/back-end/tictypes/AllTicTypes.jsp");
 					failureView.forward(req, res);
 					return; 
 				}
@@ -140,7 +140,7 @@ public class TicketTypesServlet extends HttpServlet {
 				
 				
 				req.setAttribute("ticTypesVO", ticTypesVO);
-				String url = "/back-end/tictypes/listOneTicTypes.jsp";
+				String url = "/back-end/tictypes/succeed.html";
 				RequestDispatcher successView = req.getRequestDispatcher(url); 
 				successView.forward(req, res);
 		}
@@ -175,7 +175,7 @@ public class TicketTypesServlet extends HttpServlet {
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("ticTypesVO", ticTypesVO);
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/tictypes/addTicTypes.jsp");
+							.getRequestDispatcher("/back-end/tictypes/add.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -185,7 +185,7 @@ public class TicketTypesServlet extends HttpServlet {
 				ticTypesVO = ticTypesSvc.addTicketTypes(ticketTypeName, ticketPrice);
 				
 		
-				String url = "/back-end/tictypes/listAllTicTypes.jsp";
+				String url = "/back-end/tictypes/succeed.html";
 				RequestDispatcher successView = req.getRequestDispatcher(url); 
 				successView.forward(req, res);				
 		}
