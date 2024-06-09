@@ -61,9 +61,12 @@
 					<%-- 取得圖片 怎麼從 cart 到 product 到 img? --%>
 					<%-- 
 					<td><img alt="商品圖片" src="${pageContext.request.contextPath}/resources/images/product/${prodVO.prodImgs[0].imgName}" width="50px"></td>
-	 				--%>																				<%-- 方法用 完整(getOneProd) --%>
 					<td><img alt="商品圖片" src="${pageContext.request.contextPath}/resources/images/product/${prodSvc.getOneProd(cartVO.prodId).prodImgs[0].imgName}" width="50px"></td>
-						
+	 				--%>																				<%-- 方法用 完整(getOneProd) --%>
+					<td>
+						<img alt="商品圖片" src="${pageContext.request.contextPath}/${prodSvc.getOneProd(cartVO.prodId).prodImgs[0].imgSrc}" width="50px"
+						onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/resources/images/product/noImg.jpg';">
+					</td>	
 					<%-- 取得商品名 --%>
 					<td>${cartVO.prodName}</td>
 					<td>${cartVO.unitPrice}</td>
