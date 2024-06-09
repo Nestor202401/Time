@@ -60,6 +60,7 @@
 		<mapping class="com.ticlist.model.TicketListVO"/>
 		
 		<mapping class="com.reports.model.ReportsVO"/>
+	    <mapping class="com.article.model.ArticleVO"/>
 	    
 	    
     </session-factory>

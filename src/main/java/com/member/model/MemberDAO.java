@@ -1,9 +1,12 @@
 package com.member.model;
 
+import java.util.List;
+
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.article.model.ArticleVO;
 import com.util.ProductUtil;
 
 public class MemberDAO implements MemberDAO_interface {
@@ -120,14 +123,17 @@ public class MemberDAO implements MemberDAO_interface {
 	}
 	
 	public MemberVO findByMemId(Integer memberId) {
-		Session session = factory.getCurrentSession();
+			Session session = factory.getCurrentSession();
 		  session.beginTransaction();
 		  MemberVO member = session.get(MemberVO.class, memberId);
 		  Hibernate.initialize(member.getProdOrders()); 
 		  Hibernate.initialize(member.getTicketOrders()); 
+		  Hibernate.initialize(member.getArticles()); 
 		   session.getTransaction().commit();
 		   return member;
 	}
+	
+
 	
 	
 	

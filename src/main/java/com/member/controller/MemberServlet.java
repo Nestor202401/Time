@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.article.model.ArticleVO;
 import com.member.model.MailService;
 import com.member.model.MemberService;
 import com.member.model.MemberVO;
@@ -48,6 +49,16 @@ public class MemberServlet extends HttpServlet {
 			failureView.forward(req, res);
 			return;	
 		}
+	
+		if("comment".equals(action)) {
+			MemberVO member=(MemberVO) session.getAttribute("memberVO");
+			List<ArticleVO> articles=memSer.getArticleByMemberId(member.getMemberId());			
+			session.setAttribute("articles", articles);
+			RequestDispatcher failureView = req.getRequestDispatcher("front-end/member/memberComments.jsp");
+			failureView.forward(req, res);
+			return;	
+		}
+		
 	
 		
 	    }
