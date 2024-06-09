@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.article.model.ArticleVO;
 import com.product_order.model.ProductOrderVO;
 import com.ticorder.model.TicketOrderVO;
 
@@ -121,6 +122,11 @@ public class MemberService {
 	public List<TicketOrderVO> getTicketByMemberId(Integer memberId) {
 		MemberVO member=dao.findByMemId(memberId);
 		return member.getTicketOrders();		
+	}
+	
+	public List<ArticleVO> getArticleByMemberId(Integer memberId) {
+		MemberVO member=dao.findByMemId(memberId);
+		return member.getArticles();	
 	}
 	
 	

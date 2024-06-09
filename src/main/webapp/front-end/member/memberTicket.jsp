@@ -182,7 +182,7 @@
 					class="fas fa-user"></i>會員中心</a>
 			</div>
 			<div class="item">
-				<a href="#"><i class="fas fa-comments"></i>討論區</a>
+				<div class="item"><a href="${pageContext.request.contextPath}/mem?action=comment"><i class="fas fa-comments"></i>討論區</a></div>
 			</div>
 			<div class="item">
 				<a class="sub-btn"><i class="fas fa-cart-arrow-down"></i>查看個人訂單<i
@@ -216,7 +216,7 @@
 						<td><c:forEach var="ticket" items="${order.ticketLists}"
 								varStatus="iterStat">
 								<c:if test="${iterStat.index == 0}">
-                                ${ticket.movieId.movieName}
+                                ${ticket.movieVO.movieName}
                             </c:if>
 							</c:forEach></td>
 						<td>${order.movieOrderStatusText}</td>
@@ -245,16 +245,16 @@
 						<div class="info-row">
 							<div class="info-label">電影名稱：</div>
 							<div class="info-content">
-								${order.ticketLists[0].movieId.movieName}
+								${order.ticketLists[0].movieVO.movieName}
 							</div>
 						</div>
 						<div class="info-row">
 							<div class="info-label">播映時間：</div>
 							<div class="info-content">
 								<c:choose>
-									<c:when test="${order.ticketLists[0].showTimesId.showTime == 0}">6:00</c:when>
-									<c:when test="${order.ticketLists[0].showTimesId.showTime == 1}">12:00</c:when>
-									<c:when test="${order.ticketLists[0].showTimesId.showTime == 2}">18:00</c:when>
+									<c:when test="${order.ticketLists[0].movieTimeVO.showTime == 0}">6:00</c:when>
+									<c:when test="${order.ticketLists[0].movieTimeVO.showTime == 1}">12:00</c:when>
+									<c:when test="${order.ticketLists[0].movieTimeVO.showTime == 2}">18:00</c:when>
 								</c:choose>
 							</div>
 						</div>
@@ -265,21 +265,21 @@
 									<tbody>
 										<c:forEach var="ticket" items="${order.ticketLists}">
 											<tr>
-												<td class="ticket-item small">${ticket.ticketTypesId.ticketTypeName}</td>
+												<td class="ticket-item small">${ticket.ticketTypesVO.ticketTypeName}</td>
 												<td class="ticket-item ticket-value1">X1張</td>
-												<td class="ticket-item ticket-value">${ticket.ticketTypesId.ticketPrice}元</td>
+												<td class="ticket-item ticket-value">${ticket.ticketTypesVO.ticketPrice}元</td>
 											</tr>
 										</c:forEach>
 									</tbody>
 								</table>
 							</div>
 						</div>
-						<div class="info-row">
-							<div class="info-label">影廳：</div>
-							<div class="info-content">
-								${order.ticketLists[0].cinemaId.cinemaName}
-							</div>
-						</div>
+<!-- 						<div class="info-row"> -->
+<!-- 							<div class="info-label">影廳：</div> -->
+<!-- 							<div class="info-content"> -->
+<%-- 								${order.ticketLists[0].cinemaId.cinemaName} --%>
+<!-- 							</div> -->
+<!-- 						</div> -->
 						<div class="info-row">
 							<div class="info-label">座位：</div>
 							<div class="info-content">

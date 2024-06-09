@@ -2,7 +2,7 @@ package com.member.model;
 
 import java.util.List;
 
-import com.product_order.model.ProductOrderVO;
+import com.article.model.ArticleVO;
 
 public interface MemberDAO_interface{
 	public void insert(MemberVO member);
@@ -20,4 +20,6 @@ public interface MemberDAO_interface{
     public void updateVerify(Integer memberId);
     public void update(MemberVO member);
     public MemberVO findMemByEmail(String memberEmail);
+   
+    
 }

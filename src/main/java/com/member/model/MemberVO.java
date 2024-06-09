@@ -21,6 +21,7 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.article.model.ArticleVO;
 //import com.product_order.model.ProductOrder;
 import com.product_order.model.ProductOrderVO; // fix - 01
 import com.ticorder.model.TicketOrderVO;
@@ -93,9 +94,20 @@ public class MemberVO implements Serializable {
 	public List<TicketOrderVO> getTicketOrders() {
 		return TicketOrders;
 	}
-
 	public void setTicketOrders(List<TicketOrderVO> TicketOrders) {
 		this.TicketOrders = TicketOrders;
+	}
+	
+	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+	@OrderBy("articleId")
+	private List<ArticleVO> Articles;
+	// Set/Get
+	public List<ArticleVO> getArticles() {
+		return Articles;
+	}
+
+	public void setArticles(List<ArticleVO> Articles) {
+		this.Articles = Articles;
 	}
 	
 

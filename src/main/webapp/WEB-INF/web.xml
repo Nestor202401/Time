@@ -48,6 +48,6 @@
  	<!-- END of Data Source cfg 連線池設定 5/17 19:17 -->
  	
  	<session-config>
-    <session-timeout>50</session-timeout>
+    <session-timeout>60</session-timeout>
 </session-config>
 </web-app>

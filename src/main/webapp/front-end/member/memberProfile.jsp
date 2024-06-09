@@ -10,6 +10,7 @@
 <%@ page import="java.text.SimpleDateFormat"%>
 <%
 MemberVO member = (MemberVO) session.getAttribute("memberVO");
+
 %>
 
 <!DOCTYPE html>
@@ -279,7 +280,7 @@ button {
 				<a href="#"><i class="fas fa-user"></i>會員中心</a>
 			</div>
 			<div class="item">
-				<a href="#"><i class="fas fa-comments"></i>討論區</a>
+				<a href="${pageContext.request.contextPath}/mem?action=comment"><i class="fas fa-comments"></i>討論區</a>
 			</div>
 			<div class="item">
 				<a class="sub-btn"><i class="fas fa-cart-arrow-down"></i>查看個人訂單<i
@@ -351,7 +352,7 @@ button {
 
 
 
-					<img src="data:image/jpg;base64,${base64Img}" alt="" style="width: 198px; height: 198px; border-radius: 50%;">
+					<img src="data:image/jpg;base64,${base64Img}"  style="width: 198px; height: 198px; border-radius: 50%;">
 
 
 
