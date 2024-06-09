@@ -54,7 +54,13 @@
 							<c:when test="${prodVO.timeLimitProd == true}">限時商品</c:when>
 						</c:choose>
 					</td>
+					<%-- 
 					<td><img alt="商品圖片" src="${pageContext.request.contextPath}/resources/images/product/${prodVO.prodImgs[0].imgName}" width="50px"></td>
+					--%>
+					<td>
+						<img alt="商品圖片" src="${pageContext.request.contextPath}/${prodVO.prodImgs[0].imgSrc}" width="50px"
+						onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/resources/images/product/noImg.jpg';">
+					</td>
 				</tr>
 			</c:forEach>
 		</tbody>

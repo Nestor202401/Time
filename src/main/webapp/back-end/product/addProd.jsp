@@ -7,6 +7,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<style>
+	#preview {
+		max-width:  300px;
+		max-height: 200px;
+		width:  auto;
+		height: auto;
+	}
+</style>
+
 <title>新增商品 - addProd.jsp</title>
 </head>
 <body>
@@ -75,19 +84,50 @@
 					</td>
 				<td>${errorMsgs.timeLimitProd}<td> 
 			</tr>
-			<!-- 
+			<%-- 
 			HERE 2. addProd 加上圖片欄 > ProdServlet.java > 暫不處理 
+			--%>
 			<tr>
 			    <td>商品圖片:</td>
-			    <td><input type="file" name="prodImg"></td>
+			    <td><input type="file" id="prodImg" name="prodImg" required accept="image/*"></td>
 			    <td>${errorMsgs.prodImg}<td>
 			</tr>
-			-->
-						
+			<tr>
+				<td></td>
+				<td>
+					<%-- 
+					<img src="https://via.placeholder.com/300x200" id="placeholderImg" hidden="false">
+					 --%>
+					<img src="https://via.placeholder.com/300x200" id="placeholderImg">
+					<img src="" hidden="true" id="preview" >
+				</td>
+			</tr>
 			
 		</table>
 		<input type="hidden" name="action" value="insert"> 
+		
 		<input type="submit" value="送出">
 	</form> <!-- 新增商品 結束 -->
+	
+	<script>
+		// 當 <input> prodImg 改變時
+	    document.getElementById('prodImg').addEventListener('change', function(event) {
+	    	// 將檔案指定給 file 
+	        const file = event.target.files[0]; // Base64 encode Data URL
+	        if (file) {
+	            const reader = new FileReader();
+	            reader.onload = function(e) {
+	            	// 將 preview 顯示，給圖的 src
+	                const previewImg = document.getElementById('preview');
+	                previewImg.src = e.target.result;
+	                previewImg.hidden = false;
+					// 將 placeholderImg 隱藏
+	                const placeholderImg = document.getElementById('placeholderImg');
+	                placeholderImg.hidden = true;
+	            };
+	            reader.readAsDataURL(file);
+	        }
+	    });
+	</script>
 </body>
 </html>

@@ -27,36 +27,36 @@
 					<th>修改</th>
 				</tr>				
 				<%-- 列舉欄位內容 --%>
-				<c:forEach var="prodVO" items="${prodList}">
+				<c:forEach var="prod" items="${prodList}">
 					<tr>
-						<td>${prodVO.prodId}</td>
-						<td>${prodVO.prodName}</td>
-						<td>${prodVO.prodPrice}</td>
-						<td>${prodVO.releaseDate}</td>
-						<td>${prodVO.removeDate}</td>
+						<td>${prod.prodId}</td>
+						<td>${prod.prodName}</td>
+						<td>${prod.prodPrice}</td>
+						<td>${prod.releaseDate}</td>
+						<td>${prod.removeDate}</td>
 						<td>
 							<c:choose>
-								<c:when test="${prodVO.salesStatus == 0}">銷售中</c:when>
-								<c:when test="${prodVO.salesStatus == 1}">停售</c:when>
+								<c:when test="${prod.salesStatus == 0}">銷售中</c:when>
+								<c:when test="${prod.salesStatus == 1}">停售</c:when>
 							</c:choose>
 						</td>
-						<td>${prodVO.timeLimitProd}</td>
+						<td>${prod.timeLimitProd}</td>
 						<%-- 縮圖先不放，不該顯示在 list / BUG: Lazy init
 						<td>縮圖</td> 
-						<td>DEBUG-路徑顯示: ${prodVO.prodImgs[0].imgSrc}</td>
+						<td>DEBUG-路徑顯示: ${prod.prodImgs[0].imgSrc}</td>
 						<td><img alt="商品圖片" src="#" width="50px"></td>
-						<td><img alt="商品圖片" src="${pageContext.request.contextPath}/resources/images/product/${prodVO.prodImgs[0].imgName}" width="50px"></td>
-						<td><img alt="商品圖片" src="${pageContext.request.contextPath}/${prodVO.prodImgs[0].imgSrc}" width="50px"></td>
+						<td><img alt="商品圖片" src="${pageContext.request.contextPath}/resources/images/product/${prod.prodImgs[0].imgName}" width="50px"></td>
+						<td><img alt="商品圖片" src="${pageContext.request.contextPath}/${prod.prodImgs[0].imgSrc}" width="50px"></td>
 						--%>					  
 						
 						<td>
-							<img alt="商品圖片" src="${pageContext.request.contextPath}/${prodVO.prodImgs[0].imgSrc}" width="50px"
+							<img alt="商品圖片" src="${pageContext.request.contextPath}/${prod.prodImgs[0].imgSrc}" width="50px"
 							onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/resources/images/product/noImg.jpg';">
 						</td>
 						<td> <!-- 修改 -->
 							<form action="${pageContext.request.contextPath}/product/product.do" method="post">
 								<input type="submit" value="修改">
-								<input type="hidden" name=prodId value="${prodVO.prodId}">
+								<input type="hidden" name=prodId value="${prod.prodId}">
 								<input type="hidden" name="action" value="getOneForUpdate">
 							</form>
 						</td>

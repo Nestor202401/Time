@@ -18,6 +18,8 @@ import javax.servlet.http.Part;
 
 import com.product.model.ProductService;
 import com.product.model.ProductVO;
+import com.product_img.model.ProductImgService;
+import com.product_img.model.ProductImgVO;
 
 @WebServlet("/product/product.do")
 // 3. 上傳檔案 Annotation
@@ -28,13 +30,17 @@ import com.product.model.ProductVO;
 public class ProdServlet extends HttpServlet {
 	// A Servlet with 1 service
 	private ProductService prodSvc;
+	private ProductImgService prodImgSvc;
+	
+	private static final String UPLOAD_DIR = "resources/images/product";
 	
 	// --- Servlet 原生 ---
 	@Override
 	public void init() throws ServletException {
 		prodSvc = new ProductService();
+		prodImgSvc = new ProductImgService();
 		// DEBUG
-//		System.out.println("init() > new ProductService()");
+//		System.out.println("init() > new Product/ProductImg|Service()");
 		// DEBUG
 	}
 
@@ -44,7 +50,7 @@ public class ProdServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		// === 後端 ===
 		// From productManage: 	getAll | CompositeQuery |findByPK
-		// From appProd: 		insert > insertOrUpdate
+		// From appProd: 		insert 
 		// From listPord: 		getOneForUpdate | delete > suspend (暫不實作)
 		// From updateProd:		update
 		
@@ -95,11 +101,25 @@ public class ProdServlet extends HttpServlet {
 	// --- END of Servlet 原生 ---
 	
 	// --- action call ---
-	private String insert(HttpServletRequest req, HttpServletResponse res) {
+	private String insert(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		// TODO Auto-generated method stub
 //		List<ProductVO> prodList = new ArrayList<>(); 
 		List<ProductVO> prodList = null; // for return
 		ProductVO prodVO = new ProductVO(); // for wrap
+		
+		// 上傳圖片
+		Part part = null;
+		String fileName = null; // 圖片名 = prodId.subName (EX: 13000001.jpg)
+		ProductImgVO prodImgVO = new ProductImgVO();
+		String realPath = getServletContext().getRealPath(UPLOAD_DIR);
+		// DEBUG 
+		System.out.println("getServletContext().getRealPath(UPLOAD_DIR): " + getServletContext().getRealPath(UPLOAD_DIR));
+		
+		// 開檔 or 建立 上傳路徑
+		File uploadDir = new File(realPath);
+		if (!uploadDir.exists()) {
+			uploadDir.mkdirs();
+		}
 		
 		Map<String, String> errorMsgs = new TreeMap<>(); // Why use TreeMap? 
 		req.setAttribute("errorMsgs", errorMsgs);
@@ -137,6 +157,16 @@ public class ProdServlet extends HttpServlet {
 		
 			// 8. 獲取上傳的文件 HERE 4. 取得上傳文件(未做錯誤處理/未包裝)
 //        Part filePart = request.getPart("prodImg");
+		try {
+			part = req.getPart("prodImg");
+		} catch (IOException | ServletException e) {
+			// TODO Auto-generated catch block
+			System.err.println("Error occur at ProdServlet/insert()/req.getPart(\"prodImg\")");
+			e.printStackTrace();
+		}
+		// 驗証 part 裡有資料，取得 subName
+		String subName = checkPart(part, errorMsgs);
+		
 //        String fileName = extractFileName(filePart);
 //        String savePath = getServletContext().getRealPath("") + File.separator + "upload" + File.separator + fileName;
 //        filePart.write(savePath);
@@ -155,6 +185,25 @@ public class ProdServlet extends HttpServlet {
 		
 		// --- 2. 存取DB ---
 		prodVO = prodSvc.addProd(prodVO); // 新增 prodVO 同時取得新 prodVO
+		
+		// 圖片處理
+		fileName = prodVO.getProdId() + "." + subName;
+		
+		File f = new File(uploadDir, fileName); // 
+		try {
+			part.write(f.toString());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.err.println("Error occur at ProdServlet/insert(): part.write(f.toString())");
+			e.printStackTrace();
+			throw e;
+		} 
+		prodImgVO.setImgName(fileName);
+		prodImgVO.setProdVO(prodVO);
+		prodImgVO.setImgSrc(UPLOAD_DIR + "/" + fileName); // "resources/images/product";
+		prodImgSvc.addImg(prodImgVO);
+		
+		
 		// --- 3. 回傳 ---
 		prodList = prodSvc.getOneProdAsList(prodVO.getProdId()); // 將新 prodVO 包成 list, 顯示在 listProd.jsp
 		// 回傳 list | 
@@ -484,6 +533,22 @@ public class ProdServlet extends HttpServlet {
 		return Boolean.valueOf(timeLimitProdStr);
 	}
 	// >=====<
+	private String checkPart(Part part, Map<String, String> errorMsgs) {
+		// TODO Auto-generated method stub
+		if (part == null || part.getSize() == 0) { // part is empty: error
+			errorMsgs.put("prodImg", "請上傳圖片");
+			return null;
+		}
+		if (part.getContentType() == null) {
+			System.err.println("Error occur at ProdServlet/checkPart(): part.getContentType() == null");
+			errorMsgs.put("prodImg", "part.getContentType() == null");
+			return null;
+		}
+		String path = getPath(part);
+		String subName = getSubName(path);
+		return subName;
+	}
+
 	// --- END of check() ---	
 	
 	// --- Other() ---
@@ -506,8 +571,30 @@ public class ProdServlet extends HttpServlet {
 		}
 		return true;
 	}
-		// >=====<
-	
+
+	private String getPath(Part part) {
+		// TODO Auto-generated method stub
+		String context = part.getHeader("content-disposition");
+		String[] elements = context.split(";");
+		for (String e : elements) {
+			if (e.trim().startsWith("filename")) {
+				return e.substring(e.indexOf('=')+1).trim().replace("\"", "");
+			}
+		}
+		return null;
+	} // END of getPath()
+	// >=====<
+	private String getSubName(String path) {
+		// TODO Auto-generated method stub
+		if (path == null || path.isEmpty()) return "";
+		// Ex: "int java.l".lastIndexOf('.'); => 8  
+		// "int java" => -1 
+		// "." => 0  
+		// "..." => 2
+		int lastDotIndex = path.lastIndexOf('.'); 
+		if (lastDotIndex <= 0) return "";
+		return path.substring(lastDotIndex+1);
+	} // END of getSubName()
 	// --- END of Other() ---
 
 }
