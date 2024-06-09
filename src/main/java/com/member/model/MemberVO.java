@@ -3,7 +3,7 @@ package com.member.model;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -21,9 +21,9 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-
 //import com.product_order.model.ProductOrder;
 import com.product_order.model.ProductOrderVO; // fix - 01
+import com.ticorder.model.TicketOrderVO;
 
 
 
@@ -73,19 +73,31 @@ public class MemberVO implements Serializable {
 	
 	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
 	@OrderBy("prodOrdId")
-//	private Set<ProductOrder> prodOrders;
-	private Set<ProductOrderVO> prodOrders; // fix - 02
+//	private List<ProductOrder> prodOrders;
+	private List<ProductOrderVO> prodOrders; // fix - 02
 	
 	// Set/Get
 //	public Set<ProductOrder> getProdOrders() {
-	public Set<ProductOrderVO> getProdOrders() { // fix - 03
+	public List<ProductOrderVO> getProdOrders() { // fix - 03
 		return prodOrders;
 	}
 
 //	public void setProdOrders(Set<ProductOrder> prodOrders) {
-	public void setProdOrders(Set<ProductOrderVO> prodOrders) { // fix - 04
+	public void setProdOrders(List<ProductOrderVO> prodOrders) { // fix - 04
 		this.prodOrders = prodOrders;
 	}
+	@OneToMany(mappedBy = "memberId", cascade = CascadeType.ALL)
+	@OrderBy("movieOrderId")
+	private List<TicketOrderVO> TicketOrders;
+	// Set/Get
+	public List<TicketOrderVO> getTicketOrders() {
+		return TicketOrders;
+	}
+
+	public void setTicketOrders(List<TicketOrderVO> TicketOrders) {
+		this.TicketOrders = TicketOrders;
+	}
+	
 
 	public boolean isVerified() {
 		return isVerified;
@@ -177,8 +189,8 @@ public class MemberVO implements Serializable {
 		return memberRegisterDatetime;
 	}
 
-	public void setMemberRegisterDatetime(LocalDateTime memberRegisterDatetime) {
-		this.memberRegisterDatetime = memberRegisterDatetime;
+	public void setMemberRegisterDatetime(LocalDateTime date) {
+		this.memberRegisterDatetime = date;
 	}
 
 	public byte[] getMemberImg() {

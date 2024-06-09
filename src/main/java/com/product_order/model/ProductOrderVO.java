@@ -59,8 +59,8 @@ public class ProductOrderVO implements Serializable {
 	
 	// For 1-To-*, * class must have var: prodOrdVO, CascadeType=All, fetch 直接拿，不要等 / ref p.116
 	// 因為在 detail 刪除時，會關聯到 order, 造成 detail 無法刪除。改回 fetch lazy, 同時修改 ProductOrderDAO/getDetailsByOrderId() 以 Empty-for 做為 solution 
-//	@OneToMany(mappedBy = "prodOrdVO", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@OneToMany(mappedBy = "prodOrdVO", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "prodOrdVO", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//	@OneToMany(mappedBy = "prodOrdVO", cascade = CascadeType.ALL)
 	private List<ProductDetailVO> prodDetails;
 	// fetch 為 getDetailsByOrderId() 設定
 	

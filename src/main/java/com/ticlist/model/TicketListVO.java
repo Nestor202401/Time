@@ -28,19 +28,19 @@ public class TicketListVO implements java.io.Serializable{	//ticket_list電影�
 	@JoinColumn(name = "movie_order_id", referencedColumnName = "movie_order_id")
 	private TicketOrderVO movieOrderId;	 //電影ID
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "movie_id", referencedColumnName = "movie_id")
 	private MovieVO movieId;	 //電影訂單ID
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ticket_types_id", referencedColumnName = "ticket_types_id")
 	private TicketTypesVO ticketTypesId; //票種ID
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "cinema_id", referencedColumnName = "cinema_id")
 	private CinemaVO cinemaId;		//影廳ID
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "show_times_id", referencedColumnName = "show_times_id")
 	private MovieTimeVO showTimesId;		//場次ID
 	
