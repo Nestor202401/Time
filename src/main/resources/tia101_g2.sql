@@ -14,17 +14,18 @@ CREATE TABLE member (
     member_img LONGBLOB, -- 大頭照id
     is_admin BOOLEAN DEFAULT false, -- 是否是管理員
     is_verified  BOOLEAN DEFAULT false, -- 是否驗證過
+    member_status VARCHAR(5), -- 會員權限
     verification_token VARCHAR(45) -- 驗證亂碼
 );
 
 INSERT INTO member(member_account, member_password, member_name, member_phone, member_email,member_img,is_admin,is_verified)
 VALUES 
-('tony2892', 'tia222334',  '員工1', '0926523123', 'bbac@yahoo.com.tw',null,1,1),
-('david1233', 'gag770894', '員工2', '0928194854', 'def@yahoo.com.tw', null,1,1),
-('bolo5454', 'na51492932', '員工3', '0992740184', 'ghi@gmail.com.tw', null,1,1),
-('antya123', 'gua2718', '員工4', '0918572095', 'gary@yahoo.com.tw',  null,1,1),
 ('wil9356', 'ac5059092',  '陳建隆', '0938291822', 'vvic@yahoo.com.tw', null,0,1),
-('alex11892', 'bac250302', '陳以哲', '0909287430', 'logo@yahoo.com.tw',null,0,1);
+('alex11892', 'bac250302', '陳以哲', '0909287430', 'logo@yahoo.com.tw',null,0,1),
+('tony2892', 'tia222334',  '員工3', '0926523123', 'bbac@yahoo.com.tw',null,1,1),
+('david1233', 'gag770894', '員工4', '0928194854', 'def@yahoo.com.tw', null,1,1),
+('bolo5454', 'na51492932', '員工5', '0992740184', 'ghi@gmail.com.tw', null,1,1),
+('antya123', 'gua2718', '員工6', '0918572095', 'gary@yahoo.com.tw',  null,1,1);
 
 -- SELECT * FROM member;
 
@@ -109,6 +110,7 @@ VALUES
 ('哥吉拉與金剛：新帝國', 3, '亞當溫高德', '蕾貝卡霍爾', '2024-03-17', '2024-07-26', 115, '傳奇影業的怪獸宇宙系列繼《哥吉拉大戰金剛》的爆炸性對決後，再度推出全新冒險故事！全能的金剛和駭人的哥吉拉即將聯手對抗隱藏在我們世界中未被發現的巨大威脅，那不僅挑戰了牠們的生存空間，更威脅了人類的存亡。《哥吉拉與金剛：新帝國》將深入探討這些泰坦巨獸的歷史、起源，以及骷髏島及其他秘境的奧秘，同時揭開塑造這些非凡生物，並將牠們與人類永遠連結在一起的神話戰鬥。'),
 ('魔鬼剋星：冰天凍地', 1, '吉爾基能', '保羅路德', '2024-04-01', '2024-08-26', 115, '史賓格勒一家在這集中，回到魔鬼剋星的發源地紐約消防局，與第一代的隊員重逢，並期望最高機密的研究室能夠研發出更先進的抓鬼技術。不過此時一件神秘的古老文物，釋放出一隻邪惡的惡靈，造成地球即將再次進入冰河時期，他們現在必須聯手保護家園並且拯救世界。'),
 ('沙丘：第二部', 1, '丹尼維勒納夫', '提摩西夏勒梅', '2024-05-21', '2024-09-02', 120, '在【沙丘】中，亞崔迪家族被哈肯能家族殘忍殺害，保羅亞崔迪與母親潔西嘉女士在險惡的厄拉科斯星球，遇見了先前在夢中出現的荃妮，加入弗瑞曼人的生活。'),
+('銀河護衛隊：宇宙任務', 2, '詹姆士岡恩', '克里斯普瑞特', '2024-05-05', '2024-08-20', 130, '在《銀河護衛隊：宇宙任務》中，銀河護衛隊將迎接新的挑戰與冒險。他們將面對強大的敵人，同時探索宇宙中未知的領域，並揭示更多關於他們自己的故事。這是一段充滿動作、友情與感動的史詩旅程。'),
 ('加菲貓', 2, '馬克·汀戴爾', '克里斯·帕拉特', '2024-08-21', '2025-01-02', 140, '加菲貓的主人老薑（布萊克金·邁耶飾）接受了暗戀對象—獸醫甜心麗絲（珍妮佛·樂芙·休伊飾）送給他的一隻小狗歐弟，熱情憨厚的歐弟出現讓加菲貓的世界徹底顛覆，慵懶愛吃的加菲貓巴不得趕牠出去，只是歐弟卻真的不幸遭到壞人偷走，於是加菲貓鼓足勇氣決定要幫助主人和麗絲找回牠最討厭的歐弟...'),
 ('飢餓遊戲：鳴鳥與蛇之歌', 2, '弗朗西斯·勞倫斯', '湯姆·布萊斯', '2024-09-11', '2025-02-12', 150, '18歲的科里奧蘭納斯·斯諾（湯姆·布萊斯 飾）被選爲第十屆飢餓遊戲的導師，與來自第十二區的貧困女孩露西·格蕾·貝爾德（瑞秋·齊格勒 飾）成爲了「生死相依」的命運共同體。競技場上，這是一場關乎自由、食物，甚至是尊重與權利的生死角逐；競技場外，不忍與善意使斯諾決定不顧一切幫助露西在這場遊戲中贏得勝利......當活下去的欲望與所遵守的規則背道而馳，命運的齒輪緊抓入自己手中時，他又該如何抉擇？ 影片改編自蘇珊·柯林斯的同名小說。'),
 ('驚奇隊長2', 4, '尼婭·達科斯塔', '布麗·拉爾森', '2024-10-16', '2025-03-24', 130, '「驚奇隊長」卡羅爾·丹弗斯（布麗·拉爾森 Brie Larson 飾）從殘暴的克里人手中奪回了屬於自己的身份，也對至高智慧完成了復仇。然而，意想不到的後果出現了。面對動盪脆弱的宇宙，她毅然決然地挺身而出。執行任務時，她來到一個神祕的特殊蟲洞。在這裡，她與另外兩位女英雄產生了能力糾纏——一位是來自澤西市、驚奇隊長的超級粉絲「驚奇少女」卡瑪拉·克汗（伊曼·韋拉尼 Iman Vellani 飾），另一位是曾與卡羅爾親密無間的小侄女、如今長大在天劍局（S.A.B.E.R.）擔任太空人的莫妮卡·蘭博隊長（泰柔娜·派麗絲 Teyonah Parris 飾）。看似不搭界的三人必須齊心協力，以「驚奇聯盟」的身份拯救宇宙。'),
@@ -129,29 +131,58 @@ CREATE TABLE movie_img (
 
 INSERT INTO movie_img (movie_id, movie_img_name, movie_img_file)
 VALUES 
-(1, '圖片01',  '/path/to/image01.jpg'),
-(1, '圖片02',  '/path/to/image02.jpg'),
-(1, '圖片03',  '/path/to/image03.jpg'),
-(2, '圖片04',  '/path/to/image04.jpg'),
-(2, '圖片05',  '/path/to/image05.jpg'),
-(3, '圖片06',  '/path/to/image06.jpg'),
-(3, '圖片07',  '/path/to/image07.jpg'),
-(4, '圖片08',  '/path/to/image08.jpg'),
-(4, '圖片09',  '/path/to/image09.jpg'),
-(5, '圖片10',  '/path/to/image10.jpg'),
-(5, '圖片11',  '/path/to/image11.jpg'),
-(6, '圖片12',  '/path/to/image12.jpg'),
-(6, '圖片13',  '/path/to/image13.jpg'),
-(7, '圖片14',  '/path/to/image14.jpg'),
-(7, '圖片15',  '/path/to/image15.jpg'),
-(8, '圖片16',  '/path/to/image16.jpg'),
-(8, '圖片17',  '/path/to/image17.jpg'),
-(9, '圖片18',  '/path/to/image18.jpg'),
-(9, '圖片19',  '/path/to/image19.jpg'),
-(10, '圖片20',  '/path/to/image20.jpg'),
-(10, '圖片21',  '/path/to/image21.jpg'),
-(11, '圖片22',  '/path/to/image22.jpg'),
-(11, '圖片23',  '/path/to/image23.jpg');
+(1, '圖片01', '/Temp01/images_uploaded/水1.jpg'),
+(1, '圖片02', '/Temp01/images_uploaded/水2.jpg'),
+(1, '圖片03', '/Temp01/images_uploaded/水3.jpg'),
+(1, '圖片04', '/Temp01/images_uploaded/水4.jpg'),
+(2, '圖片05', '/Temp01/images_uploaded/情1.jpg'),
+(2, '圖片06', '/Temp01/images_uploaded/情2.png'),
+(2, '圖片07', '/Temp01/images_uploaded/情3.png'),
+(2, '圖片08', '/Temp01/images_uploaded/情4.png'),
+(3, '圖片09', '/Temp01/images_uploaded/貓1.jpg'),
+(3, '圖片10', '/Temp01/images_uploaded/貓2.jpg'),
+(3, '圖片11', '/Temp01/images_uploaded/貓3.jpg'),
+(3, '圖片12', '/Temp01/images_uploaded/貓4.jpg'),
+(4, '圖片13', '/Temp01/images_uploaded/靈1.jpg'),
+(4, '圖片14', '/Temp01/images_uploaded/靈2.jpg'),
+(4, '圖片15', '/Temp01/images_uploaded/靈3.jpg'),
+(4, '圖片16', '/Temp01/images_uploaded/靈4.jpg'),
+(5, '圖片17', '/Temp01/images_uploaded/攻1.jpg'),
+(5, '圖片18', '/Temp01/images_uploaded/攻2.jpg'),
+(5, '圖片19', '/Temp01/images_uploaded/攻3.jpg'),
+(5, '圖片20', '/Temp01/images_uploaded/攻4.jpg'),
+(6, '圖片21', '/Temp01/images_uploaded/哥1.jpg'),
+(6, '圖片22', '/Temp01/images_uploaded/哥2.jpg'),
+(6, '圖片23', '/Temp01/images_uploaded/哥3.jpg'),
+(6, '圖片24', '/Temp01/images_uploaded/哥4.jpg'),
+(7, '圖片25', '/Temp01/images_uploaded/鬼1.jpg'),
+(7, '圖片26', '/Temp01/images_uploaded/鬼2.jpg'),
+(7, '圖片27', '/Temp01/images_uploaded/鬼3.jpg'),
+(7, '圖片28', '/Temp01/images_uploaded/鬼4.jpg'),
+(8, '圖片29', '/Temp01/images_uploaded/沙1.jpg'),
+(8, '圖片30', '/Temp01/images_uploaded/沙2.jpg'),
+(8, '圖片31', '/Temp01/images_uploaded/沙3.jpg'),
+(8, '圖片32', '/Temp01/images_uploaded/沙4.jpg'),
+(9, '圖片33', '/Temp01/images_uploaded/銀1.jpg'),
+(9, '圖片34', '/Temp01/images_uploaded/銀2.jpg'),
+(9, '圖片35', '/Temp01/images_uploaded/銀3.jpg'),
+(9, '圖片36', '/Temp01/images_uploaded/銀4.jpg'),
+(10, '圖片37', '/Temp01/images_uploaded/加1.jpg'),
+(10, '圖片38', '/Temp01/images_uploaded/加2.jpg'),
+(10, '圖片39', '/Temp01/images_uploaded/加3.jpg'),
+(10, '圖片40', '/Temp01/images_uploaded/加4.jpg'),
+(11, '圖片41', '/Temp01/images_uploaded/餓1.jpg'),
+(11, '圖片42', '/Temp01/images_uploaded/餓2.jpg'),
+(11, '圖片43', '/Temp01/images_uploaded/餓3.jpg'),
+(11, '圖片44', '/Temp01/images_uploaded/餓4.jpg'),
+(12, '圖片45', '/Temp01/images_uploaded/驚1.jpg'),
+(12, '圖片46', '/Temp01/images_uploaded/驚2.jpg'),
+(12, '圖片47', '/Temp01/images_uploaded/驚3.jpg'),
+(12, '圖片48', '/Temp01/images_uploaded/驚4.jpg'),
+(13, '圖片49', '/Temp01/images_uploaded/失1.jpg'),
+(13, '圖片50', '/Temp01/images_uploaded/失2.jpg'),
+(13, '圖片51', '/Temp01/images_uploaded/失3.jpg'),
+(13, '圖片52', '/Temp01/images_uploaded/失4.jpg');
 
 
 -- 電影類型表
@@ -269,7 +300,6 @@ CREATE TABLE ticket_list (
     cinema_id INT COMMENT '影廳ID', -- FK
     show_times_id INT COMMENT '場次ID', -- FK
     seat_number VARCHAR(10) COMMENT '座位編號',
-    qrcode VARCHAR(255) COMMENT 'QRcode',
     ticket_status BOOLEAN COMMENT '電影票使用狀態',
     FOREIGN KEY (movie_order_id) REFERENCES movie_ticket_order(movie_order_id),
     FOREIGN KEY (movie_id) REFERENCES movie(movie_id),
@@ -322,13 +352,13 @@ VALUES
 -- (1530003, 1510003, 55, 1, 55);
 
 -- 插入資料到電影票表格
-INSERT INTO ticket_list (movie_order_id, movie_id, ticket_types_id, cinema_id, show_times_id, seat_number, qrcode, ticket_status) 
+INSERT INTO ticket_list (movie_order_id, movie_id, ticket_types_id, cinema_id, show_times_id, seat_number, ticket_status) 
 VALUES
-(1530001, 1, 1520001, 1, 3, 'A5', 'https://reurl.cc/NQ1vk9', TRUE),
-(1530001, 1, 1520003, 1, 3, 'B2', 'https://reurl.cc/NQ1vk9', TRUE),
-(1530002, 4, 1520002, 2, 7, 'B5', 'https://reurl.cc/NQ1vk9', FALSE),
-(1530003, 2, 1520002, 1, 2, 'A3', 'https://reurl.cc/NQ1vk9', TRUE),
-(1530003, 2, 1520001, 1, 2, 'A4', 'https://reurl.cc/NQ1vk9', TRUE);
+(1530001, 1, 1520001, 1, 3, 'A5', TRUE),
+(1530001, 1, 1520003, 1, 3, 'B2', TRUE),
+(1530002, 4, 1520002, 2, 7, 'B5', FALSE),
+(1530003, 2, 1520002, 1, 2, 'A3', TRUE),
+(1530003, 2, 1520001, 1, 2, 'A4', TRUE);
 
 
 
@@ -406,28 +436,18 @@ VALUES
 # product_img
 INSERT INTO product_img (prod_id, img_src, img_name)
 VALUES 
-	(13000001, './prod_img/功夫熊猫資料夾_1.jpg', '功夫熊猫資料夾_1.jpg'),
-	(13000001, './prod_img/功夫熊猫資料夾_2.jpg', '功夫熊猫資料夾_2.jpg'),
-	(13000001, './prod_img/功夫熊猫資料夾_3.jpg', '功夫熊猫資料夾_3.jpg'),
-	(13000002, './prod_img/沙丘保溫瓶_1.jpg', '沙丘保溫瓶_1.jpg'),
-	(13000002, './prod_img/沙丘保溫瓶_2.jpg', '沙丘保溫瓶_2.jpg'),
+	(13000001, 'resources/images/product/13000001.jpg', '13000001.jpg'),
+	(13000002, 'resources/images/product/13000002.jpg', '13000002.jpg'),
+	(13000003, 'resources/images/product/13000003.jpg', '13000003.jpg'),
+	(13000004, 'resources/images/product/13000004.jpg', '13000004.jpg'),
+	(13000005, 'resources/images/product/13000005.jpg', '13000005.jpg'),
 	-- 5
-	(13000003, './prod_img/千尋卡片_1.jpg', '千尋卡片_1.jpg'),
-	(13000004, './prod_img/金鋼玩偶_1.jpg', '金鋼玩偶_1.jpg'),
-	(13000004, './prod_img/金鋼玩偶_2.jpg', '金鋼玩偶_2.jpg'),
-	(13000004, './prod_img/金鋼玩偶_3.jpg', '金鋼玩偶_3.jpg'),
-	(13000005, './prod_img/怪盜基德明信片_1.jpg', '怪盜基德明信片_1.jpg'),
-	-- 10
-	(13000006, './prod_img/科南T-shirt_1.jpg', '科南T-shirt_1.jpg'),
-	(13000007, './prod_img/《NEXT LEVEL》加油棒_1.jpg', '《NEXT LEVEL》加油棒_1.jpg'),
-	(13000007, './prod_img/《NEXT LEVEL》加油棒_2.jpg', '《NEXT LEVEL》加油棒_2.jpg'),
-	(13000008, './prod_img/蜘蛛人背包_1.jpg', '蜘蛛人背包_1.jpg'),
-	(13000008, './prod_img/蜘蛛人背包_2.jpg', '蜘蛛人背包_2.jpg'),
-	-- 15
-	(13000009, './prod_img/鏡之孤城BD_1.jpg', '鏡之孤城BD_1.jpg'),
-	(13000010, './prod_img/哥吉拉玩偶_1.jpg', '哥吉拉玩偶_1.jpg'),
-	(13000010, './prod_img/哥吉拉玩偶_2.jpg', '哥吉拉玩偶_2.jpg'),
-	(13000010, './prod_img/哥吉拉玩偶_3.jpg', '哥吉拉玩偶_3.jpg')
+	(13000006, 'resources/images/product/13000006.jpg', '13000006.jpg'),
+	(13000007, 'resources/images/product/13000007.jpg', '13000007.jpg'),
+	(13000008, 'resources/images/product/13000008.jpg', '13000008.jpg'),
+	(13000009, 'resources/images/product/13000009.jpg', '13000009.jpg'),
+	(13000010, 'resources/images/product/13000010.jpg', '13000010.jpg')
+	-- 10 (13000010, './prod_img/哥吉拉玩偶_1.jpg', '哥吉拉玩偶_1.jpg')
 	;
 
 # product_order
@@ -555,10 +575,10 @@ CREATE TABLE reports (
 INSERT INTO reports (article_id, comment_id, report_type, report_reason, report_status, report_datetime, member_id)
 VALUES
 (5, NULL, '0', '仇恨言論', '0', '2024-05-09 00:00:00', 1),
-(NULL, 5, '1', '仇恨言論', '1.', '2024-05-09 00:00:00', 1),
-(5, NULL, '1', '仇恨言論', '1.', '2024-05-09 00:00:00', 2),
+(1, NULL, '1', '仇恨言論', '0.', '2024-05-09 00:00:00', 1),
+(5, NULL, '1', '仇恨言論', '0.', '2024-05-09 00:00:00', 2),
 (3, NULL, '0', '仇恨言論', '1.', '2024-05-09 00:00:00', 2),
-(NULL, 3, '2', '仇恨言論', '1.', '2024-05-09 00:00:00', 5);
+(2, NULL, '2', '仇恨言論', '1.', '2024-05-09 00:00:00', 5);
 
 
 -- 討論區圖片
