@@ -27,7 +27,7 @@ public class TicketOrderVO implements java.io.Serializable{	//movie_ticket_order
 	@Column(name = "movie_order_id", updatable = false)
 	private Integer movieOrderId; 		//電影訂單ID
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "member_id", referencedColumnName = "member_id")
 	private MemberVO memberId;			//會員ID
 	
