@@ -32,7 +32,7 @@
 				<th>品項</th>
 				<th>單價</th>
 				<th>介紹</th>
-				<th>縮圖</th>
+				<!-- <th>縮圖</th> -->
 			</tr>
 		</thead>
 		<tbody>
@@ -51,11 +51,18 @@
 				</td>
 				<td>${prodVO.prodName}</td>
 				<td>${prodVO.prodPrice}</td>
-				<td>${prodVO.prodIntro}</td>
-				<td><img alt="商品圖片" src="${pageContext.request.contextPath}/resources/images/product/${prodVO.prodImgs[0].imgName}" width="50px"></td>
-				
+				<td>${prodVO.prodIntro}</td>				
+				<%-- 
+				<td><img alt="商品圖片" src="${pageContext.request.contextPath}/resources/images/product/${prodVO.prodImgs[0].imgName}" width="500px"></td>
+				--%>
 			</tr>
 		</tbody>
 	</table>
+	<%-- 
+	<img alt="商品圖片" src="${pageContext.request.contextPath}/resources/images/product/${prodVO.prodImgs[0].imgName}" width="500px">
+ 	--%>	
+	<img alt="商品圖片" src="${pageContext.request.contextPath}/${prodVO.prodImgs[0].imgSrc}" width="500px"
+	onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/resources/images/product/noImg.jpg';">
+	
 </body>
 </html>
