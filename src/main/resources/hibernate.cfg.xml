@@ -58,6 +58,8 @@
 		
 		<!-- hkuma0218: 05/31 update  -->
 		<mapping class="com.ticlist.model.TicketListVO"/>
+		
+		<mapping class="com.reports.model.ReportsVO"/>
 	    
 	    
     </session-factory>
