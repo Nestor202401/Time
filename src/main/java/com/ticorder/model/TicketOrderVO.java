@@ -40,7 +40,7 @@ public class TicketOrderVO implements java.io.Serializable{	//movie_ticket_order
 	@Column(name = "movie_order_total")
 	private Integer movieOrderTotal;	//總金額
 	
-	@OneToMany(mappedBy = "movieOrderId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "movieOrderId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<TicketListVO> ticketLists; // 電影票明細清單
 	
 	public TicketOrderVO() {
