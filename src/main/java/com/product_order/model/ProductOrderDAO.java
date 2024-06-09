@@ -34,6 +34,7 @@ import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 
 import com.product_detail.model.ProductDetailVO;
 import com.util.ProductUtil;
@@ -356,6 +357,31 @@ public class ProductOrderDAO implements ProductOrderDAO_interface {
 		} 
 		// Exception in thread "main" java.lang.IllegalStateException: Session/EntityManager is closed
 //		return (query != null ? query.getResultList() : null);
+		return list;
+	}
+
+	@Override
+	public List<ProductOrderVO> findByMember(Integer memberId) {
+		// TODO Auto-generated method stub
+		Session session = factory.getCurrentSession();
+		List<ProductOrderVO> list = null;
+		try {
+			session.beginTransaction(); 
+			
+			// Worked
+			String hql = "SELECT p FROM ProductOrderVO p JOIN FETCH p.member m WHERE m.memberId = :memberId";
+            Query<ProductOrderVO> query = session.createQuery(hql, ProductOrderVO.class);
+            // 設置參數
+            query.setParameter("memberId", memberId);
+            // 執行查詢
+            list = query.list();
+			
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			System.err.println("Exception Position: OrderDAO/findByMember()");
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}
 		return list;
 	}	
 }
