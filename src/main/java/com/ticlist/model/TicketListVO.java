@@ -24,25 +24,33 @@ public class TicketListVO implements java.io.Serializable{	//ticket_list電影�
 	@Column(name = "movie_ticket_id", updatable = false)
 	private Integer movieTicketId;		//電影票明細ID
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "movie_order_id", referencedColumnName = "movie_order_id")
-	private TicketOrderVO movieOrderId;	 //電影ID
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "movie_order_id", referencedColumnName = "movie_order_id", insertable = false, updatable = false)
+	private TicketOrderVO TicketOrderVO;	 //電影訂單ID
+	
+	@Column(name = "movie_order_id")
+	private Integer movieOrderId;	 //電影訂單ID
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "movie_id", referencedColumnName = "movie_id")
-	private MovieVO movieId;	 //電影訂單ID
+	@JoinColumn(name = "movie_id", referencedColumnName = "movie_id", insertable = false, updatable = false)
+	private MovieVO MovieVO;	 //電影ID
+	
+	@Column(name = "movie_id")
+	private Integer movieId;	 //電影ID
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "ticket_types_id", referencedColumnName = "ticket_types_id")
-	private TicketTypesVO ticketTypesId; //票種ID
+	@JoinColumn(name = "ticket_types_id", referencedColumnName = "ticket_types_id", insertable = false, updatable = false)
+	private TicketTypesVO TicketTypesVO; //票種ID
+	
+	@Column(name = "ticket_types_id")
+	private Integer ticketTypesId; //票種ID
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "cinema_id", referencedColumnName = "cinema_id")
-	private CinemaVO cinemaId;		//影廳ID
+	@JoinColumn(name = "show_times_id", referencedColumnName = "show_times_id", insertable = false, updatable = false)
+	private MovieTimeVO MovieTimeVO;		//場次ID
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "show_times_id", referencedColumnName = "show_times_id")
-	private MovieTimeVO showTimesId;		//場次ID
+	@Column(name = "show_times_id")
+	private Integer showTimesId;		//場次ID
 	
 	@Column(name = "seat_number")
 	private String seatNumber;			//座位編號
@@ -56,14 +64,13 @@ public class TicketListVO implements java.io.Serializable{	//ticket_list電影�
 		// TODO Auto-generated constructor stub
 	}
 
-	public TicketListVO(Integer movieTicketId, TicketOrderVO movieOrderId, MovieVO movieId,
-			TicketTypesVO ticketTypesId, CinemaVO cinemaId, MovieTimeVO showTimesId, String seatNumber,
+	private TicketListVO(Integer movieTicketId, Integer movieOrderId,Integer movieId,Integer ticketTypesId, Integer showTimesId, String seatNumber,
 			Boolean ticketStatus) {
+		super();
 		this.movieTicketId = movieTicketId;
 		this.movieOrderId = movieOrderId;
 		this.movieId = movieId;
 		this.ticketTypesId = ticketTypesId;
-		this.cinemaId = cinemaId;
 		this.showTimesId = showTimesId;
 		this.seatNumber = seatNumber;
 		this.ticketStatus = ticketStatus;
@@ -75,59 +82,59 @@ public class TicketListVO implements java.io.Serializable{	//ticket_list電影�
 	public void setMovieTicketId(Integer movieTicketId) {
 		this.movieTicketId = movieTicketId;
 	}
-	public TicketOrderVO getMovieOrderId() {
+
+	public Integer getMovieOrderId() {
 		return movieOrderId;
 	}
-	public void setMovieOrderId(TicketOrderVO movieOrderId) {
+	public void setMovieOrderId(Integer movieOrderId) {
 		this.movieOrderId = movieOrderId;
 	}
-	public MovieTimeVO getShowTimesId() {
+
+	public Integer getMovieId() {
+		return movieId;
+	}
+	public void setMovieId(Integer movieId) {
+		this.movieId = movieId;
+	}
+
+	public Integer getTicketTypesId() {
+		return ticketTypesId;
+	}
+	public void setTicketTypesId(Integer ticketTypesId) {
+		this.ticketTypesId = ticketTypesId;
+	}
+
+
+	public Integer getShowTimesId() {
 		return showTimesId;
 	}
-	public void setShowTimesId(MovieTimeVO showTimesId) {
+	public void setShowTimesId(Integer showTimesId) {
 		this.showTimesId = showTimesId;
 	}
+
 	public String getSeatNumber() {
 		return seatNumber;
 	}
 	public void setSeatNumber(String seatNumber) {
 		this.seatNumber = seatNumber;
 	}
+
+
+
 	public Boolean getTicketStatus() {
 		return ticketStatus;
 	}
 	public void setTicketStatus(Boolean ticketStatus) {
 		this.ticketStatus = ticketStatus;
 	}
-	public TicketTypesVO getTicketTypesId() {
-		return ticketTypesId;
-	}
-	public void setTicketTypesId(TicketTypesVO ticketTypesId) {
-		this.ticketTypesId = ticketTypesId;
-	}
 
-	public MovieVO getMovieId() {
-		return movieId;
-	}
 
-	public void setMovieId(MovieVO movieId) {
-		this.movieId = movieId;
-	}
 
-	public CinemaVO getCinemaId() {
-		return cinemaId;
-	}
-
-	public void setCinemaId(CinemaVO cinemaId) {
-		this.cinemaId = cinemaId;
-	}
-	
 	@Override
 	public String toString() {
-		return "TicketListVO [movieTicketId=" + movieTicketId + ", movieOrderId=" + movieOrderId + ", movieId="
-				+ movieId + ", ticketTypesId=" + ticketTypesId + ", cinemaId=" + cinemaId + ", showTimesId="
-				+ showTimesId + ", seatNumber=" + seatNumber + ", ticketStatus=" + ticketStatus
-				+ "]";
+		return "TicketListVO [movieTicketId=" + movieTicketId + ", movieOrderId=" + movieOrderId 
+				+ ", movieId=" + movieId + ", ticketTypesId=" + ticketTypesId + ", showTimesId=" 
+				+ showTimesId + ", seatNumber=" + seatNumber + ", ticketStatus=" + ticketStatus + "]";
 	}
 	
 }
