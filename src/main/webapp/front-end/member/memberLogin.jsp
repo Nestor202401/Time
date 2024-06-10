@@ -155,7 +155,8 @@ margin: 35px 0 15px;
 			<button type="submit" class="btn">Login</button>
 			<p style="color: red; text-align: center; margin-top: 10px">${verifyMes}</p>		
 			<p style="color: red; text-align: center; margin-top: 10px">${verifyFalse}</p>		
-			<p style="color: red; text-align: center; margin-top: 10px">${verifySuccess}</p>		
+			<p style="color: red; text-align: center; margin-top: 10px">${verifySuccess}</p>
+			<p style="color: red; text-align: center; margin-top: 10px">${noLogIn}</p>		
 			<input type="hidden" name="action" value="Log_In">
 			<div class="register-link">
 				<p>
