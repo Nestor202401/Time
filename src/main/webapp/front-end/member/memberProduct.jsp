@@ -212,7 +212,7 @@ table td {
 <body>
   <div class="side-bar">
     <div class="menu">
-       <div class="item"><a href="#"><i class="fas fa-home"></i>回首頁</a></div>
+       <div class="item"><a href="${pageContext.request.contextPath}"><i class="fas fa-home"></i>回首頁</a></div>
       <div class="item"><a href="${pageContext.request.contextPath}/front-end/member/memberProfile.jsp"><i class="fas fa-user"></i>會員中心</a></div>
      <div class="item"><a href="${pageContext.request.contextPath}/mem?action=comment"><i class="fas fa-comments"></i>討論區</a></div>
       <div class="item">

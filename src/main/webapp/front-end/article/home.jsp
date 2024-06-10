@@ -13,6 +13,8 @@ pageContext.setAttribute("list", list);
 <head>
 <meta charset="UTF-8">
 <title>討論區-文章</title>
+<!-- icon link -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 <!-- DataTables CSS -->
 <link rel="stylesheet" type="text/css"
 	href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
@@ -281,6 +283,13 @@ body {
 					<li><a href="#">周邊商品</a></li>
 					<li><a href="/Time/front-end/article/home.jsp">討論區</a></li>
 					<li><a href="#">會員中心</a></li>
+						<li style="color: yellow;  margin-left: 30px;">
+						<i class="fas fa-user" style="margin-right: 5px;"></i>
+					</li>
+					<li id="member"
+						style="color: yellow;  margin-left: -25px;">
+						<span id="memberName"></span>
+					</li>
 				</ul>
 			</nav>
 			<div class="auth-buttons">
@@ -394,6 +403,32 @@ body {
 				} ]
 			});
 		});
+		
+		function fetchMemberName() {
+	        var xhr = new XMLHttpRequest();
+	        var url = "/Time/getMemberName?timestamp=" + new Date().getTime(); // 添加時間戳來防止緩存
+	        xhr.open("GET", url, true);
+	        xhr.onreadystatechange = function() {
+	            if (xhr.readyState === 4) {
+	                if (xhr.status === 200) {
+	                    var response = JSON.parse(xhr.responseText);
+	                    var username = response.memberName;
+	                    var memberElement = document.getElementById('member');
+	                    if (username) {
+	                        memberElement.textContent =username;
+	                        document.querySelector('.auth-buttons button').textContent = "重新登入";
+	                    } else {
+	                        memberElement.textContent = "未登入會員";
+	                    }
+	                } else {
+	                    console.error("Error fetching member name: " + xhr.status);
+	                }
+	            }
+	        };
+	        xhr.send();
+	    }
+	    // 當頁面加載時獲取會員名稱
+	    window.onload = fetchMemberName;
 	</script>
 </body>
 </html>
