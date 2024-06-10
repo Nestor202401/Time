@@ -35,19 +35,19 @@
         <!-- Sidebar Header    -->
         <div class="sidebar-header d-flex align-items-center justify-content-center p-3 mb-3">
           <!-- User Info-->
-          <div class="sidenav-header-inner text-center"><a href="pages-profile.html"><img class="img-fluid rounded-circle avatar mb-2" src="../resources/img/avatar-7.jpg" alt="person"></a>
-            <h2 class="h5 text-white text-uppercase mb-0">Nathan Andrews</h2>
-            <p class="text-sm mb-0 text-muted">Web Developer</p>
-          </div>
+          <div class="sidenav-header-inner text-center">
+  <a href="pages-profile.html">
+    <img class="img-fluid rounded-circle avatar mb-2" src="../resources/img/avatar-7.jpg" alt="person">
+  </a>
+  <h2 class="h5 text-white text-uppercase mb-0" style="font-size: 1em; font-weight: bold;">Time影城後台管理</h2>
+  <p class="text-sm mb-0 text-muted" style="font-size: 0.75em; font-weight: bold;"></p>
+</div>
           <!-- Small Brand information, appears on minimized sidebar--><a class="brand-small text-center" href="index.html">
             <p class="h1 m-0">BD</p></a>
         </div>
-        <!-- Sidebar Navigation Menus--><span class="text-uppercase text-gray-500 text-sm fw-bold letter-spacing-0 mx-lg-2 heading">Main</span>
+        <!-- Sidebar Navigation Menus--><span class="text-uppercase text-gray-500 text-sm fw-bold letter-spacing-0 mx-lg-2 heading"></span>
        <ul class="list-unstyled">                  
-         <li class="sidebar-item"><a class="sidebar-link" href="index.html"> 
-              <svg class="svg-icon svg-icon-sm svg-icon-heavy me-2">
-                <use xlink:href="#real-estate-1"> </use>
-              </svg>Home </a></li>
+         
           <li class="sidebar-item active"><a class="sidebar-link" href="#formsDropdown" aria-expanded="aria-expanded" data-bs-toggle="collapse"> 
               <svg class="svg-icon svg-icon-sm svg-icon-heavy me-2">
                 <use xlink:href="#survey-1"> </use>
@@ -59,6 +59,27 @@
               <li><a class="sidebar-link" href="<%=request.getContextPath()%>/back-end/cinema/cinema.jsp">影廳管理</a></li>
             </ul>
           </li>
+          
+          <li class="sidebar-item"><a class="sidebar-link" href="#chartsDropdown" data-bs-toggle="collapse"> 
+              <svg class="svg-icon svg-icon-sm svg-icon-heavy me-2">
+                <use xlink:href="#sales-up-1"> </use>
+              </svg>票務相關設定 </a>
+            <ul class="collapse list-unstyled " id="chartsDropdown">
+              <li><a class="sidebar-link" href="<%=request.getContextPath()%>/back-end/ticorder/main_ticorder.jsp">訂單管理</a></li>
+              <li><a class="sidebar-link" href="<%=request.getContextPath()%>/back-end/tictypes/main_tictypes.jsp">票種設定</a></li>
+            </ul>
+          </li>
+          
+          <li class="sidebar-item"><a class="sidebar-link" href=""> 
+              <svg class="svg-icon svg-icon-sm svg-icon-heavy me-2">
+                <use xlink:href="#real-estate-1"> </use>
+              </svg>周邊商品</a></li>
+          
+          <li class="sidebar-item"><a class="sidebar-link" href="<%=request.getContextPath()%>/back-end/reports/report.jsp"> 
+              <svg class="svg-icon svg-icon-sm svg-icon-heavy me-2">
+                <use xlink:href="#real-estate-1"> </use>
+              </svg>討論區管理</a></li>
+          
           </ul>  
       </div>
     </nav>
@@ -72,7 +93,7 @@
                   <svg class="svg-icon svg-icon-sm svg-icon-heavy text-white">
                     <use xlink:href="#menu-1"> </use>
                   </svg></a><a class="navbar-brand ms-2" href="index.html">
-                  <div class="brand-text d-none d-md-inline-block text-uppercase letter-spacing-0"><span class="text-white fw-normal text-xs">Time </span><strong class="text-primary text-sm">影城後台管理</strong></div></a></div>
+                  <div class="brand-text d-none d-md-inline-block text-uppercase letter-spacing-0"><span class="text-white fw-normal text-xs"></span><strong class="text-primary text-sm"></strong></div></a></div>
               <ul class="nav-menu mb-0 list-unstyled d-flex flex-md-row align-items-md-center">
                 <!-- Notifications dropdown-->
                 
@@ -98,8 +119,8 @@
         <div class="container-fluid">
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb mb-0 py-3">
-              <li class="breadcrumb-item"><a class="fw-light" href="index.html">Home</a></li>
-              <li class="breadcrumb-item active fw-light" aria-current="page">test  </li>
+              <li class="breadcrumb-item"><a class="fw-light" href="">Home</a></li>
+              <li class="breadcrumb-item active fw-light" aria-current="page">showtime  </li>
             </ol>
           </nav>
         </div>

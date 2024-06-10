@@ -2,413 +2,405 @@
 <html lang="zh-CN">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Free Guy 2021</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Guy 2021</title>
 
-  <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="../resources/movie/assets/css/style.css">
+<link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../resources/movie/assets/css/style.css">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      color: #fff;
-      background-color: #0c0c0c;
-      padding-top: 80px;
-    }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+	rel="stylesheet">
+<style>
+body {
+	margin: 0;
+	font-family: 'Poppins', sans-serif;
+	color: #fff;
+	background-color: #0c0c0c;
+	padding-top: 80px;
+}
 
-    header {
-      background-color: #000;
-      padding: 20px 0;
-      position: fixed;
-      width: 100%;
-      top: 0;
-      z-index: 1000;
-    }
+header {
+	background-color: #000;
+	padding: 20px 0;
+	position: fixed;
+	width: 100%;
+	top: 0;
+	z-index: 1000;
+}
 
-    .container99 {
-      width: 90%;
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+.container99 {
+	width: 90%;
+	max-width: 1200px;
+	margin: 0 auto;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
 
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 30px;
-      margin: 0;
-      padding: 0;
-    }
+nav ul {
+	list-style: none;
+	display: flex;
+	gap: 30px;
+	margin: 0;
+	padding: 0;
+}
 
-    nav ul li a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 18px;
-      padding: 10px 15px;
-      transition: color 0.3s ease;
-    }
+nav ul li a {
+	color: #fff;
+	text-decoration: none;
+	font-weight: 600;
+	font-size: 18px;
+	padding: 10px 15px;
+	transition: color 0.3s ease;
+}
 
-    nav ul li a:hover {
-      color: #ffd700;
-    }
+nav ul li a:hover {
+	color: #ffd700;
+}
 
-    .auth-buttons button {
-      background-color: #ffd700;
-      border: none;
-      padding: 10px 20px;
-      cursor: pointer;
-      font-size: 18px;
-      border-radius: 5px;
-      font-weight: 600;
-      transition: background-color 0.3s ease;
-    }
+.auth-buttons button {
+	background-color: #ffd700;
+	border: none;
+	padding: 10px 20px;
+	cursor: pointer;
+	font-size: 18px;
+	border-radius: 5px;
+	font-weight: 600;
+	transition: background-color 0.3s ease;
+}
 
-    .auth-buttons button:hover {
-      background-color: #e0c000;
-    }
+.auth-buttons button:hover {
+	background-color: #e0c000;
+}
 
-    .movie-card {
-      border: 1px solid #ddd;
-      padding: 10px;
-      margin: 10px;
-      list-style: none;
-    }
+.movie-card {
+	border: 1px solid #ddd;
+	padding: 10px;
+	margin: 10px;
+	list-style: none;
+}
 
-    .movie-card img {
-      width: 100px;
-      height: 150px;
-    }
+.movie-card img {
+	width: 100px;
+	height: 150px;
+}
 
-    .card-title {
-      font-size: 16px;
-      margin: 10px 0;
-    }
+.card-title {
+	font-size: 16px;
+	margin: 10px 0;
+}
 
-    .card-meta {
-      display: flex;
-      justify-content: space-between;
-    }
+.card-meta {
+	display: flex;
+	justify-content: space-between;
+}
 
-    .footer99 {
-      background-color: #0e0e0e;
-      padding: 20px;
-      text-align: center;
-    }
+.footer99 {
+	background-color: #0e0e0e;
+	padding: 20px;
+	text-align: center;
+}
 
-    .footer99 .nav-links99 {
-      margin-bottom: 10px;
-    }
+.footer99 .nav-links99 {
+	margin-bottom: 10px;
+}
 
-    .footer99 .nav-links99 a {
-      display: inline-block;
-      margin: 0 15px;
-      color: #fff;
-      text-decoration: none;
-      font-size: 14px;
-    }
+.footer99 .nav-links99 a {
+	display: inline-block;
+	margin: 0 15px;
+	color: #fff;
+	text-decoration: none;
+	font-size: 14px;
+}
 
-    .footer99 .nav-links99 a:hover {
-      text-decoration: underline;
-    }
+.footer99 .nav-links99 a:hover {
+	text-decoration: underline;
+}
 
-    .footer99 .logo {
-      display: block;
-      margin: 0 auto 10px;
-      max-width: 150px;
-    }
+.footer99 .logo {
+	display: block;
+	margin: 0 auto 10px;
+	max-width: 150px;
+}
 
-    .footer99 .social-icons {
-      margin: 10px 0;
-    }
+.footer99 .social-icons {
+	margin: 10px 0;
+}
 
-    .footer99 .social-icons a {
-      margin: 0 10px;
-      color: #fff;
-      text-decoration: none;
-      font-size: 20px;
-    }
+.footer99 .social-icons a {
+	margin: 0 10px;
+	color: #fff;
+	text-decoration: none;
+	font-size: 20px;
+}
 
-    .footer99 .social-icons a:hover {
-      color: #ccc;
-    }
+.footer99 .social-icons a:hover {
+	color: #ccc;
+}
 
-    .footer99 .copyright {
-      font-size: 12px;
-      color: #ccc;
-    }
+.footer99 .copyright {
+	font-size: 12px;
+	color: #ccc;
+}
 
-    .footer99 .policy-links {
-      margin-top: 10px;
-    }
+.footer99 .policy-links {
+	margin-top: 10px;
+}
 
-    .footer99 .policy-links a {
-      display: inline-block;
-      margin: 0 5px;
-      color: #ccc;
-      text-decoration: none;
-      font-size: 12px;
-    }
+.footer99 .policy-links a {
+	display: inline-block;
+	margin: 0 5px;
+	color: #ccc;
+	text-decoration: none;
+	font-size: 12px;
+}
 
-    .footer99 .policy-links a:hover {
-      text-decoration: underline;
-    }
+.footer99 .policy-links a:hover {
+	text-decoration: underline;
+}
 
-    .meta-wrapper {
-      display: flex;
-      flex-direction: column;
-    }
+.meta-wrapper {
+	display: flex;
+	flex-direction: column;
+}
 
-    .badge-wrapper {
-      display: flex;
-      flex-wrap: wrap;
-    }
+.badge-wrapper {
+	display: flex;
+	flex-wrap: wrap;
+}
 
-    .badge-wrapper.vertical {
-      flex-direction: column;
-      align-items: flex-start;
-    }
+.badge-wrapper.vertical {
+	flex-direction: column;
+	align-items: flex-start;
+}
 
-    #movieDirector,
-    #movieActor,
-    #movieDuration,
-    #movieRating,
-    #movieReleaseDate,
-    #movieEndDate {
-      margin-bottom: 5px;
-      text-align: left;
-    }
+#movieDirector, #movieActor, #movieDuration, #movieRating,
+	#movieReleaseDate, #movieEndDate {
+	margin-bottom: 5px;
+	text-align: left;
+}
 
-    .showtimes {
-      margin-top: 20px;
-      background-color: #1e1e1e;
-      padding: 15px;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
+.showtimes {
+	margin-top: 20px;
+	background-color: #1e1e1e;
+	padding: 15px;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
 
-    .showtimes h2 {
-      font-size: 24px;
-      margin-bottom: 15px;
-      color: #ffd700;
-    }
+.showtimes h2 {
+	font-size: 24px;
+	margin-bottom: 15px;
+	color: #ffd700;
+}
 
-    .showtimes ul {
-      list-style: none;
-      padding: 0;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
+.showtimes ul {
+	list-style: none;
+	padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+}
 
-    .showtimes li {
-      background-color: #333;
-      padding: 10px;
-      border-radius: 5px;
-      margin-right: 10px;
-      margin-bottom: 10px;
-      color: #fff;
-    }
+.showtimes li {
+	background-color: #333;
+	padding: 10px;
+	border-radius: 5px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	color: #fff;
+}
 
-    .movie-images {
-      margin-top: 20px;
-      background-color: #1e1e1e;
-      padding: 15px;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
+.movie-images {
+	margin-top: 20px;
+	background-color: #1e1e1e;
+	padding: 15px;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
 
-    .movie-images h2 {
-      font-size: 24px;
-      margin-bottom: 15px;
-      color: #ffd700;
-    }
+.movie-images h2 {
+	font-size: 24px;
+	margin-bottom: 15px;
+	color: #ffd700;
+}
 
-    .movie-images img {
-      width: 100%;
-      height: auto;
-      max-width: 300px;
-      max-height: 150px;
-      object-fit: cover;
-      margin-right: 10px;
-      margin-bottom: 10px;
-      border-radius: 5px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      transition: transform 0.3s ease;
-    }
+.movie-images img {
+	width: 100%;
+	height: auto;
+	max-width: 300px;
+	max-height: 150px;
+	object-fit: cover;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	border-radius: 5px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	transition: transform 0.3s ease;
+}
 
-    .movie-images img:hover {
-      transform: scale(1.05);
-    }
+.movie-images img:hover {
+	transform: scale(1.05);
+}
 
-    .movie-images .images-container {
-      display: flex;
-      flex-wrap: wrap;
-    }
+.movie-images .images-container {
+	display: flex;
+	flex-wrap: wrap;
+}
 
-    .movie-detail {
-      display: flex;
-      align-items: flex-start;
-      gap: 20px;
-    }
+.movie-detail {
+	display: flex;
+	align-items: flex-start;
+	gap: 20px;
+}
 
-    .movie-detail img {
-      max-width: 300px;
-      height: auto;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
+.movie-detail img {
+	max-width: 300px;
+	height: auto;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
 
-    .movie-detail-content {
-      flex: 1;
-    }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+.movie-detail-content {
+	flex: 1;
+}
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body id="#top">
 
-  <!-- 
+	<!-- 
     - #HEADER
   -->
 
-  <header>
-    <div class="container99">
-      <div class="logo">
-        <h1>Time影城</h1>
-      </div>
-      <nav>
-        <ul>
-          <li><a href="#">電影</a></li>
-          <li><a href="#">立即購票</a></li>
-          <li><a href="#">周邊商品</a></li>
-          <li><a href="#">討論區</a></li>
-          <li><a href="#">會員中心</a></li>
-        </ul>
-      </nav>
-      <div class="auth-buttons">
-        <button>登入/註冊</button>
-      </div>
-    </div>
-  </header>
+	<header>
+		<div class="container99">
+			<div class="logo">
+				<h1>
+					<a href="/Time/index.html" style="color: white; text-decoration: none;">Time影城</a>
+				</h1>
+			</div>
+			<nav>
+				<ul>
+					<li><a href="/Time/front-end/movie/movie.html">電影</a></li>
+					<li><a href="/Time/front-end/buytickets/buy_tickets_page.html">立即購票</a></li>
+					<li><a href="#">周邊商品</a></li>
+					<li><a href="/Time/front-end/article/home.jsp">討論區</a></li>
+					<li><a href="#">會員中心</a></li>
+				</ul>
+			</nav>
+			<div class="auth-buttons">
+				<button>登入/註冊</button>
+			</div>
+		</div>
+	</header>
 
-  <main>
-    <article>
+	<main>
+		<article>
 
-      <!-- 
+			<!-- 
         - #MOVIE DETAIL
       -->
 
-      <section class="movie-detail" style="padding-top: 5%;">
-        <div class="container">
+			<section class="movie-detail" style="padding-top: 5%;">
+				<div class="container">
 
-          <img id="movieImage" src="default.png" alt="Free guy movie poster" style="margin-right: 10%;">
+					<img id="movieImage" src="default.png" alt="Free guy movie poster"
+						style="margin-right: 10%;">
 
-          <div class="movie-detail-content">
-            <h1 class="h1 detail-title" id="movieTitle">
-              <strong>電影名稱</strong>
-            </h1>
+					<div class="movie-detail-content">
+						<h1 class="h1 detail-title" id="movieTitle">
+							<strong>電影名稱</strong>
+						</h1>
 
-            <div class="badge-wrapper" style="margin-bottom: 10px;">
-              <span id="movieDirector">導演: </span> |
-              <span id="movieActor">演員: </span> |
-              <span id="movieDuration">片長: </span> |
-              <span id="movieRating">等級: </span>
-            </div>
-            <div class="badge-wrapper" style="margin-bottom: 10px;">
-              <span id="movieReleaseDate">上映日期: </span>|
-              <span id="movieEndDate">下映日期: </span>
-            </div>
-            <p class="storyline" id="movieDescription">
-              (電影簡介)
-            </p>
+						<div class="badge-wrapper" style="margin-bottom: 10px;">
+							<span id="movieDirector">導演: </span> | <span id="movieActor">演員:
+							</span> | <span id="movieDuration">片長: </span> | <span id="movieRating">等級:
+							</span>
+						</div>
+						<div class="badge-wrapper" style="margin-bottom: 10px;">
+							<span id="movieReleaseDate">上映日期: </span>| <span
+								id="movieEndDate">下映日期: </span>
+						</div>
+						<p class="storyline" id="movieDescription">(電影簡介)</p>
 
-            <div class="details-actions">
-              <div class="title-wrapper">
-                <p class="title">優質電影</p>
-                <p class="text">心動不如馬上行動</p>
-              </div>
-              <button class="btn btn-primary">
-                <ion-icon name="play"></ion-icon>
-                <span style="font-size: 24px;">快速訂票</span>
-              </button>
-            </div>
-          </div>
+						<div class="details-actions">
+							<div class="title-wrapper">
+								<p class="title">優質電影</p>
+								<p class="text">心動不如馬上行動</p>
+							</div>
+							<button class="btn btn-primary">
+								<ion-icon name="play"></ion-icon>
+								<span style="font-size: 24px;">快速訂票</span>
+							</button>
+						</div>
+					</div>
 
-        </div>
-      </section>
+				</div>
+			</section>
 
-    </article>
-  </main>
+		</article>
+	</main>
 
-  <!-- 新增的場次介紹和電影圖片介紹 -->
-  <section class="additional-info">
-    <div class="container">
-      <div class="showtimes">
-        <h2>場次介紹</h2>
-        <ul id="showtimeDates">
-          <!-- Showtime dates will be populated here -->
-        </ul>
-      </div>
+	<!-- 新增的場次介紹和電影圖片介紹 -->
+	<section class="additional-info">
+		<div class="container">
+			<div class="showtimes">
+				<h2>場次介紹</h2>
+				<ul id="showtimeDates">
+					<!-- Showtime dates will be populated here -->
+				</ul>
+			</div>
 
-      <div class="movie-images">
-        <h2>電影圖片介紹</h2>
-        <div class="images-container" id="movieImages">
-          <!-- Movie images will be populated here -->
-        </div>
-      </div>
-    </div>
-  </section>
+			<div class="movie-images">
+				<h2>電影圖片介紹</h2>
+				<div class="images-container" id="movieImages">
+					<!-- Movie images will be populated here -->
+				</div>
+			</div>
+		</div>
+	</section>
 
-  <!-- 
+	<!-- 
     - #FOOTER
   -->
 
-  <div class="footer99">
-    <div class="nav-links99">
-      <a href="#">工作機會</a>
-      <a href="#">關於</a>
-      <a href="#">客戶支援</a>
-      <a href="#">聯繫我們</a>
-      <a href="#">媒體報導</a>
-      <a href="#">API</a>
-    </div>
-    <div class="social-icons">
-      <a href="#"><i class="fab fa-twitter"></i></a>
-      <a href="#"><i class="fab fa-facebook"></i></a>
-      <a href="#"><i class="fab fa-reddit"></i></a>
-      <a href="#"><i class="fab fa-instagram"></i></a>
-      <a href="#"><i class="fab fa-youtube"></i></a>
-    </div>
-    <div class="copyright">
-      © 2024 Time娛樂股份有限公司 ( Entertainment, Inc.) 在此提及的所有 商標 是其各自所有人的財產。台灣商頁影城有限公司台灣分公司 28992446
-    </div>
-    <div class="policy-links">
-      <a href="#">隱私</a>
-      <a href="#">法律聲明</a>
-      <a href="#">條款</a>
-      <a href="#">Cookie 政策</a>
-      <a href="#">Cookie 設定</a>
-    </div>
-  </div>
+	<div class="footer99">
+		<div class="nav-links99">
+			<a href="#">工作機會</a> <a href="#">關於</a> <a href="#">客戶支援</a> <a
+				href="#">聯繫我們</a> <a href="#">媒體報導</a> <a href="#">API</a>
+		</div>
+		<div class="social-icons">
+			<a href="#"><i class="fab fa-twitter"></i></a> <a href="#"><i
+				class="fab fa-facebook"></i></a> <a href="#"><i
+				class="fab fa-reddit"></i></a> <a href="#"><i
+				class="fab fa-instagram"></i></a> <a href="#"><i
+				class="fab fa-youtube"></i></a>
+		</div>
+		<div class="copyright">© 2024 Time娛樂股份有限公司 ( Entertainment,
+			Inc.) 在此提及的所有 商標 是其各自所有人的財產。台灣商頁影城有限公司台灣分公司 28992446</div>
+		<div class="policy-links">
+			<a href="#">隱私</a> <a href="#">法律聲明</a> <a href="#">條款</a> <a
+				href="#">Cookie 政策</a> <a href="#">Cookie 設定</a>
+		</div>
+	</div>
 
-  <script src="../resources/movie/assets/js/script.js"></script>
+	<script src="../resources/movie/assets/js/script.js"></script>
 
-  <!-- 
+	<!-- 
     - ionicon link
   -->
-  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-  
-  <script>
+	<script type="module"
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+	<script>
     // 获取URL中的参数
     function getQueryString(name) {
       const urlParams = new URLSearchParams(window.location.search);
@@ -465,7 +457,7 @@
     // 根据电影ID加载电影详情
     function loadMovieDetails(movieId) {
       $.ajax({
-        url: '/Temp01/back-end/movie/movie.do',
+        url: '/Time/back-end/movie/movie.do',
         type: 'POST',
         data: {
           action: 'getMovieDetails',
@@ -495,7 +487,7 @@
     // 根据电影ID加载场次日期
     function loadShowtimeDates(movieId) {
       $.ajax({
-        url: '/Temp01/back-end/movietime/movietime.do',
+        url: '/Time/back-end/movietime/movietime.do',
         type: 'POST',
         data: {
           action: 'getShowtimeDates',
@@ -519,7 +511,7 @@
     // 根据电影ID加载电影图片
     function loadMovieImages(movieId) {
       $.ajax({
-        url: '/Temp01/back-end/movieimg/movieimg.do',
+        url: '/Time/back-end/movieimg/movieimg.do',
         type: 'POST',
         data: {
           action: 'getMovieImages',

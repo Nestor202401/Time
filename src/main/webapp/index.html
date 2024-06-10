@@ -2,217 +2,235 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Filmlane - Best movie collections</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Filmlane - Best movie collections</title>
 
-  <!-- favicon -->
-  <link rel="shortcut icon" href="./front-end/resources/movie/favicon.svg" type="image/svg+xml">
+<!-- favicon -->
+<link rel="shortcut icon" href="./front-end/resources/movie/favicon.svg"
+	type="image/svg+xml">
 
-  <!-- custom css link -->
-  <link rel="stylesheet" href="./front-end/resources/movie/assets/css/style.css">
+<!-- custom css link -->
+<link rel="stylesheet"
+	href="./front-end/resources/movie/assets/css/style.css">
 
-  <!-- google font link -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<!-- google font link -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+	rel="stylesheet">
 
-  <style>
-  body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    color: #fff;
-    background-color: #0c0c0c;
-    padding-top: 80px; /* Adjust based on the header height */
-  }
+<style>
+body {
+	margin: 0;
+	font-family: 'Poppins', sans-serif;
+	color: #fff;
+	background-color: #0c0c0c;
+	padding-top: 80px; /* Adjust based on the header height */
+}
 
-  header {
-    background-color: #000;
-    padding: 20px 0;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
-  }
+header {
+	background-color: #000;
+	padding: 20px 0;
+	position: fixed;
+	width: 100%;
+	top: 0;
+	z-index: 1000;
+}
 
-  .container99 {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+.container99 {
+	width: 90%;
+	max-width: 1200px;
+	margin: 0 auto;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
 
-  nav ul {
-    list-style: none;
-    display: flex;
-    gap: 30px;
-    margin: 0;
-    padding: 0;
-  }
+nav ul {
+	list-style: none;
+	display: flex;
+	gap: 30px;
+	margin: 0;
+	padding: 0;
+}
 
-  nav ul li a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 18px;
-    padding: 10px 15px;
-    transition: color 0.3s ease;
-  }
+nav ul li a {
+	color: #fff;
+	text-decoration: none;
+	font-weight: 600;
+	font-size: 18px;
+	padding: 10px 15px;
+	transition: color 0.3s ease;
+}
 
-  nav ul li a:hover {
-    color: #ffd700;
-  }
+nav ul li a:hover {
+	color: #ffd700;
+}
 
-  .auth-buttons button {
-    background-color: #ffd700;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 18px;
-    border-radius: 5px;
-    font-weight: 600;
-    transition: background-color 0.3s ease;
-  }
+.auth-buttons button {
+	background-color: #ffd700;
+	border: none;
+	padding: 10px 20px;
+	cursor: pointer;
+	font-size: 18px;
+	border-radius: 5px;
+	font-weight: 600;
+	transition: background-color 0.3s ease;
+}
 
-  .auth-buttons button:hover {
-    background-color: #e0c000;
-  }
+.auth-buttons button:hover {
+	background-color: #e0c000;
+}
 
-  .movie-card {
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin: 10px;
-    list-style: none;
-  }
+.movie-card {
+	border: 1px solid #ddd;
+	padding: 10px;
+	margin: 10px;
+	list-style: none;
+}
 
-  .movie-card img {
-    width: 100px;
-    height: 150px;
-  }
+.movie-card img {
+	width: 100px;
+	height: 150px;
+}
 
-  .card-title {
-    font-size: 16px;
-    margin: 10px 0;
-  }
+.card-title {
+	font-size: 16px;
+	margin: 10px 0;
+}
 
-  .card-meta {
-    display: flex;
-    justify-content: space-between;
-  }
+.card-meta {
+	display: flex;
+	justify-content: space-between;
+}
 
-  .footer99 {
-    background-color: #0e0e0e;
-    padding: 20px;
-    text-align: center;
-  }
+.footer99 {
+	background-color: #0e0e0e;
+	padding: 20px;
+	text-align: center;
+}
 
-  .footer99 .nav-links99 {
-    margin-bottom: 10px;
-  }
+.footer99 .nav-links99 {
+	margin-bottom: 10px;
+}
 
-  .footer99 .nav-links99 a {
-    display: inline-block;
-    margin: 0 15px;
-    color: #fff;
-    text-decoration: none;
-    font-size: 14px;
-  }
+.footer99 .nav-links99 a {
+	display: inline-block;
+	margin: 0 15px;
+	color: #fff;
+	text-decoration: none;
+	font-size: 14px;
+}
 
-  .footer99 .nav-links99 a:hover {
-    text-decoration: underline;
-  }
+.footer99 .nav-links99 a:hover {
+	text-decoration: underline;
+}
 
-  .footer99 .logo {
-    display: block;
-    margin: 0 auto 10px;
-    max-width: 150px;
-  }
+.footer99 .logo {
+	display: block;
+	margin: 0 auto 10px;
+	max-width: 150px;
+}
 
-  .footer99 .social-icons {
-    margin: 10px 0;
-  }
+.footer99 .social-icons {
+	margin: 10px 0;
+}
 
-  .footer99 .social-icons a {
-    margin: 0 10px;
-    color: #fff;
-    text-decoration: none;
-    font-size: 20px;
-  }
+.footer99 .social-icons a {
+	margin: 0 10px;
+	color: #fff;
+	text-decoration: none;
+	font-size: 20px;
+}
 
-  .footer99 .social-icons a:hover {
-    color: #ccc;
-  }
+.footer99 .social-icons a:hover {
+	color: #ccc;
+}
 
-  .footer99 .copyright {
-    font-size: 12px;
-    color: #ccc;
-  }
+.footer99 .copyright {
+	font-size: 12px;
+	color: #ccc;
+}
 
-  .footer99 .policy-links {
-    margin-top: 10px;
-  }
+.footer99 .policy-links {
+	margin-top: 10px;
+}
 
-  .footer99 .policy-links a {
-    display: inline-block;
-    margin: 0 5px;
-    color: #ccc;
-    text-decoration: none;
-    font-size: 12px;
-  }
+.footer99 .policy-links a {
+	display: inline-block;
+	margin: 0 5px;
+	color: #ccc;
+	text-decoration: none;
+	font-size: 12px;
+}
 
-  .footer99 .policy-links a:hover {
-    text-decoration: underline;
-  }
+.footer99 .policy-links a:hover {
+	text-decoration: underline;
+}
 </style>
 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script>
-    $(document).ready(function() {
-        $.ajax({
-            url: 'back-end/movie/movie.do',
-            type: 'POST',
-            data: {
-                action: 'getHotMovies',
-                type: 'four'  // 添加type參數
-            },
-            success: function(response) {
-                $('#movieList').empty();
-                $.each(response, function(index, movie) {
-                    var imgTag = '<img src="./front-end/resources/movie/assets/images/default.png" alt="Default Movie Image">';
-                    if (movie.firstImage) {
-                        imgTag = '<img src="' + movie.firstImage + '" alt="Movie Image">';
-                    }
-                    $('#movieList').append(
-                        '<li>' +
-                            '<div class="movie-card">' +
-                                '<a href="./front-end/movie/movie-details.html?movieId=' + movie.movieId + '">' + // 传递电影ID
-                                    '<figure class="card-banner">' +
-                                        imgTag +
-                                    '</figure>' +
-                                '</a>' +
-                                '<div class="title-wrapper" style="text-align: center;">' +
-                                    '<a href="./front-end/movie/movie-details.html?movieId=' + movie.movieId + '">' + // 传递电影ID
-                                        '<h3 class="card-title" style="display: inline-block;">' + movie.movieName + '</h3>' +
-                                    '</a>' +
-                                '</div>' +
-                                '<div class="card-meta">' +
-                                    '<div></div>' +
-                                    '<div class="duration"></div>' +
-                                    '<div class="rating"></div>' +
-                                '</div>' +
-                            '</div>' +
-                        '</li>'
-                    );
-                });
-            },
-            error: function(xhr, status, error) {
-                console.log("Error: " + error);
-            }
-        });
-    });
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+	$(document)
+			.ready(
+					function() {
+						$
+								.ajax({
+									url : 'back-end/movie/movie.do',
+									type : 'POST',
+									data : {
+										action : 'getHotMovies',
+										type : 'four' // 添加type參數
+									},
+									success : function(response) {
+										$('#movieList').empty();
+										$
+												.each(
+														response,
+														function(index, movie) {
+															var imgTag = '<img src="./front-end/resources/movie/assets/images/default.png" alt="Default Movie Image">';
+															if (movie.firstImage) {
+																imgTag = '<img src="' + movie.firstImage + '" alt="Movie Image">';
+															}
+															$('#movieList')
+																	.append(
+																			'<li>'
+																					+ '<div class="movie-card">'
+																					+ '<a href="./front-end/movie/movie-details.html?movieId='
+																					+ movie.movieId
+																					+ '">'
+																					+ // 传递电影ID
+																					'<figure class="card-banner">'
+																					+ imgTag
+																					+ '</figure>'
+																					+ '</a>'
+																					+ '<div class="title-wrapper" style="text-align: center;">'
+																					+ '<a href="./front-end/movie/movie-details.html?movieId='
+																					+ movie.movieId
+																					+ '">'
+																					+ // 传递电影ID
+																					'<h3 class="card-title" style="display: inline-block;">'
+																					+ movie.movieName
+																					+ '</h3>'
+																					+ '</a>'
+																					+ '</div>'
+																					+ '<div class="card-meta">'
+																					+ '<div></div>'
+																					+ '<div class="duration"></div>'
+																					+ '<div class="rating"></div>'
+																					+ '</div>'
+																					+ '</div>'
+																					+ '</li>');
+														});
+									},
+									error : function(xhr, status, error) {
+										console.log("Error: " + error);
+									}
+								});
+					});
 </script>
 
 
@@ -221,164 +239,165 @@
 
 <body id="top">
 
-  <!-- HEADER -->
-  <header>
-    <div class="container99">
-      <div class="logo">
-        <h1>Time影城</h1>
-      </div>
-      <nav>
-        <ul>
-          <li><a href="./front-end/movie/movie.html">電影</a></li>
-          <li><a href="#">立即購票</a></li>
-          <li><a href="#">周邊商品</a></li>
-          <li><a href="#">討論區</a></li>
-          <li><a href="#">會員中心</a></li>
-        </ul>
-      </nav>
-      <div class="auth-buttons">
-        <button>登入/註冊</button>
-      </div>
-    </div>
-  </header>
+	<!-- HEADER -->
+	<header>
+		<div class="container99">
+			<div class="logo">
+				<h1>
+					<a href="./index.html" style="color: white; text-decoration: none;">Time影城</a>
+				</h1>
+			</div>
+			<nav>
+				<ul>
+					<li><a href="/Time/front-end/movie/movie.html">電影</a></li>
+					<li><a href="/Time/front-end/buytickets/buy_tickets_page.html">立即購票</a></li>
+					<li><a href="#">周邊商品</a></li>
+					<li><a href="/Time/front-end/article/home.jsp">討論區</a></li>
+					<li><a href="#">會員中心</a></li>
+				</ul>
+			</nav>
+			<div class="auth-buttons">
+				<button>登入/註冊</button>
+			</div>
+		</div>
+	</header>
 
-  <main>
-    <article>
+	<main>
+		<article>
 
-      <!-- HERO -->
-      <section class="hero">
-        <div class="container">
-          <div class="hero-content">
-            <p class="hero-subtitle"></p>
-            <h1 class="h1 hero-title">
-              <strong>Time影城</strong>在光影交錯中尋找屬於你的故事
-            </h1>
-            <div class="meta-wrapper">
-              <div class="badge-wrapper">
-                <div ></div>
-                <div ></div>
-              </div>
-              <div class="ganre-wrapper">
-                <a href="#"></a>
-                <a href="#"></a>
-              </div>
-              <div class="date-time">
-                <div>
-                </div>
-                <div>
-                </div>
-              </div>
-            </div>
-            <button class="btn btn-primary" style="font-size: 16px;">
-              <ion-icon name="play"></ion-icon>
-              <span>立即購票</span>
-            </button>
-          </div>
-        </div>
-      </section>
+			<!-- HERO -->
+			<section class="hero">
+				<div class="container">
+					<div class="hero-content">
+						<p class="hero-subtitle"></p>
+						<h1 class="h1 hero-title">
+							<strong>Time影城</strong>在光影交錯中尋找屬於你的故事
+						</h1>
+						<div class="meta-wrapper">
+							<div class="badge-wrapper">
+								<div></div>
+								<div></div>
+							</div>
+							<div class="ganre-wrapper">
+								<a href="#"></a> <a href="#"></a>
+							</div>
+							<div class="date-time">
+								<div></div>
+								<div></div>
+							</div>
+						</div>
+						<button class="btn btn-primary" style="font-size: 16px;">
+							<ion-icon name="play"></ion-icon>
+							<span>立即購票</span>
+						</button>
+					</div>
+				</div>
+			</section>
 
-      <!-- UPCOMING -->
-      <section class="top-rated">
-        <div class="container">
-          <div class="flex-wrapper" style="justify-content: center;">
-            <div class="title-wrapper">
-              <p class="section-subtitle">Hot Movies</p>
-              <h2 class="h2 section-title">熱門電影</h2>
-            </div>
-          </div>
-          <ul class="movies-list has-scrollbar" id="movieList">
-            <!-- 动态生成的电影项目将出现在这里 -->
-          </ul>
-        </div>
-      </section>
+			<!-- UPCOMING -->
+			<section class="top-rated">
+				<div class="container">
+					<div class="flex-wrapper" style="justify-content: center;">
+						<div class="title-wrapper">
+							<p class="section-subtitle">Hot Movies</p>
+							<h2 class="h2 section-title">熱門電影</h2>
+						</div>
+					</div>
+					<ul class="movies-list has-scrollbar" id="movieList">
+						<!-- 动态生成的电影项目将出现在这里 -->
+					</ul>
+				</div>
+			</section>
 
-      <!-- TV SERIES -->
-      <section class="tv-series">
-        <div class="container">
-          <p class="section-subtitle">Movie theater introduction</p>
-          <h2 class="h2 section-title">影城介紹</h2>
-          <ul class="movies-list">
-            <li>
-              <div class="movie-card">
-                <figure class="card-banner">
-                  <img src="./front-end/resources/movie/assets/images/Cinema01.jpg" alt="Moon Knight movie poster">
-                </figure>
-                <div class="title-wrapper">
-                  <h3 class="card-title">金鑽貴賓廳</h3>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="movie-card">
-                <figure class="card-banner">
-                  <img src="./front-end/resources/movie/assets/images/Cinema02.jpg" alt="Halo movie poster">
-                </figure>
-                <div class="title-wrapper">
-                  <h3 class="card-title">D-BOX</h3>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="movie-card">
-                <figure class="card-banner">
-                  <img src="./front-end/resources/movie/assets/images/Cinema03.jpg" alt="Vikings: Valhalla movie poster">
-                </figure>
-                <div class="title-wrapper">
-                  <h3 class="card-title">DOLBY® ATMOS™</h3>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="movie-card">
-                <figure class="card-banner">
-                  <img src="./front-end/resources/movie/assets/images/Cinema04.jpg" alt="Money Heist movie poster">
-                </figure>
-                <div class="title-wrapper">
-                  <h3 class="card-title">尊爵席</h3>
-                </div>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </section>
-    </article>
-  </main>
+			<!-- TV SERIES -->
+			<section class="tv-series">
+				<div class="container">
+					<p class="section-subtitle">Movie theater introduction</p>
+					<h2 class="h2 section-title">影城介紹</h2>
+					<ul class="movies-list">
+						<li>
+							<div class="movie-card">
+								<figure class="card-banner">
+									<img
+										src="./front-end/resources/movie/assets/images/Cinema01.jpg"
+										alt="Moon Knight movie poster">
+								</figure>
+								<div class="title-wrapper">
+									<h3 class="card-title">金鑽貴賓廳</h3>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="movie-card">
+								<figure class="card-banner">
+									<img
+										src="./front-end/resources/movie/assets/images/Cinema02.jpg"
+										alt="Halo movie poster">
+								</figure>
+								<div class="title-wrapper">
+									<h3 class="card-title">D-BOX</h3>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="movie-card">
+								<figure class="card-banner">
+									<img
+										src="./front-end/resources/movie/assets/images/Cinema03.jpg"
+										alt="Vikings: Valhalla movie poster">
+								</figure>
+								<div class="title-wrapper">
+									<h3 class="card-title">DOLBY® ATMOS™</h3>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="movie-card">
+								<figure class="card-banner">
+									<img
+										src="./front-end/resources/movie/assets/images/Cinema04.jpg"
+										alt="Money Heist movie poster">
+								</figure>
+								<div class="title-wrapper">
+									<h3 class="card-title">尊爵席</h3>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</section>
+		</article>
+	</main>
 
-  <!-- FOOTER -->
-  <div class="footer99">
-    <div class="nav-links99">
-        <a href="#">工作機會</a>
-        <a href="#">關於</a>
-        <a href="#">客戶支援</a>
-        <a href="#">聯繫我們</a>
-        <a href="#">媒體報導</a>
-        <a href="#">API</a>
-    </div>
-    <div class="social-icons">
-        <a href="#"><i class="fab fa-twitter"></i></a>
-        <a href="#"><i class="fab fa-facebook"></i></a>
-        <a href="#"><i class="fab fa-reddit"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-youtube"></i></a>
-    </div>
-    <div class="copyright">
-        © 2024 Time娛樂股份有限公司 ( Entertainment, Inc.) 在此提及的所有 商標 是其各自所有人的財產。台灣商頁影城有限公司台灣分公司 28992446
-    </div>
-    <div class="policy-links">
-        <a href="#">隱私</a>
-        <a href="#">法律聲明</a>
-        <a href="#">條款</a>
-        <a href="#">Cookie 政策</a>
-        <a href="#">Cookie 設定</a>
-    </div>
-</div>
+	<!-- FOOTER -->
+	<div class="footer99">
+		<div class="nav-links99">
+			<a href="#">工作機會</a> <a href="#">關於</a> <a href="#">客戶支援</a> <a
+				href="#">聯繫我們</a> <a href="#">媒體報導</a> <a href="#">API</a>
+		</div>
+		<div class="social-icons">
+			<a href="#"><i class="fab fa-twitter"></i></a> <a href="#"><i
+				class="fab fa-facebook"></i></a> <a href="#"><i
+				class="fab fa-reddit"></i></a> <a href="#"><i
+				class="fab fa-instagram"></i></a> <a href="#"><i
+				class="fab fa-youtube"></i></a>
+		</div>
+		<div class="copyright">© 2024 Time娛樂股份有限公司 ( Entertainment,
+			Inc.) 在此提及的所有 商標 是其各自所有人的財產。台灣商頁影城有限公司台灣分公司 28992446</div>
+		<div class="policy-links">
+			<a href="#">隱私</a> <a href="#">法律聲明</a> <a href="#">條款</a> <a
+				href="#">Cookie 政策</a> <a href="#">Cookie 設定</a>
+		</div>
+	</div>
 
-  <!-- custom js link -->
-  <script src="./front-end/resources/movie/assets/js/script.js"></script>
+	<!-- custom js link -->
+	<script src="./front-end/resources/movie/assets/js/script.js"></script>
 
-  <!-- ionicon link -->
-  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+	<!-- ionicon link -->
+	<script type="module"
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
 </body>
 

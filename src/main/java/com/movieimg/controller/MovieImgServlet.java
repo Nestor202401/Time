@@ -297,7 +297,7 @@ public class MovieImgServlet extends HttpServlet {
 
 	        /***************************3.查詢完成,準備轉交(Send the Success view)*************/
 	        req.setAttribute("movieImgVOList", movieImgVOList); // 資料庫取出的movieImgVO物件,存入req
-	        String url = "/back-end/movieimg/keyword.jsp";
+	        String url = "/back-end/movieimg/img.jsp";
 	        RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 keyword.jsp
 	        successView.forward(req, res);
 		}
