@@ -206,7 +206,7 @@ public class MemberServlet extends HttpServlet {
 			}
 			
 			session.setAttribute("memberVO",stMember);
-			String url = "front-end/member/memberProfile.jsp";
+			String url = "/index.html";
 			RequestDispatcher SuccessView = req.getRequestDispatcher(url);
 			SuccessView.forward(req, res);
 		}

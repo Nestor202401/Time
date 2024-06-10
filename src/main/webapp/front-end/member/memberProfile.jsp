@@ -274,7 +274,7 @@ button {
 	<div class="side-bar">
 		<div class="menu">
 			<div class="item">
-				<a href="#"><i class="fas fa-home"></i>回首頁</a>
+				<a href="${pageContext.request.contextPath}"><i class="fas fa-home"></i>回首頁</a>
 			</div>
 			<div class="item">
 				<a href="#"><i class="fas fa-user"></i>會員中心</a>

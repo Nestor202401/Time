@@ -119,7 +119,7 @@ table {
   background-color: white;
   margin-bottom: 5px;
   border-collapse: collapse;
-  table-layout: auto;
+  table-layout: auto
 }
 #tr_1 th{
   background-color: hwb(0 38% 60%);
@@ -226,7 +226,7 @@ table td {
   </div>
 
   <div class="main-content">
-    <table>
+    <table style=" margin-left: 60px;">
       <thead>
         <tr id="tr_1">
           <th>訂單編號</th>
@@ -269,11 +269,11 @@ table td {
                       <c:forEach var="detail" items="${order.prodDetails}">
                         <tr>
                           <td><c:out value="${detail.prodVO.prodName}"/></td>
-                          <td><c:out value="${detail.prodDetailId}"/></td>
+                           <td><img src="${detail.prodVO.prodImgs[0].imgSrc}" alt="Product Image" style="width:130px" /></td>
                           <td><c:out value="${detail.prodCount}"/></td>
                           <td>$<c:out value="${detail.unitPrice}"/></td>
                         </tr>
-                      </c:forEach>
+                      </c:forEach>	
                     </tbody>
                   </table>
                 </div>
