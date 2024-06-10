@@ -59,8 +59,14 @@ public class MemberServlet extends HttpServlet {
 			return;	
 		}
 		
-	
-		
+		if("logout".equals(action)) {
+			System.out.println("logout近來");
+			session.removeAttribute("memberVO");
+			RequestDispatcher failureView = req.getRequestDispatcher("/index.html");
+			failureView.forward(req, res);
+			return;	
+		}
+			
 	    }
 		
 

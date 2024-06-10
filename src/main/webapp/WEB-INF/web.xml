@@ -47,7 +47,7 @@
  	</resource-ref>
  	<!-- END of Data Source cfg 連線池設定 5/17 19:17 -->
  
- <!-- Filter mapping for member -->
+ <!-- Filter mapping for member,tickets,article -->
  	  <filter>
         <filter-name>memberFilter</filter-name>
         <filter-class>com.member.filter.memberFilter</filter-class>
@@ -55,13 +55,17 @@
 
     <filter-mapping>
         <filter-name>memberFilter</filter-name>
+        <url-pattern>/front-end/buytickets/buy_tickets_page.html</url-pattern>  
         <url-pattern>/front-end/member/memberProfile.jsp</url-pattern>  
         <url-pattern>/front-end/member/memberProduct.jsp</url-pattern>  
         <url-pattern>/front-end/member/memberTicket.jsp</url-pattern>  
         <url-pattern>/front-end/member/memberComments.jsp</url-pattern>  
+        <url-pattern>/front-end/article/home.jsp</url-pattern>  
+        <url-pattern>/front-end/product/checkOut.jsp</url-pattern>  
     </filter-mapping>
  	
  	<session-config>
     <session-timeout>60</session-timeout>
 </session-config>
+
 </web-app>

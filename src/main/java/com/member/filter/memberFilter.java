@@ -22,6 +22,7 @@ public class memberFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
+		System.out.println("filter啟動了!");
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res= (HttpServletResponse) response;
 		HttpSession session = req.getSession();

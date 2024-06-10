@@ -155,6 +155,9 @@
           <a href="${pageContext.request.contextPath}/mem?action=ticket" class="sub-item">電影票查詢</a>
           <a href="${pageContext.request.contextPath}/mem?action=product" class="sub-item">個人周邊商品</a>
         </div>
+        <div class="item">
+				<a href="${pageContext.request.contextPath}"><i class="fas fa-sign-out-alt"></i>登出會員</a>
+			</div>
       </div>
     </div>
   </div>
