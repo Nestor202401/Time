@@ -527,7 +527,9 @@ button {
 															},
 															success : function(
 																	success) {
-																//window.location.href = "/Time/front-end/buytickets/buy_tickets_checkout.html";
+																if (confirm("訂單已成功添加! 點擊確定繼續。")) {
+														            window.location.href = "/Time/index.html";
+														        }
 															},
 															error : function(
 																	xhr) {
