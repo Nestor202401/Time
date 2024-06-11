@@ -203,6 +203,15 @@ public class MemberServlet extends HttpServlet {
 				failureView.forward(req, res);
 				return;
 			}
+			
+			if(stMember.getMemberStatus().equals("停權")) {
+				req.setAttribute("statusFalse","帳號已被停權!");
+				String url = "front-end/member/memberLogin.jsp";
+				RequestDispatcher failureView = req.getRequestDispatcher(url);
+				failureView.forward(req, res);
+				return;
+			}
+			
 			// 導入到會員資料頁面		
 			session.removeAttribute("base64Img");
 			byte[] images=stMember.getMemberImg();

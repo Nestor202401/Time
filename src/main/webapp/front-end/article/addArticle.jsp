@@ -1,18 +1,20 @@
 <!-- 當前會員登入時,這行程式碼註解掉 line103 -->
-<% session.setAttribute("memberId", 3); %> 
+<%-- <% session.setAttribute("memberId", 3); %>  --%>
 <!DOCTYPE html>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.article.model.*"%>
+<%@ page import="com.member.model.*"%>
 
-<%-- <% --%>
-//  MemberVO member = (MemberVO) session.getAttribute("memberVO");
-//  if (member == null) { 
-//      out.println("會員不存在!");
-//  }else{
-// 	 Integer memberId=member.getMemberId();
-//  }
-<%-- %> --%>
+<%
+ MemberVO member = (MemberVO) session.getAttribute("memberVO");
+ if (member == null) { 
+     out.println("會員不存在!");
+ }else{
+	  Integer memberId = member.getMemberId();
+      request.setAttribute("memberId", memberId);
+ }
+%>
 
 <html lang="en">
 <head>
