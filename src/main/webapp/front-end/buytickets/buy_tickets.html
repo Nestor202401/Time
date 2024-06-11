@@ -379,22 +379,14 @@ button {
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
-		$(document)
-				.ready(
-						function() {
-							// 發送AJAX請求到後端獲取存儲在Redis中的選擇數據
-							$
-									.ajax({
-										url : "/Time/back-end/ticorder/TicketOrderServlet.do",
-										type : "POST",
-										data : {
-											action : "getMemberData_Movie"
-										},
-										dataType : "json",
-										success : function(data) {
-											// 將獲取的數據顯示在指定的元素中
-											$("#movieName")
-													.text(data.movieName);
+		$(document).ready(function() {
+			$.ajax({
+			url : "/Time/back-end/ticorder/TicketOrderServlet.do",
+			type : "POST",
+			data : {action : "getMemberData_Movie"},
+			dataType : "json",
+			success : function(data) {
+				$("#movieName").text(data.movieName);
 											$("#moviePlaybackType").text(
 													data.moviePlaybackType);
 											$("#showDate").text(
@@ -548,7 +540,9 @@ button {
 														});
 
 											});
+							
 						});
+		
 
 		// 更新選擇結果的表格
 		function updateSelectedTickets() {

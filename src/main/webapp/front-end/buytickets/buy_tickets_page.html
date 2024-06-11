@@ -401,6 +401,8 @@ nav ul li a:hover {
 	                if (xhr.status === 200) {
 	                    var response = JSON.parse(xhr.responseText);
 	                    var username = response.memberName;
+	                    var userid = response.memberId;
+	                    console.log(response);
 	                    var memberElement = document.getElementById('member');
 	                    if (username) {
 	                        memberElement.textContent =username;
