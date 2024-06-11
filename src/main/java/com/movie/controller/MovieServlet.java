@@ -391,7 +391,7 @@ public class MovieServlet extends HttpServlet {
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				req.setAttribute("movieListData", list); // 資料庫取出的list物件,存入request
-				RequestDispatcher successView = req.getRequestDispatcher("/back-end/movie/main.jsp"); // 成功轉交listEmps_ByCompositeQuery.jsp
+				RequestDispatcher successView = req.getRequestDispatcher("/back-end/movie/movie.jsp"); // 成功轉交listEmps_ByCompositeQuery.jsp
 				successView.forward(req, res);
 		}
 		
@@ -412,7 +412,7 @@ public class MovieServlet extends HttpServlet {
 
             // 將結果存儲在請求範圍中並轉發到 JSP
             req.setAttribute("movieListData", list);
-            RequestDispatcher dispatcher = req.getRequestDispatcher("/back-end/movie/main.jsp");
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/back-end/movie/movie.jsp");
             dispatcher.forward(req, res);
 		}
 		

@@ -112,9 +112,9 @@
         </label>
         <select id="showTime" name="showTime" class="form-control">
           <option value="" >請選擇</option>
-          <option value="1" >06:00</option>
-          <option value="2" >12:00</option>
-          <option value="3" >18:00</option>
+          <option value="0" >06:00</option>
+          <option value="1" >12:00</option>
+          <option value="2" >18:00</option>
         </select>
       </div>
     </div>
